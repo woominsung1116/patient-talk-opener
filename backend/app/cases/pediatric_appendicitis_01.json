@@ -1,0 +1,254 @@
+{
+  "case_id": "pediatric_appendicitis_01",
+  "title": "배가 아픈 10살 민준이",
+  "subtitle": "소아 급성 복통",
+  "difficulty": 2,
+  "patient_profile": {
+    "name": "민준",
+    "age": 10,
+    "gender": "male",
+    "occupation": "초등학생",
+    "personality": "shy_scared",
+    "personality_desc": "낯선 병원이 무섭고 배도 아파서 잔뜩 움츠러들어 있다. 어머니와 함께 왔지만 질문에는 본인이 대답한다. 부드럽게 눈높이를 맞춰주면 곧잘 대답한다.",
+    "speaking_style": "짧고 아이다운 말투. '몰라요', '...같아요'가 많고 가끔 어머니를 쳐다본다. 아픈 곳을 만지려 하면 몸을 움츠린다."
+  },
+  "chief_complaint": "배가 아파요... 어제는 배꼽 근처가 아팠는데, 오늘은 오른쪽 아래가 더 아파요.",
+  "initial_state": {
+    "trust": 45,
+    "anxiety": 70,
+    "rapport": 40
+  },
+  "diagnosis": "acute_appendicitis",
+  "diagnosis_label": "급성 충수염",
+  "initial_facts": [
+    {
+      "key": "abdominal_pain",
+      "label": "복통(이동 양상)",
+      "value": "어제 점심때쯤 배꼽 근처가 아프기 시작했는데, 오늘 아침부터는 오른쪽 아래가 아파요."
+    },
+    {
+      "key": "anorexia",
+      "label": "식욕부진",
+      "value": "어제 저녁부터 밥을 거의 못 먹었어요. 먹기 싫어요."
+    }
+  ],
+  "hidden_facts": [],
+  "negative_findings": {
+    "onset_duration": "어제 점심 먹고 나서부터요. 처음엔 배꼽 근처가 살살 아팠어요.",
+    "location": "지금은 오른쪽 아래 배가 제일 아파요. (오른쪽 아랫배를 가리키며) 여기요. 처음엔 배꼽 근처였는데 점점 이쪽으로 왔어요.",
+    "quality": "콕콕 쑤시는 것처럼 아파요. 계속 아파요.",
+    "pain_change": "걸을 때랑 기침할 때 울려서 더 아파요. 가만히 웅크리고 있으면 조금 나아요.",
+    "severity": "많이 아파요... 10점 만점에 7점이요.",
+    "nausea_vomiting": "속이 울렁거리고 아침에 한 번 토했어요.",
+    "fever": "몸이 좀 뜨거운 것 같아요. 엄마가 아까 재봤는데 37.9도였대요.",
+    "urinary": "쉬 할 때 아프지 않아요. 피가 나오지도 않았어요.",
+    "bowel": "설사는 안 했어요. 어제부터 응가를 못 하긴 했어요.",
+    "trauma": "부딪히거나 넘어지지 않았어요.",
+    "prior_episode": "이렇게 아픈 건 처음이에요.",
+    "surgery_history": "수술 받은 적 없어요.",
+    "past_history": "평소에 아픈 데 없어요. 감기만 가끔 걸려요.",
+    "medication": "먹는 약 없어요. 아까 엄마가 어린이 해열제 한 번 줬어요.",
+    "diet": "어제 점심은 학교 급식 먹었어요. 친구들은 다 괜찮대요. 어제 저녁부터는 먹기 싫어서 거의 못 먹었어요.",
+    "family_history": "(어머니) 가족 중에 크게 아픈 사람은 없어요.",
+    "social_history": "학교 다녀요. 3학년이요. 태권도 학원도 다녀요.",
+    "weight_loss": "살이 빠지진 않았어요.",
+    "testicular": "고추 쪽은 안 아파요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "통증 시작 시점/기간"
+    },
+    {
+      "topic": "location",
+      "label": "통증 위치(이동 양상)"
+    },
+    {
+      "topic": "quality",
+      "label": "통증 양상"
+    },
+    {
+      "topic": "pain_change",
+      "label": "통증 변화(보행/기침 시 악화)"
+    },
+    {
+      "topic": "severity",
+      "label": "통증 정도(NRS)"
+    },
+    {
+      "topic": "fever",
+      "label": "발열"
+    },
+    {
+      "topic": "nausea_vomiting",
+      "label": "오심/구토"
+    },
+    {
+      "topic": "diet",
+      "label": "식욕/식사(급식 등 음식력)"
+    },
+    {
+      "topic": "urinary",
+      "label": "배뇨 증상"
+    },
+    {
+      "topic": "trauma",
+      "label": "외상력"
+    },
+    {
+      "topic": "prior_episode",
+      "label": "과거 유사 증상"
+    },
+    {
+      "topic": "surgery_history",
+      "label": "수술력"
+    },
+    {
+      "topic": "medication",
+      "label": "복용 약물"
+    }
+  ],
+  "red_flags": [
+    "fever",
+    "trauma"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "acute_appendicitis",
+      "label": "급성 충수염",
+      "correct": true
+    },
+    {
+      "id": "gastroenteritis",
+      "label": "급성 위장염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "mesenteric_lymphadenitis",
+      "label": "장간막 림프절염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "constipation",
+      "label": "변비",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "testicular_torsion",
+      "label": "고환 염전",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "uti",
+      "label": "요로감염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "intussusception",
+      "label": "장중첩증",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "dka",
+      "label": "당뇨병성 케톤산증",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "abdominal_us",
+      "label": "복부 초음파(소아 1차 영상검사)",
+      "recommended": true
+    },
+    {
+      "id": "blood_test",
+      "label": "혈액검사(CBC/CRP)",
+      "recommended": true
+    },
+    {
+      "id": "urinalysis",
+      "label": "소변검사",
+      "recommended": true
+    },
+    {
+      "id": "abdominal_ct",
+      "label": "복부 CT(초음파 불명확 시)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "kub_xray",
+      "label": "복부 단순촬영(X-ray)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "scrotal_us",
+      "label": "음낭 초음파(고환염전 감별)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "gastroscopy",
+      "label": "위내시경",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "colonoscopy",
+      "label": "대장내시경",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "chest_ct",
+      "label": "흉부 CT",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "ecg",
+      "label": "심전도(EKG)",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "배꼽 주위에서 우하복부로 이동하는 복통은 급성 충수염의 전형적 경과다 (내장통→체성통).",
+    "소아 복통에서 식욕부진은 민감한 단서다. 잘 먹는 아이의 충수염은 드물다.",
+    "소아 문진은 아이 눈높이 언어로 하되, 보호자 진술로 보완한다.",
+    "소아는 방사선 피폭을 줄이기 위해 복부 초음파가 1차 영상검사다 (CT는 불명확할 때).",
+    "남아 복통에서는 고환염전을 반드시 감별한다 — 고환 통증 여부를 확인할 것.",
+    "진단이 지연되면 천공·복막염으로 진행한다. 소아는 성인보다 천공 진행이 빠르다."
+  ],
+  "max_turns": 18,
+  "presentation": "10세 남아 민준이가 보호자와 함께 응급실에 내원하였다.",
+  "vitals": {
+    "bp": "122/78 mmHg",
+    "hr": "92회/분",
+    "rr": "17회/분",
+    "temp": "37.8℃"
+  },
+  "guardian": {
+    "name": "지수",
+    "relation": "엄마",
+    "gender": "female",
+    "age": 38
+  },
+  "guardian_topics": [
+    "past_history",
+    "medication",
+    "family_history",
+    "surgery_history",
+    "trauma",
+    "diet",
+    "birth_history"
+  ]
+}

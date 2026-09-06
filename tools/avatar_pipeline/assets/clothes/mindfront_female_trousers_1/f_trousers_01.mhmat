@@ -1,0 +1,18 @@
+# Runtime-neutral material for the CC-BY Mindfront female trousers.
+# The original 46 MiB diffuse/normal/specular set is intentionally omitted:
+# production supplies a matte charcoal PBR material in RealisticPatient.tsx.
+name f_trousers_01
+license CC BY 4.0
+author Mindfront (Sweden)
+diffuseColor 0.18 0.20 0.22
+specularColor 0 0 0
+shininess 0
+opacity 1
+backfaceCull True
+shader data/shaders/glsl/phong
+shaderConfig diffuse false
+shaderConfig bump false
+shaderConfig normal false
+shaderConfig displacement false
+shaderConfig spec false
+shaderConfig vertexColors false

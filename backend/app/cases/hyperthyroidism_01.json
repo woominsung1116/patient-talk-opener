@@ -1,0 +1,523 @@
+{
+  "case_id": "hyperthyroidism_01",
+  "title": "34세 여자 유진씨",
+  "subtitle": "두근거림과 체중 감소",
+  "difficulty": 2,
+  "patient_profile": {
+    "name": "유진",
+    "age": 34,
+    "gender": "female",
+    "occupation": "회사원",
+    "personality": "energetic_irritable",
+    "personality_desc": "원래 활발하지만 요즘 예민하고 짜증이 늘었다. 빠르게 말하다가도 사적인 질문엔 경계한다.",
+    "speaking_style": "말이 빠르고 약간 신경질적. 바쁜데 병원 온 게 짜증나는 티를 낸다.",
+    "body_type": "thin",
+    "signs": [
+      "tremor_fine"
+    ]
+  },
+  "chief_complaint": "요즘 자꾸 가슴이 두근거리고, 먹는 건 그대로인데 살이 빠져요.",
+  "initial_state": {
+    "trust": 40,
+    "anxiety": 55,
+    "rapport": 35
+  },
+  "diagnosis": "hyperthyroidism",
+  "diagnosis_label": "갑상선 기능항진증",
+  "initial_facts": [
+    {
+      "key": "palpitation",
+      "label": "두근거림",
+      "value": "한 달 전부터 가만히 있어도 심장이 빨리 뛴다."
+    },
+    {
+      "key": "weight_loss",
+      "label": "체중 감소",
+      "value": "두 달 동안 5kg이 빠졌다. 다이어트는 안 했다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "increased_appetite",
+      "label": "식욕 증가",
+      "value": "오히려 요즘 식욕이 늘어서 더 많이 먹는데도 살이 빠진다.",
+      "sensitivity": 0.3,
+      "unlock_intent": "ask_diet",
+      "required_trust": 30,
+      "requires_empathy": false,
+      "refusal_line": "먹는 건... 그냥 평소대로요."
+    },
+    {
+      "key": "insomnia_tremor",
+      "label": "불면과 손떨림",
+      "value": "밤에 잠이 잘 안 오고, 손이 미세하게 떨려서 회의 때 커피잔을 못 들겠다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_sleep",
+      "required_trust": 35,
+      "requires_empathy": false,
+      "refusal_line": "잠이야 뭐... 다들 못 자잖아요."
+    },
+    {
+      "key": "menstrual_irregularity",
+      "label": "생리 불순",
+      "value": "최근 생리가 두 달째 거의 없다시피 하다. 양도 확 줄었다.",
+      "sensitivity": 0.85,
+      "unlock_intent": "ask_menstruation",
+      "required_trust": 55,
+      "requires_empathy": true,
+      "refusal_line": "그건 왜요...? 그게 상관있나요?"
+    }
+  ],
+  "negative_findings": {
+    "pregnancy": "임신은 아니에요. 지난주에 확인했어요.",
+    "medication": "다이어트약이나 그런 거 안 먹어요. 커피는 하루 두 잔 정도?",
+    "past_history": "건강했어요. 작년 건강검진도 정상이었고요.",
+    "family_history": "이모가 목 수술을 했다고 들었어요. 갑상선이었나...?",
+    "melena": "변은 정상이에요. 좀 자주 가긴 하는데... 하루 두세 번?",
+    "severity": "계단 오르면 숨이 차고 심장이 터질 것 같아요. 더위도 못 참겠어요. 사무실에서 저만 부채질해요.",
+    "aggravating": "커피 마시면 더 심해지는 것 같긴 해요.",
+    "sleep": "밤에 잠이 잘 안 와요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "증상 시작 시점"
+    },
+    {
+      "topic": "diet",
+      "label": "식욕 변화"
+    },
+    {
+      "topic": "weight_loss",
+      "label": "체중 감소 양상"
+    },
+    {
+      "topic": "sleep",
+      "label": "수면 / 손떨림"
+    },
+    {
+      "topic": "menstruation",
+      "label": "월경 변화"
+    },
+    {
+      "topic": "family_history",
+      "label": "가족력 (갑상선)"
+    },
+    {
+      "topic": "medication",
+      "label": "복용 약물 (카페인 포함)"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "pregnancy",
+    "weight_loss",
+    "melena"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "hyperthyroidism",
+      "label": "갑상선 기능항진증",
+      "correct": true
+    },
+    {
+      "id": "exogenous_thyrotoxicosis",
+      "label": "외인성(약제·보조제) 갑상선중독증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "thyroiditis",
+      "label": "아급성 갑상샘염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "anxiety_disorder",
+      "label": "불안장애",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "arrhythmia",
+      "label": "부정맥",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "diabetes",
+      "label": "당뇨병",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "pheochromocytoma",
+      "label": "갈색세포종",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "depression",
+      "label": "우울증",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "TSH",
+      "label": "갑상선 기능 (TSH/fT4)",
+      "recommended": true
+    },
+    {
+      "id": "thyroid_antibody",
+      "label": "갑상선 자가항체",
+      "recommended": true
+    },
+    {
+      "id": "EKG",
+      "label": "심전도 (EKG)",
+      "recommended": true
+    },
+    {
+      "id": "CBC",
+      "label": "일반혈액검사 (CBC)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "glucose",
+      "label": "혈당검사",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "thyroid_US",
+      "label": "갑상선 초음파",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "hCG",
+      "label": "임신반응검사 (hCG)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "chest_CT",
+      "label": "흉부 CT",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "endoscopy",
+      "label": "위내시경",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "체중 감소 + 식욕 증가의 조합은 갑상선 기능항진증의 강력한 단서다.",
+    "두근거림 환자에서 더위 못 참음, 손떨림, 배변 횟수 증가를 함께 물어야 한다.",
+    "가임기 여성의 갑상선 질환에서는 월경 변화와 임신 여부 확인이 필수다.",
+    "예민해진 환자에게는 짜증을 받아주는 공감이 신뢰의 열쇠다.",
+    "갑상선중독증의 원인은 갑상샘 촉진에서 갈린다. 미만성으로 커지고 삼킴에 따라 함께 올라가면 갑상샘 자체의 과다 생산(그레이브스병)을 시사하고, 갑상샘이 정상 크기면 외인성 호르몬 섭취나 갑상샘염을 먼저 의심해야 한다. 그래서 삼키게 하면서 보는 것이 이 술기의 핵심이다."
+  ],
+  "max_turns": 15,
+  "presentation": "34세 여자 유진씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "132/70 mmHg",
+    "hr": "108회/분(불규칙)",
+    "rr": "18회/분",
+    "temp": "37.2℃"
+  },
+  "scoring_weights": {
+    "history_taking": 40,
+    "physical_exam": 30,
+    "patient_education": 10,
+    "ppi": 20
+  },
+  "exam_items": [
+    {
+      "id": "hand_hygiene",
+      "label": "손위생(손소독제)",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-1"
+      ],
+      "order": 0,
+      "finding": "손을 소독했습니다."
+    },
+    {
+      "id": "explain_consent",
+      "label": "진찰 전 설명·동의",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-2"
+      ],
+      "order": 1,
+      "finding": "진찰을 하겠다고 알리고 환자의 동의를 얻었습니다."
+    },
+    {
+      "id": "drape",
+      "label": "가려주기/필요 부위만 노출",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-3"
+      ],
+      "order": 2,
+      "finding": "심장 청진을 위해 환자가 스스로 상의를 올리게 하고, 청진할 부위만 남기고 나머지는 가려드렸습니다."
+    },
+    {
+      "id": "chin_up",
+      "label": "턱 들기(목 앞 노출)",
+      "type": "prep",
+      "points": 0,
+      "order": 3,
+      "finding": "환자가 턱을 살짝 들어 목 앞이 잘 보이게 했습니다.",
+      "reaction": {
+        "emotion": "annoyed",
+        "line": "이렇게요? 목에 뭐 있어요?",
+        "intensity": "none"
+      }
+    },
+    {
+      "id": "swallow",
+      "label": "삼킴 지시(침 또는 물)",
+      "type": "prep",
+      "points": 0,
+      "order": 4,
+      "finding": "환자가 침을 삼키자, 목 앞에서 만져지던 덩이가 후두와 함께 위로 올라갔다 내려옵니다. 갑상샘에서 기원한 종대임을 시사합니다.",
+      "reaction": {
+        "emotion": "calm",
+        "line": "이거 원래 이런 거 아니에요?",
+        "intensity": "none"
+      }
+    },
+    {
+      "id": "thyroid_inspect",
+      "label": "갑상샘 시진",
+      "type": "exam_action",
+      "points": 6,
+      "order": 5,
+      "required_regions": [],
+      "requires_prep": [
+        "chin_up",
+        "swallow"
+      ],
+      "must_precede": [
+        "thyroid_palpation"
+      ],
+      "finding": "턱을 든 목 앞쪽에서 갑상샘 부위가 좌우 대칭으로 도드라져 보입니다. 피부 발적이나 수술 흉터, 확장된 목정맥은 보이지 않습니다.",
+      "reaction": {
+        "emotion": "calm",
+        "line": "이렇게 하면 되죠?",
+        "intensity": "none"
+      }
+    },
+    {
+      "id": "thyroid_palpation",
+      "label": "갑상샘 촉진(좌·우엽)",
+      "type": "exam_action",
+      "points": 10,
+      "order": 6,
+      "required_regions": [
+        "thyroid_r",
+        "thyroid_l"
+      ],
+      "requires_prep": [
+        "swallow"
+      ],
+      "region_findings": {
+        "thyroid_r": {
+          "finding": "반지연골 아래에서 좌엽 쪽을 밀고 우엽을 촉진했습니다. 우엽이 미만성으로 커져 있고, 표면이 매끈하고 부드러우며 결절이나 압통은 없습니다.",
+          "reaction": {
+            "emotion": "calm",
+            "line": "네, 그렇게 만지시면 돼요.",
+            "intensity": "none"
+          }
+        },
+        "thyroid_l": {
+          "finding": "반대로 우엽 쪽을 밀고 좌엽을 촉진했습니다. 좌엽도 우엽과 같은 정도로 미만성으로 커져 있고, 마찬가지로 부드러우며 결절이나 압통은 없습니다.",
+          "reaction": {
+            "emotion": "calm",
+            "line": "목 만지니까 좀 간지러워요.",
+            "intensity": "mild"
+          }
+        }
+      },
+      "finding": "갑상샘 좌·우엽이 모두 대칭적으로 미만성 종대를 보이고, 부드러우며 결절은 만져지지 않습니다. 압통도 없습니다.",
+      "reaction": {
+        "emotion": "calm",
+        "line": "네, 목 만지니까 좀 간지러워요.",
+        "intensity": "mild"
+      }
+    },
+    {
+      "id": "tremor_exam",
+      "label": "손떨림검사",
+      "type": "exam_action",
+      "points": 6,
+      "order": 7,
+      "required_regions": [],
+      "finding": "양손을 앞으로 뻗고 손목을 젖혀 손가락을 편 자세를 유지하는 동안, 양손 손가락에 빠르고 규칙적인 미세한 떨림(fine tremor)이 뚜렷하게 보입니다. 손목이 툭 떨어지는 퍼덕임(asterixis)은 없습니다.",
+      "reaction": {
+        "emotion": "anxious",
+        "line": "보이죠? 이렇게 떨려요. 이래서 회의 때 커피잔도 못 들어요.",
+        "intensity": "mild"
+      }
+    },
+    {
+      "id": "heart_auscultation",
+      "label": "심장 청진(4판막)",
+      "type": "exam_action",
+      "points": 8,
+      "order": 8,
+      "required_regions": [
+        "aortic",
+        "pulmonic",
+        "tricuspid",
+        "mitral"
+      ],
+      "requires_prep": [
+        "drape"
+      ],
+      "region_findings": {
+        "aortic": {
+          "finding": "대동맥판 부위에서 심음이 분당 110회 정도로 빠르지만 리듬은 규칙적입니다. 잡음은 들리지 않습니다.",
+          "sound": "tachycardia"
+        },
+        "pulmonic": {
+          "finding": "폐동맥판 부위도 같은 정도의 규칙적인 빈맥이고, 잡음은 들리지 않습니다.",
+          "sound": "tachycardia"
+        },
+        "tricuspid": {
+          "finding": "삼첨판 부위에서도 규칙적인 빈맥이 들리고, 잡음이나 이상 심음은 없습니다.",
+          "sound": "tachycardia"
+        },
+        "mitral": {
+          "finding": "심첨부에서 제1심음이 다소 크게 들리지만 리듬은 규칙적인 빈맥이고, 잡음이나 분마율동은 없습니다.",
+          "sound": "tachycardia"
+        }
+      },
+      "finding": "네 판막 부위 모두에서 심박수가 분당 110회 정도로 빠르지만 리듬은 규칙적이고, 심잡음은 들리지 않습니다.",
+      "reaction": {
+        "emotion": "anxious",
+        "line": "지금도 이렇게 뛰어요. 계속 이래요.",
+        "intensity": "mild"
+      }
+    }
+  ],
+  "education_items": [
+    {
+      "id": "diagnosis",
+      "label": "진단 설명(갑상선 기능항진증)",
+      "kind": "diagnosis_explanation",
+      "points": 4,
+      "rubric": {
+        "good": "근거 2개 이상",
+        "ok": "근거 1개/진단명만",
+        "miss": "진단 안 함"
+      },
+      "evidence_options": [
+        {
+          "id": "weight_loss_with_appetite",
+          "label": "식욕은 늘었는데 체중이 줄었음",
+          "correct": true
+        },
+        {
+          "id": "palpitation_tachycardia",
+          "label": "안정 시 두근거림과 빈맥(112회/분)",
+          "correct": true
+        },
+        {
+          "id": "heat_intolerance",
+          "label": "더위를 못 참고 땀이 많음",
+          "correct": true
+        },
+        {
+          "id": "diffuse_goiter",
+          "label": "갑상샘 좌·우엽의 미만성 종대",
+          "correct": true
+        },
+        {
+          "id": "fine_tremor",
+          "label": "양손의 미세하고 빠른 떨림",
+          "correct": true
+        },
+        {
+          "id": "no_drug_history",
+          "label": "체중감량제·갑상선호르몬 복용력 없음",
+          "correct": true
+        },
+        {
+          "id": "thyroid_normal_size",
+          "label": "갑상샘이 커져 있지 않음",
+          "correct": false
+        },
+        {
+          "id": "hard_nodule",
+          "label": "갑상샘에 단단한 결절이 만져짐",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "test_plan_lab",
+      "label": "검사: 갑상선기능검사(TSH/유리 T4)와 갑상선 자가항체(TRAb)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "TSH 억제 + 유리 T4 상승으로 갑상선중독증을 확진하고, TRAb 양성으로 그레이브스병 여부를 확인"
+    },
+    {
+      "id": "test_plan_image",
+      "label": "검사: 갑상선 초음파와 갑상선 스캔(방사성요오드 섭취율)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "미만성 종대와 섭취율 증가를 확인 — 섭취율이 낮으면 갑상샘염이나 외인성 호르몬 섭취를 의심"
+    },
+    {
+      "id": "tx_analgesic",
+      "label": "치료: 베타차단제로 두근거림·손떨림 등 증상 우선 조절",
+      "kind": "treatment",
+      "points": 1
+    },
+    {
+      "id": "tx_definitive",
+      "label": "치료: 항갑상선제 / 방사성요오드 치료 / 수술 중 선택",
+      "kind": "treatment",
+      "points": 2,
+      "rubric": {
+        "good": "2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    },
+    {
+      "id": "complication",
+      "label": "합병증: 항갑상선제 무과립구증(발열·인후통 시 즉시 중단하고 내원), 갑상선중독발작, 심방세동·골다공증",
+      "kind": "complication",
+      "points": 2,
+      "rubric": {
+        "good": "합병증+대처 2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    }
+  ]
+}

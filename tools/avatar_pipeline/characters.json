@@ -1,0 +1,168 @@
+[
+  {
+    "name": "mh_boy",
+    "gender": 1,
+    "age": 0.17,
+    "weight": 0.5,
+    "hair": "short04",
+    "eyebrows": "eyebrow010",
+    "eyebrow_tint": "black"
+  },
+  {
+    "name": "mh_girl",
+    "gender": 0,
+    "age": 0.17,
+    "weight": 0.5,
+    "hair": "toigo_blunt_bob_with_bangs",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow001",
+    "eyebrow_tint": "black"
+  },
+  {
+    "name": "mh_m20",
+    "gender": 1,
+    "age": 0.5,
+    "weight": 0.5,
+    "hair": "short02",
+    "hair_texture": "short02/short02_diffuse.png",
+    "eyebrows": "eyebrow012",
+    "eyebrow_tint": "black"
+  },
+  {
+    "name": "mh_f20",
+    "gender": 0,
+    "age": 0.5,
+    "weight": 0.5,
+    "hair": "toigo_inverted_bob_with_bangs",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow004",
+    "eyebrow_tint": "soft"
+  },
+  {
+    "name": "mh_m30",
+    "gender": 1,
+    "age": 0.577,
+    "weight": 0.5,
+    "hair": "short02",
+    "hair_texture": "short02/short02_diffuse.png",
+    "eyebrows": "eyebrow002",
+    "eyebrow_tint": "black"
+  },
+  {
+    "name": "mh_f30",
+    "gender": 0,
+    "age": 0.577,
+    "weight": 0.5,
+    "hair": "toigo_inverted_bob_with_bangs",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow011",
+    "eyebrow_tint": "soft"
+  },
+  {
+    "name": "mh_m40",
+    "gender": 1,
+    "age": 0.654,
+    "weight": 0.5,
+    "hair": "short02",
+    "hair_texture": "short02/short02_diffuse.png",
+    "eyebrows": "eyebrow009",
+    "eyebrow_tint": "black"
+  },
+  {
+    "name": "mh_f40",
+    "gender": 0,
+    "age": 0.654,
+    "weight": 0.5,
+    "hair": "toigo_inverted_bob_with_bangs",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow005",
+    "eyebrow_tint": "soft"
+  },
+  {
+    "name": "mh_m50",
+    "gender": 1,
+    "age": 0.731,
+    "weight": 0.5,
+    "hair": "short01",
+    "eyebrows": "eyebrow012",
+    "eyebrow_tint": "brown"
+  },
+  {
+    "name": "mh_f50",
+    "gender": 0,
+    "age": 0.731,
+    "weight": 0.5,
+    "hair": "toigo_blunt_bob",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow006",
+    "eyebrow_tint": "soft"
+  },
+  {
+    "name": "mh_m60",
+    "gender": 1,
+    "age": 0.808,
+    "weight": 0.5,
+    "hair": "short04",
+    "eyebrows": "eyebrow009",
+    "eyebrow_tint": "brown"
+  },
+  {
+    "name": "mh_f60",
+    "gender": 0,
+    "age": 0.808,
+    "weight": 0.5,
+    "hair": "toigo_inverted_bob",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow003",
+    "eyebrow_tint": "soft"
+  },
+  {
+    "name": "mh_m70",
+    "gender": 1,
+    "age": 0.885,
+    "weight": 0.5,
+    "hair": "short01",
+    "eyebrows": "eyebrow007",
+    "eyebrow_tint": "brown"
+  },
+  {
+    "name": "mh_f70",
+    "gender": 0,
+    "age": 0.885,
+    "weight": 0.5,
+    "hair": "toigo_curled_under_bob",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow006",
+    "eyebrow_tint": "brown"
+  },
+  {
+    "name": "mh_f60_ob",
+    "gender": 0,
+    "age": 0.808,
+    "weight": 0.85,
+    "hair": "toigo_inverted_bob",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow005",
+    "eyebrow_tint": "brown"
+  },
+  {
+    "name": "mh_f30_thin",
+    "gender": 0,
+    "age": 0.577,
+    "weight": 0.13,
+    "hair": "toigo_blunt_bob_with_bangs",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow008",
+    "eyebrow_tint": "soft"
+  },
+  {
+    "name": "mh_f20_thin",
+    "gender": 0,
+    "age": 0.5,
+    "weight": 0.13,
+    "hair": "toigo_inverted_bob",
+    "hair_texture": "toigo_inverted_bob_with_bangs/BlackHair.png",
+    "eyebrows": "eyebrow010",
+    "eyebrow_tint": "black"
+  }
+]

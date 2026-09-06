@@ -1,0 +1,236 @@
+{
+  "case_id": "steroid_herbal_cushing_01",
+  "title": "얼굴이 둥글게 붓고 살이 찐 68살 수진씨",
+  "subtitle": "얼굴 부종과 체중 증가, 멍",
+  "difficulty": 4,
+  "patient_profile": {
+    "name": "수진",
+    "age": 68,
+    "gender": "female",
+    "occupation": "주부",
+    "personality": "energetic_irritable",
+    "personality_desc": "관절통 때문에 인터넷에서 산 정체불명 '관절 환약'을 효과가 좋아 끊지 못한다. 검증 안 된 약을 먹는다는 지적이 두려워 숨긴다. 공감하면 털어놓는다.",
+    "speaking_style": "말이 빠르고 방어적. 약 얘기엔 '그냥 건강식품이에요'라며 넘기다가 신뢰가 생기면 솔직해진다.",
+    "body_type": "ob"
+  },
+  "chief_complaint": "얼굴이 둥글게 붓고 배만 살이 찌면서 멍이 잘 들어요.",
+  "initial_state": {
+    "trust": 39,
+    "anxiety": 58,
+    "rapport": 34
+  },
+  "diagnosis": "exogenous_steroid_cushing_syndrome",
+  "diagnosis_label": "스테로이드 함유 환약(불법 한약/건강식품) 복용으로 인한 의인성 쿠싱증후군",
+  "initial_facts": [
+    {
+      "key": "moon_face_central_obesity",
+      "label": "둥근 얼굴과 중심성 비만",
+      "value": "석 달 사이 얼굴이 둥글게 붓고 배와 목 뒤로 살이 쪘는데 팔다리는 오히려 가늘어졌다."
+    },
+    {
+      "key": "easy_bruising_striae",
+      "label": "쉬운 멍과 튼살",
+      "value": "조금만 부딪혀도 멍이 들고 배에 붉은 튼살이 생겼다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "steroid_containing_herbal_pill",
+      "label": "스테로이드 함유 관절 환약 상복",
+      "value": "넉 달 전부터 인터넷에서 산 정체불명 '관절에 좋다는 환약'을 매일 먹고 있다. 먹으면 관절통이 거짓말처럼 사라져 끊지 못한다. 검증 안 된 약이라 비난받을까 봐 숨긴다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_medication",
+      "required_trust": 62,
+      "requires_empathy": true,
+      "refusal_line": "약은 안 먹어요. 그냥 관절에 좋다는 건강식품 정도라 약이라곤 안 했어요."
+    },
+    {
+      "key": "joint_pain_motivation",
+      "label": "관절통과 복용 동기",
+      "value": "오래된 무릎·손가락 관절통 때문에 여러 병원을 다녔지만 낫지 않다가 그 환약으로 효과를 봐서 의존하게 됐다.",
+      "sensitivity": 0.6,
+      "unlock_intent": "ask_past_history",
+      "required_trust": 50,
+      "requires_empathy": true,
+      "refusal_line": "관절이야 원래 좀 안 좋았는데... 그게 지금이랑 무슨 상관이에요."
+    },
+    {
+      "key": "mood_sleep_change",
+      "label": "기분·수면 변화와 다모",
+      "value": "잠이 잘 안 오고 짜증이 늘었으며 얼굴에 솜털이 늘고 여드름이 생겼다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_sleep",
+      "required_trust": 44,
+      "requires_empathy": false,
+      "refusal_line": "잠이야 뭐 다들 못 자잖아요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "얼굴 붓고 살찌는 건 석 달쯤 됐어요. 점점 심해져요.",
+    "severity": "혈압이랑 혈당이 좀 높다는 말을 최근에 들었어요. 멍도 잘 들고요.",
+    "diet": "식사량은 그대로인데 배만 나와요.",
+    "medication": "병원에서 처방받은 약은 없어요.",
+    "menstruation": "생리가 두세 달째 불규칙해요.",
+    "pregnancy": "임신은 아니에요.",
+    "past_history": "당뇨나 혈압 진단받은 적은 없었어요.",
+    "family_history": "가족 중 호르몬 질환은 모르겠어요.",
+    "weight_loss": "오히려 석 달 새 6kg쯤 늘었어요.",
+    "social_history": "술 담배는 거의 안 해요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "얼굴 부종·체중 증가의 시작 시점"
+    },
+    {
+      "topic": "medication",
+      "label": "환약·건강식품 등 복용 약물"
+    },
+    {
+      "topic": "past_history",
+      "label": "만성 관절통 등 복용 동기·병력"
+    },
+    {
+      "topic": "sleep",
+      "label": "수면·기분 변화"
+    },
+    {
+      "topic": "severity",
+      "label": "혈압·혈당 상승, 멍 등 동반 증상"
+    },
+    {
+      "topic": "menstruation",
+      "label": "월경 변화"
+    },
+    {
+      "topic": "weight_loss",
+      "label": "체중 변화 양상"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "medication",
+    "onset_duration"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "exogenous_steroid_cushing_syndrome",
+      "label": "스테로이드 함유 환약 복용으로 인한 의인성 쿠싱증후군",
+      "correct": true
+    },
+    {
+      "id": "pituitary_cushing_disease",
+      "label": "뇌하수체 쿠싱병",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "adrenal_adenoma",
+      "label": "부신 선종 (코르티솔 분비)",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "metabolic_syndrome",
+      "label": "대사증후군",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "hypothyroidism",
+      "label": "갑상선 기능저하증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "panic_attack",
+      "label": "공황발작",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "depression",
+      "label": "우울증",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "morning_cortisol_ACTH",
+      "label": "아침 혈중 코르티솔·ACTH",
+      "recommended": true
+    },
+    {
+      "id": "dexamethasone_suppression",
+      "label": "덱사메타손 억제검사",
+      "recommended": true
+    },
+    {
+      "id": "fasting_glucose_HbA1c",
+      "label": "공복혈당·당화혈색소",
+      "recommended": true
+    },
+    {
+      "id": "blood_pressure_monitoring",
+      "label": "혈압 측정·모니터링",
+      "recommended": true
+    },
+    {
+      "id": "serum_electrolytes",
+      "label": "혈청 전해질",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "lipid_panel",
+      "label": "지질검사",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "TSH_fT4",
+      "label": "갑상선 기능 (TSH/fT4)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "adrenal_CT",
+      "label": "부신 CT",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌하수체 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "endoscopy",
+      "label": "위내시경",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "쿠싱 양상(둥근 얼굴·중심성 비만·튼살·쉬운 멍)에서는 가장 흔한 원인인 외인성 스테로이드 노출을 먼저 확인해야 한다.",
+    "정체불명의 환약·한약·건강식품에 스테로이드가 불법 혼입된 사례가 있어 복용력 청취가 결정적이다.",
+    "외인성 스테로이드 쿠싱은 혈중 ACTH·코르티솔이 모두 억제되어 내인성 원인과 구분된다.",
+    "검증 안 된 약 복용은 수치심과 연결되므로 비난하지 않고 복용 동기까지 공감적으로 물어야 한다."
+  ],
+  "max_turns": 15,
+  "presentation": "68세 여자 수진씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "152/94 mmHg",
+    "hr": "82회/분",
+    "rr": "18회/분",
+    "temp": "36.6℃"
+  }
+}

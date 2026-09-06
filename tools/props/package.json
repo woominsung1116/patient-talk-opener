@@ -1,0 +1,12 @@
+{
+  "name": "props-tools",
+  "private": true,
+  "type": "module",
+  "description": "GLTF 자산 정비 도구 (폴리곤 감축 등). node_modules 는 .gitignore 대상 — 쓰기 전에 npm i.",
+  "dependencies": {
+    "@gltf-transform/core": "^4.4.1",
+    "@gltf-transform/extensions": "^4.4.1",
+    "@gltf-transform/functions": "^4.4.1",
+    "meshoptimizer": "^1.2.0"
+  }
+}

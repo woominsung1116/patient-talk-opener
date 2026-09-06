@@ -1,0 +1,330 @@
+{
+  "case_id": "migraine_01",
+  "title": "한 달에 몇 번씩 머리가 지끈거리는 28살 지원씨",
+  "subtitle": "반복되는 편측 박동성 두통",
+  "difficulty": 2,
+  "patient_profile": {
+    "name": "지원",
+    "age": 28,
+    "gender": "female",
+    "occupation": "간호사",
+    "personality": "cooperative_tired",
+    "personality_desc": "협조적이지만 지쳐 있다. 의료인이라 스스로 판단한 내용을 먼저 말한다.",
+    "speaking_style": "정확하고 담담하다. 가끔 의학용어를 섞어 쓴다.",
+    "body_type": "average",
+    "signs": []
+  },
+  "chief_complaint": "머리가 한 달에 두세 번씩 심하게 아파요.",
+  "initial_state": {
+    "trust": 55,
+    "anxiety": 40,
+    "rapport": 45
+  },
+  "diagnosis": "migraine",
+  "diagnosis_label": "편두통",
+  "initial_facts": [
+    {
+      "key": "onset",
+      "label": "발병 시점",
+      "value": "6개월쯤 전부터요. 한 달에 두세 번 정도 와요."
+    },
+    {
+      "key": "character",
+      "label": "양상",
+      "value": "주로 오른쪽 관자놀이가 맥박 치듯 욱신거려요."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "photophobia",
+      "label": "빛·소리 과민",
+      "value": "아플 때는 밝은 빛이랑 소리가 거슬려서 불 끄고 누워 있어요.",
+      "sensitivity": 0.2,
+      "unlock_intent": "ask_associated",
+      "required_trust": 25,
+      "requires_empathy": false,
+      "refusal_line": "그냥 아프기만 해요."
+    },
+    {
+      "key": "aura",
+      "label": "전조",
+      "value": "아프기 전에 눈앞에 지그재그 빛 같은 게 보일 때가 있어요.",
+      "sensitivity": 0.3,
+      "unlock_intent": "ask_aura",
+      "required_trust": 30,
+      "requires_empathy": false,
+      "refusal_line": "특별한 건 없었어요."
+    },
+    {
+      "key": "nausea",
+      "label": "구역",
+      "value": "속이 메스껍고 가끔 토할 것 같아요.",
+      "sensitivity": 0.2,
+      "unlock_intent": "ask_nausea",
+      "required_trust": 25,
+      "requires_empathy": false,
+      "refusal_line": "속은 괜찮아요."
+    },
+    {
+      "key": "analgesic_overuse",
+      "label": "진통제 과용",
+      "value": "진통제를 한 달에 여덟 번에서 열 번쯤 먹어요.",
+      "sensitivity": 0.6,
+      "unlock_intent": "ask_medication",
+      "required_trust": 45,
+      "requires_empathy": false,
+      "refusal_line": "약은 가끔 먹어요."
+    }
+  ],
+  "negative_findings": {
+    "thunderclap": "벼락 치듯 갑자기 아픈 적은 없어요.",
+    "fever_neck": "열이나 목이 뻣뻣한 건 없어요.",
+    "focal_deficit": "팔다리에 힘이 빠지거나 말이 어눌해진 적은 없어요.",
+    "trauma": "머리를 다친 적 없어요.",
+    "night_waking": "자다가 두통 때문에 깬 적은 없어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "증상 시작 시점과 빈도"
+    },
+    {
+      "topic": "character",
+      "label": "두통 양상"
+    },
+    {
+      "topic": "location",
+      "label": "위치"
+    },
+    {
+      "topic": "associated",
+      "label": "동반 증상(빛·소리·구역)"
+    },
+    {
+      "topic": "aura",
+      "label": "전조 증상"
+    },
+    {
+      "topic": "medication",
+      "label": "진통제 복용 빈도"
+    },
+    {
+      "topic": "red_flag_screen",
+      "label": "위험 두통 배제"
+    }
+  ],
+  "red_flags": [
+    "analgesic_overuse"
+  ],
+  "max_turns": 15,
+  "scoring_weights": {
+    "history_taking": 40,
+    "physical_exam": 30,
+    "patient_education": 10,
+    "ppi": 20
+  },
+  "exam_items": [
+    {
+      "id": "hand_hygiene",
+      "label": "손위생(손소독제)",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-1"
+      ],
+      "order": 0,
+      "finding": "손을 소독했습니다."
+    },
+    {
+      "id": "drape",
+      "label": "가려주기/필요 부위만 노출",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-3"
+      ],
+      "order": 2,
+      "finding": "심장 청진을 위해 환자가 스스로 상의를 올리게 하고, 청진할 부위만 남기고 나머지는 가려드렸습니다."
+    },
+    {
+      "id": "neuro_exam",
+      "label": "신경학적 검사",
+      "type": "exam",
+      "points": 8,
+      "ppi": [
+        "6-2"
+      ],
+      "order": 3,
+      "finding": "국소 신경학적 이상 소견은 없습니다."
+    },
+    {
+      "id": "neck_stiffness",
+      "label": "경부 강직 확인",
+      "type": "exam",
+      "points": 5,
+      "ppi": [
+        "6-4"
+      ],
+      "order": 4,
+      "finding": "경부 강직은 없습니다."
+    }
+  ],
+  "education_items": [
+    {
+      "id": "diagnosis",
+      "label": "진단 설명(갑상선 기능항진증)",
+      "kind": "diagnosis_explanation",
+      "points": 4,
+      "rubric": {
+        "good": "근거 2개 이상",
+        "ok": "근거 1개/진단명만",
+        "miss": "진단 안 함"
+      },
+      "evidence_options": [
+        {
+          "id": "weight_loss_with_appetite",
+          "label": "식욕은 늘었는데 체중이 줄었음",
+          "correct": true
+        },
+        {
+          "id": "palpitation_tachycardia",
+          "label": "안정 시 두근거림과 빈맥(112회/분)",
+          "correct": true
+        },
+        {
+          "id": "heat_intolerance",
+          "label": "더위를 못 참고 땀이 많음",
+          "correct": true
+        },
+        {
+          "id": "diffuse_goiter",
+          "label": "갑상샘 좌·우엽의 미만성 종대",
+          "correct": true
+        },
+        {
+          "id": "fine_tremor",
+          "label": "양손의 미세하고 빠른 떨림",
+          "correct": true
+        },
+        {
+          "id": "no_drug_history",
+          "label": "체중감량제·갑상선호르몬 복용력 없음",
+          "correct": true
+        },
+        {
+          "id": "thyroid_normal_size",
+          "label": "갑상샘이 커져 있지 않음",
+          "correct": false
+        },
+        {
+          "id": "hard_nodule",
+          "label": "갑상샘에 단단한 결절이 만져짐",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "test_plan_lab",
+      "label": "검사: 갑상선기능검사(TSH/유리 T4)와 갑상선 자가항체(TRAb)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "TSH 억제 + 유리 T4 상승으로 갑상선중독증을 확진하고, TRAb 양성으로 그레이브스병 여부를 확인"
+    },
+    {
+      "id": "test_plan_image",
+      "label": "검사: 갑상선 초음파와 갑상선 스캔(방사성요오드 섭취율)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "미만성 종대와 섭취율 증가를 확인 — 섭취율이 낮으면 갑상샘염이나 외인성 호르몬 섭취를 의심"
+    },
+    {
+      "id": "tx_analgesic",
+      "label": "치료: 베타차단제로 두근거림·손떨림 등 증상 우선 조절",
+      "kind": "treatment",
+      "points": 1
+    },
+    {
+      "id": "tx_definitive",
+      "label": "치료: 항갑상선제 / 방사성요오드 치료 / 수술 중 선택",
+      "kind": "treatment",
+      "points": 2,
+      "rubric": {
+        "good": "2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    },
+    {
+      "id": "complication",
+      "label": "합병증: 항갑상선제 무과립구증(발열·인후통 시 즉시 중단하고 내원), 갑상선중독발작, 심방세동·골다공증",
+      "kind": "complication",
+      "points": 2,
+      "rubric": {
+        "good": "합병증+대처 2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    }
+  ],
+  "presentation": "28세 여자 지원씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "112/70 mmHg",
+    "hr": "72회/분",
+    "rr": "16회/분",
+    "temp": "36.6℃"
+  },
+  "diagnosis_options": [
+    {
+      "id": "migraine",
+      "label": "편두통",
+      "correct": true
+    },
+    {
+      "id": "tension_headache",
+      "label": "긴장성 두통",
+      "correct": false
+    },
+    {
+      "id": "cluster_headache",
+      "label": "군발두통",
+      "correct": false
+    },
+    {
+      "id": "moh",
+      "label": "약물과용 두통",
+      "correct": false
+    },
+    {
+      "id": "sah",
+      "label": "지주막하출혈",
+      "correct": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "history_only",
+      "label": "추가 검사 없이 임상 진단",
+      "recommended": true
+    },
+    {
+      "id": "neuro_exam",
+      "label": "신경학적 진찰",
+      "recommended": true
+    },
+    {
+      "id": "brain_mri",
+      "label": "뇌 MRI",
+      "recommended": false
+    },
+    {
+      "id": "ct",
+      "label": "뇌 CT",
+      "recommended": false
+    }
+  ],
+  "teaching_points": [
+    "편측·박동성·빛과 소리 과민·구역이 함께 있으면 편두통을 먼저 생각한다.",
+    "전조(시각 증상)가 있으면 조짐 편두통으로 분류한다.",
+    "진통제를 월 10일 이상 쓰면 약물과용 두통이 겹칠 수 있다."
+  ]
+}

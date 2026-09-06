@@ -1,0 +1,16 @@
+# Entrance-clip (image-to-video) env — separate venv: .venv_i2v (Python 3.11)
+#   uv venv --python 3.11 .venv_i2v && source .venv_i2v/bin/activate
+#   uv pip install -r requirements.i2v.txt
+# NOTE: model weights (LTX-Video ~28GB, SVD-XT ~9.5GB) are NOT installed by pip;
+#       they download from HuggingFace on first run. Set HF_HUB_DISABLE_XET=1
+#       (the Xet backend hangs on this machine) and expect hours on a slow link.
+torch==2.8.0
+torchvision==0.23.0
+diffusers==0.38.0
+transformers==5.12.0
+accelerate==1.14.0
+imageio==2.37.3
+imageio-ffmpeg==0.6.0
+sentencepiece
+numpy==1.26.4
+pillow

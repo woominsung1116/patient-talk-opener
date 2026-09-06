@@ -1,0 +1,6 @@
+[submodule "talkinghead/Wav2Lip"]
+	path = talkinghead/Wav2Lip
+	url = https://github.com/Rudrabha/Wav2Lip.git
+[submodule "talkinghead/SadTalker"]
+	path = talkinghead/SadTalker
+	url = https://github.com/OpenTalker/SadTalker.git

@@ -1,0 +1,233 @@
+{
+  "case_id": "alcohol_hidden_pancreatitis_01",
+  "title": "명치가 등까지 쥐어짜는 53살 영호씨",
+  "subtitle": "상복부 통증과 구토",
+  "difficulty": 3,
+  "patient_profile": {
+    "name": "영호",
+    "age": 53,
+    "gender": "male",
+    "occupation": "건설현장 소장",
+    "personality": "guarded",
+    "personality_desc": "체면을 중시하고 술 문제를 지적받는 걸 극도로 꺼린다. 음주량을 축소해 말하지만, 비난하지 않고 공감하면 실제 양을 털어놓는다.",
+    "speaking_style": "무뚝뚝하고 짧게 답한다. 술 얘기엔 '남들 마시는 정도죠'라며 얼버무리다가 신뢰가 생기면 솔직해진다."
+  },
+  "chief_complaint": "어제부터 명치가 등 뒤까지 쥐어짜듯 아프고 토했어요.",
+  "initial_state": {
+    "trust": 36,
+    "anxiety": 65,
+    "rapport": 32
+  },
+  "diagnosis": "alcoholic_acute_pancreatitis",
+  "diagnosis_label": "과음으로 인한 급성 췌장염",
+  "initial_facts": [
+    {
+      "key": "epigastric_pain",
+      "label": "상복부 통증",
+      "value": "어제 저녁부터 명치가 칼로 쑤시듯 아프고 등 쪽으로 뻗친다. 앞으로 웅크리면 조금 덜하다."
+    },
+    {
+      "key": "vomiting",
+      "label": "구토",
+      "value": "밤새 여러 번 토했고, 토해도 통증이 가시지 않는다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "heavy_drinking",
+      "label": "만성 과음과 폭음",
+      "value": "10년 넘게 매일 소주 한 병 이상을 마셔왔고, 그제 회식에서 소주 세 병을 폭음했다. 술 때문이라는 지적이 두려워 음주량을 크게 줄여 말한다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_social_history",
+      "required_trust": 62,
+      "requires_empathy": true,
+      "refusal_line": "술이야 뭐... 다들 마시는 만큼만 마셔요. 별로 안 마셔요."
+    },
+    {
+      "key": "prior_episodes",
+      "label": "유사 통증 반복 병력",
+      "value": "지난 1년간 비슷한 명치 통증이 두세 번 있었지만 술 깨면 나아서 병원에 가지 않았다.",
+      "sensitivity": 0.6,
+      "unlock_intent": "ask_past_history",
+      "required_trust": 50,
+      "requires_empathy": true,
+      "refusal_line": "전에도 좀 그런 적은 있는데... 그냥 체한 줄 알았죠."
+    },
+    {
+      "key": "pain_after_meal",
+      "label": "기름진 음식·음주 후 악화",
+      "value": "기름진 안주를 먹고 술을 마신 다음 날 통증이 가장 심하다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_aggravating_factor",
+      "required_trust": 44,
+      "requires_empathy": false,
+      "refusal_line": "글쎄요, 뭘 먹으면 더 아픈지는 잘 모르겠어요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "통증은 어제 저녁부터예요. 점점 심해졌어요.",
+    "severity": "숨쉬기도 힘들 만큼 아프고 식은땀이 나요. 누우면 더 아파서 웅크리고 있어요.",
+    "aggravating": "움직이거나 누우면 더 아픈 것 같아요.",
+    "diet": "어제는 회식이라 기름진 안주를 많이 먹었어요.",
+    "medication": "따로 먹는 약은 없어요. 진통제도 안 먹었어요.",
+    "past_history": "담석이나 큰 병 들은 적은 없어요.",
+    "family_history": "가족 중 췌장이나 담석 아픈 사람은 모르겠어요.",
+    "melena": "변에 피가 섞이거나 검진 않았어요.",
+    "weight_loss": "최근 입맛이 없어서 2~3kg 빠진 것 같아요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "통증 시작 시점과 양상"
+    },
+    {
+      "topic": "severity",
+      "label": "통증 강도와 동반 증상"
+    },
+    {
+      "topic": "social_history",
+      "label": "음주력 (양·빈도·최근 폭음)"
+    },
+    {
+      "topic": "past_history",
+      "label": "유사 통증 반복·담석 병력"
+    },
+    {
+      "topic": "aggravating",
+      "label": "악화 요인 (음주·기름진 음식)"
+    },
+    {
+      "topic": "diet",
+      "label": "최근 식이"
+    },
+    {
+      "topic": "medication",
+      "label": "복용 약물"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "social_history",
+    "onset_duration"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "alcoholic_acute_pancreatitis",
+      "label": "과음으로 인한 급성 췌장염",
+      "correct": true
+    },
+    {
+      "id": "gallstone_pancreatitis",
+      "label": "담석성 췌장염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "peptic_ulcer_perforation",
+      "label": "소화성 궤양 천공",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "acute_cholecystitis",
+      "label": "급성 담낭염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "myocardial_infarction",
+      "label": "심근경색",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "gastroenteritis",
+      "label": "단순 장염",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "panic_attack",
+      "label": "공황발작",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "lipase_amylase",
+      "label": "혈청 리파아제/아밀라아제",
+      "recommended": true
+    },
+    {
+      "id": "abdominal_CT",
+      "label": "복부 CT (췌장 평가)",
+      "recommended": true
+    },
+    {
+      "id": "liver_function_tests",
+      "label": "간기능검사 (AST/ALT, 빌리루빈)",
+      "recommended": true
+    },
+    {
+      "id": "abdominal_ultrasound",
+      "label": "복부 초음파 (담석 평가)",
+      "recommended": true
+    },
+    {
+      "id": "CBC_CRP",
+      "label": "일반혈액검사 및 CRP",
+      "recommended": true
+    },
+    {
+      "id": "triglyceride_calcium",
+      "label": "중성지방 및 혈중 칼슘",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "EKG",
+      "label": "심전도 (EKG)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "venous_blood_gas",
+      "label": "정맥혈 가스분석",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "thyroid_US",
+      "label": "갑상선 초음파",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "등으로 뻗치는 상복부 통증과 구토에서는 급성 췌장염을 의심하고 리파아제를 확인해야 한다.",
+    "급성 췌장염의 양대 원인인 음주와 담석을 반드시 구분해 평가해야 한다.",
+    "음주량은 환자가 축소 보고하기 쉬우므로 비난하지 않는 태도로 구체적 양과 빈도를 물어야 한다.",
+    "반복되는 상복부 통증 병력은 만성·재발성 췌장 질환의 단서가 된다."
+  ],
+  "max_turns": 15,
+  "presentation": "53세 남자 영호씨가 응급실에 내원하였다.",
+  "vitals": {
+    "bp": "132/84 mmHg",
+    "hr": "104회/분",
+    "rr": "20회/분",
+    "temp": "37.4℃"
+  }
+}

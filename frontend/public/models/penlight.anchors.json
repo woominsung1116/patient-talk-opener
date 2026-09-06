@@ -1,0 +1,31 @@
+{
+ "asset": "penlight.glb",
+ "emitter_mesh": "PenlightLens",
+ "lens_center": [
+  0.0,
+  0.00028,
+  0.0
+ ],
+ "emit_dir": [
+  0.0,
+  -1.0,
+  0.0
+ ],
+ "light_pos": [
+  0.0,
+  -0.00172,
+  0.0
+ ],
+ "lens_radius": 0.00465,
+ "body_bbox_min": [
+  -0.0073,
+  -0.0008,
+  -0.0073
+ ],
+ "body_bbox_max": [
+  0.00961,
+  0.1412,
+  0.0073
+ ],
+ "note": "좌표계는 GLB 로컬(모델) 공간. light_pos 에 SpotLight 를 놓고 emit_dir 로 조준한다. SpotLight.target 은 light_pos + emit_dir * (조준거리) 에 두면 된다."
+}

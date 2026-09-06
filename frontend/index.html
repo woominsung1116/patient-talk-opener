@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/stethoscope.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>환자 말문 열기</title>
+    <!--
+      폰트는 **자체 호스팅**한다. 예전에는 fonts.googleapis.com 을 직접 참조했는데,
+      네트워크가 없는 실습실에서 글꼴이 통째로 깨졌다 — Draco 디코더는 벤더링해
+      놓고 폰트만 외부에 남아 있어서 오프라인 완결성이 거기서 무너지고 있었다.
+
+      `public/fonts/` 는 Google Fonts 가 내려주는 것과 **같은 서브셋 구조**다
+      (한글이라 182개로 쪼개져 있고 합쳐서 1.8MiB). unicode-range 가 그대로라
+      브라우저는 실제로 쓰는 글자의 서브셋만 받아 간다 — 전부 받지 않는다.
+      갱신하려면 css2 URL 을 다시 받아 woff2 주소만 /fonts/ 로 바꾸면 된다.
+      라이선스: 두 서체 모두 SIL Open Font License 1.1 (public/fonts/LICENSE.md).
+    -->
+    <link href="/fonts/fonts.css" rel="stylesheet" />
+
+    <!--
+      설치형(PWA). 학생 노트북·태블릿에 설치해서 주소창 없이 전체화면으로 쓴다.
+      ⚠ manifest 만으로는 **오프라인이 되지 않는다** — 서비스워커가 있어야
+      캐시가 남는다. 지금은 "설치·전체화면"까지만이고, 접속 자체는 서버가
+      살아 있어야 한다. 외부 CDN 의존이 없다는 것(폰트·Draco 벤더링)과는
+      다른 이야기다.
+    -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#5cb87e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="말문 열기" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

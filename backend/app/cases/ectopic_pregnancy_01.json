@@ -1,0 +1,339 @@
+{
+  "case_id": "ectopic_pregnancy_01",
+  "title": "아랫배가 쑤시는 32살 수민씨",
+  "subtitle": "오른쪽 아랫배 통증과 소량 질출혈",
+  "difficulty": 3,
+  "patient_profile": {
+    "name": "수민",
+    "age": 32,
+    "gender": "female",
+    "occupation": "디자이너",
+    "personality": "reserved_anxious",
+    "personality_desc": "조용하고 예의 바르지만 사적인 질문(월경·성생활)에는 눈을 피하며 짧게 답한다.",
+    "speaking_style": "차분하고 말수가 적다. 아플 때만 목소리가 흔들린다.",
+    "body_type": "slim",
+    "signs": [
+      "pale"
+    ]
+  },
+  "chief_complaint": "오늘 아침부터 오른쪽 아랫배가 계속 아파요.",
+  "initial_state": {
+    "trust": 40,
+    "anxiety": 60,
+    "rapport": 35
+  },
+  "diagnosis": "ectopic_pregnancy",
+  "diagnosis_label": "자궁외임신",
+  "initial_facts": [
+    {
+      "key": "onset",
+      "label": "발병 시점",
+      "value": "오늘 아침부터 오른쪽 아랫배가 콕콕 쑤시듯 아프기 시작해 점점 심해져요."
+    },
+    {
+      "key": "severity",
+      "label": "통증 정도",
+      "value": "10점 만점에 6점에서 7점쯤 돼요."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "lmp",
+      "label": "마지막 월경",
+      "value": "마지막 생리가... 7주쯤 전이에요. 원래는 규칙적이었는데.",
+      "sensitivity": 0.5,
+      "unlock_intent": "ask_lmp",
+      "required_trust": 40,
+      "requires_empathy": false,
+      "refusal_line": "생리요...? 그건 왜 물어보세요."
+    },
+    {
+      "key": "vaginal_bleeding",
+      "label": "질출혈",
+      "value": "어제부터 피가 조금 비쳤어요. 생리는 아닌 것 같은데.",
+      "sensitivity": 0.7,
+      "unlock_intent": "ask_bleeding",
+      "required_trust": 50,
+      "requires_empathy": true,
+      "refusal_line": "그런 건... 딱히 없었어요."
+    },
+    {
+      "key": "contraception",
+      "label": "피임 여부",
+      "value": "피임은... 따로 하지 않았어요.",
+      "sensitivity": 0.8,
+      "unlock_intent": "ask_contraception",
+      "required_trust": 55,
+      "requires_empathy": true,
+      "refusal_line": "그건 좀... 꼭 말해야 하나요?"
+    },
+    {
+      "key": "dizziness",
+      "label": "어지럼",
+      "value": "일어설 때 좀 핑 돌아요.",
+      "sensitivity": 0.2,
+      "unlock_intent": "ask_dizziness",
+      "required_trust": 25,
+      "requires_empathy": false,
+      "refusal_line": "어지럽진 않아요."
+    }
+  ],
+  "negative_findings": {
+    "fever": "열은 없어요.",
+    "diarrhea": "설사는 없어요.",
+    "urinary": "소변볼 때 불편한 건 없어요.",
+    "past_history": "특별히 아픈 데 없이 지냈어요.",
+    "medication": "약은 안 먹어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "증상 시작 시점"
+    },
+    {
+      "topic": "location_radiation",
+      "label": "위치와 방사"
+    },
+    {
+      "topic": "severity",
+      "label": "통증 정도"
+    },
+    {
+      "topic": "lmp",
+      "label": "마지막 월경일"
+    },
+    {
+      "topic": "vaginal_bleeding",
+      "label": "질출혈 여부"
+    },
+    {
+      "topic": "contraception",
+      "label": "피임·임신 가능성"
+    },
+    {
+      "topic": "dizziness",
+      "label": "어지럼·실신"
+    }
+  ],
+  "red_flags": [
+    "lmp",
+    "vaginal_bleeding",
+    "dizziness"
+  ],
+  "max_turns": 15,
+  "scoring_weights": {
+    "history_taking": 40,
+    "physical_exam": 30,
+    "patient_education": 10,
+    "ppi": 20
+  },
+  "exam_items": [
+    {
+      "id": "hand_hygiene",
+      "label": "손위생(손소독제)",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-1"
+      ],
+      "order": 0,
+      "finding": "손을 소독했습니다."
+    },
+    {
+      "id": "drape",
+      "label": "가려주기/필요 부위만 노출",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-3"
+      ],
+      "order": 2,
+      "finding": "심장 청진을 위해 환자가 스스로 상의를 올리게 하고, 청진할 부위만 남기고 나머지는 가려드렸습니다."
+    },
+    {
+      "id": "abdomen_palpation",
+      "label": "복부 촉진",
+      "type": "exam",
+      "points": 6,
+      "ppi": [
+        "6-4"
+      ],
+      "order": 3,
+      "finding": "오른쪽 아랫배에 압통이 있고, 반발통은 뚜렷하지 않습니다."
+    },
+    {
+      "id": "pelvic_tenderness",
+      "label": "골반 압통 확인",
+      "type": "exam",
+      "points": 6,
+      "ppi": [
+        "6-2"
+      ],
+      "order": 4,
+      "finding": "우측 부속기 부위에 압통이 있습니다."
+    }
+  ],
+  "education_items": [
+    {
+      "id": "diagnosis",
+      "label": "진단 설명(갑상선 기능항진증)",
+      "kind": "diagnosis_explanation",
+      "points": 4,
+      "rubric": {
+        "good": "근거 2개 이상",
+        "ok": "근거 1개/진단명만",
+        "miss": "진단 안 함"
+      },
+      "evidence_options": [
+        {
+          "id": "weight_loss_with_appetite",
+          "label": "식욕은 늘었는데 체중이 줄었음",
+          "correct": true
+        },
+        {
+          "id": "palpitation_tachycardia",
+          "label": "안정 시 두근거림과 빈맥(112회/분)",
+          "correct": true
+        },
+        {
+          "id": "heat_intolerance",
+          "label": "더위를 못 참고 땀이 많음",
+          "correct": true
+        },
+        {
+          "id": "diffuse_goiter",
+          "label": "갑상샘 좌·우엽의 미만성 종대",
+          "correct": true
+        },
+        {
+          "id": "fine_tremor",
+          "label": "양손의 미세하고 빠른 떨림",
+          "correct": true
+        },
+        {
+          "id": "no_drug_history",
+          "label": "체중감량제·갑상선호르몬 복용력 없음",
+          "correct": true
+        },
+        {
+          "id": "thyroid_normal_size",
+          "label": "갑상샘이 커져 있지 않음",
+          "correct": false
+        },
+        {
+          "id": "hard_nodule",
+          "label": "갑상샘에 단단한 결절이 만져짐",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "test_plan_lab",
+      "label": "검사: 갑상선기능검사(TSH/유리 T4)와 갑상선 자가항체(TRAb)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "TSH 억제 + 유리 T4 상승으로 갑상선중독증을 확진하고, TRAb 양성으로 그레이브스병 여부를 확인"
+    },
+    {
+      "id": "test_plan_image",
+      "label": "검사: 갑상선 초음파와 갑상선 스캔(방사성요오드 섭취율)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "미만성 종대와 섭취율 증가를 확인 — 섭취율이 낮으면 갑상샘염이나 외인성 호르몬 섭취를 의심"
+    },
+    {
+      "id": "tx_analgesic",
+      "label": "치료: 베타차단제로 두근거림·손떨림 등 증상 우선 조절",
+      "kind": "treatment",
+      "points": 1
+    },
+    {
+      "id": "tx_definitive",
+      "label": "치료: 항갑상선제 / 방사성요오드 치료 / 수술 중 선택",
+      "kind": "treatment",
+      "points": 2,
+      "rubric": {
+        "good": "2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    },
+    {
+      "id": "complication",
+      "label": "합병증: 항갑상선제 무과립구증(발열·인후통 시 즉시 중단하고 내원), 갑상선중독발작, 심방세동·골다공증",
+      "kind": "complication",
+      "points": 2,
+      "rubric": {
+        "good": "합병증+대처 2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    }
+  ],
+  "presentation": "32세 여자 수민씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "104/62 mmHg",
+    "hr": "96회/분",
+    "rr": "18회/분",
+    "temp": "36.8℃"
+  },
+  "diagnosis_options": [
+    {
+      "id": "ectopic_pregnancy",
+      "label": "자궁외임신",
+      "correct": true
+    },
+    {
+      "id": "appendicitis",
+      "label": "급성 충수염",
+      "correct": false
+    },
+    {
+      "id": "ovarian_torsion",
+      "label": "난소 염전",
+      "correct": false
+    },
+    {
+      "id": "pid",
+      "label": "골반염",
+      "correct": false
+    },
+    {
+      "id": "ruptured_cyst",
+      "label": "난소낭종 파열",
+      "correct": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "urine_hcg",
+      "label": "소변 임신반응검사",
+      "recommended": true
+    },
+    {
+      "id": "serum_bhcg",
+      "label": "혈청 베타-hCG",
+      "recommended": true
+    },
+    {
+      "id": "tv_us",
+      "label": "질초음파",
+      "recommended": true
+    },
+    {
+      "id": "cbc",
+      "label": "일반혈액검사",
+      "recommended": true
+    },
+    {
+      "id": "ct",
+      "label": "복부 CT",
+      "recommended": false
+    }
+  ],
+  "teaching_points": [
+    "가임기 여성의 하복부 통증에서는 임신 여부 확인이 가장 먼저다.",
+    "무월경 + 질출혈 + 복통은 자궁외임신의 고전적 삼징이다.",
+    "파열 시 급격한 출혈로 이어지므로 어지럼·실신 여부를 반드시 묻는다."
+  ]
+}

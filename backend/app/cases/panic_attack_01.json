@@ -1,0 +1,544 @@
+{
+  "case_id": "panic_attack_01",
+  "title": "죽을 것 같았다는 28살 현우씨",
+  "subtitle": "갑작스러운 호흡곤란",
+  "difficulty": 2,
+  "patient_profile": {
+    "name": "현우",
+    "age": 28,
+    "gender": "male",
+    "occupation": "스타트업 개발자",
+    "personality": "guarded_worried",
+    "personality_desc": "겉으론 담담한 척하지만 속으론 심장병일까 봐 무섭다. 정신적인 문제라는 말에 거부감이 있다.",
+    "speaking_style": "건조하게 짧게 답하다가, 공감받으면 속마음을 쏟아낸다.",
+    "signs": []
+  },
+  "chief_complaint": "어제 밤에 갑자기 숨이 막히고... 진짜 죽는 줄 알았어요.",
+  "initial_state": {
+    "trust": 42,
+    "anxiety": 70,
+    "rapport": 35
+  },
+  "diagnosis": "panic_disorder",
+  "diagnosis_label": "공황장애 (공황발작)",
+  "initial_facts": [
+    {
+      "key": "dyspnea_episode",
+      "label": "발작적 호흡곤란",
+      "value": "어젯밤 갑자기 숨이 막히고 심장이 터질 듯 뛰었다. 20분쯤 뒤 저절로 가라앉았다."
+    },
+    {
+      "key": "palpitation",
+      "label": "두근거림",
+      "value": "발작 중 심장이 미친 듯이 뛰고 손발이 저렸다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "caffeine_overuse",
+      "label": "카페인 과다",
+      "value": "마감 때문에 에너지드링크를 하루 3~4캔씩 마신다. 커피도 따로 마신다.",
+      "sensitivity": 0.3,
+      "unlock_intent": "ask_diet",
+      "required_trust": 30,
+      "requires_empathy": false,
+      "refusal_line": "그냥... 남들 먹는 만큼 먹어요."
+    },
+    {
+      "key": "recurrent_episodes",
+      "label": "반복된 발작",
+      "value": "사실 이번이 처음이 아니다. 최근 한 달 새 세 번째다. 지하철에서도 한 번 왔다.",
+      "sensitivity": 0.55,
+      "unlock_intent": "ask_onset",
+      "required_trust": 45,
+      "requires_empathy": false,
+      "refusal_line": "어제가... 처음이에요. 아마."
+    },
+    {
+      "key": "father_cardiac_death",
+      "label": "아버지의 심장 돌연사",
+      "value": "아버지가 3년 전 심근경색으로 갑자기 돌아가셨다. 그래서 심장 얘기만 나오면 너무 무섭다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_family_history",
+      "required_trust": 55,
+      "requires_empathy": true,
+      "refusal_line": "...가족력이요? 그게 꼭 필요한가요."
+    }
+  ],
+  "negative_findings": {
+    "severity": "발작 때는 진짜 죽을 것 같은데, 끝나면 멀쩡해요. 지금은 아무렇지 않아요.",
+    "aggravating": "운동할 때는 오히려 괜찮아요. 가만히 있다가 갑자기 와요.",
+    "past_history": "병원 갈 일이 없었어요. 건강검진에서도 별말 없었고요.",
+    "medication": "약은 안 먹어요.",
+    "social_history": "담배는 안 피우고, 술은 가끔요. 요즘 회사가 투자 문제로... 좀 많이 힘들긴 해요.",
+    "sleep": "마감 때문에 새벽 3~4시에 자요. 못 잘 때도 많고요.",
+    "weight_loss": "체중은 그대로예요.",
+    "chief_complaint": "어젯밤 발작이 제일 무서웠어요. 진짜 심장마비인 줄 알았어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "발작 양상과 반복 여부"
+    },
+    {
+      "topic": "severity",
+      "label": "발작 중 증상과 지속시간"
+    },
+    {
+      "topic": "aggravating",
+      "label": "유발 상황 (운동 관련성)"
+    },
+    {
+      "topic": "diet",
+      "label": "카페인 섭취"
+    },
+    {
+      "topic": "social_history",
+      "label": "스트레스 / 직업력"
+    },
+    {
+      "topic": "family_history",
+      "label": "가족력 (심장 질환)"
+    },
+    {
+      "topic": "past_history",
+      "label": "과거력"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "family_history",
+    "past_history",
+    "aggravating"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "panic_disorder",
+      "label": "공황장애",
+      "correct": true
+    },
+    {
+      "id": "acute_coronary_syndrome",
+      "label": "급성 관상동맥증후군",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "arrhythmia",
+      "label": "부정맥",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "hyperthyroidism",
+      "label": "갑상선 기능항진증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "caffeine_intoxication",
+      "label": "카페인 중독",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "asthma",
+      "label": "천식",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "pneumothorax",
+      "label": "기흉",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "gerd",
+      "label": "역류성 식도염",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "EKG",
+      "label": "심전도 (EKG)",
+      "recommended": true
+    },
+    {
+      "id": "TSH",
+      "label": "갑상선 기능 (TSH)",
+      "recommended": true
+    },
+    {
+      "id": "troponin",
+      "label": "심근효소 (Troponin)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "CBC",
+      "label": "일반혈액검사 (CBC)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "chest_xray",
+      "label": "흉부 X선",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "holter",
+      "label": "24시간 심전도 (Holter)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "coronary_CT",
+      "label": "관상동맥 CT",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "endoscopy",
+      "label": "위내시경",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "젊은 환자의 발작성 흉부 증상에서도 기질적 심질환(가족력, 운동 관련성)을 반드시 배제해야 한다.",
+    "공황발작 환자에게 '정신적인 문제'라고 단정하면 신뢰가 무너진다. 신체 검사로 안심시키는 과정이 필요하다.",
+    "카페인 과다 섭취는 공황 증상의 흔한 유발/악화 요인이다.",
+    "가족의 돌연사 경험은 건강염려와 공황을 키우는 배경이 된다. 공감적으로 접근해야 털어놓는다.",
+    "심장 4판막 청진과 양측 폐야 청진이 모두 정상임을 확인하는 것이 이 케이스의 진찰 목표다. 정상 소견을 얻는 것도 진찰이며, '정상입니다' 한마디가 아니라 '잡음이 없고 규칙적이며 양측 호흡음이 대칭적이다'처럼 무엇을 확인했는지 설명해야 환자가 실제로 안심한다.",
+    "공황발작은 발작 중에만 빈맥·빈호흡을 보이고 발작 사이에는 활력징후와 진찰 소견이 정상이다. 지금 안정 시 맥박이 계속 빨랐다면 그 자체가 설명이 필요한 이상 소견이므로 갑상선기능항진증·부정맥·빈혈 등을 먼저 찾아야 한다.",
+    "두근거림 환자에서 손떨림 확인은 갑상선기능항진증 감별의 기본이다. 갑상선중독증의 빠르고 규칙적인 미세떨림, 간성뇌증의 퍼덕임떨림과 달리 이 환자는 떨림이 없다 — 정상 소견을 직접 확인하는 것이 배제의 근거가 된다."
+  ],
+  "max_turns": 15,
+  "presentation": "28세 남자 현우씨가 응급실에 내원하였다.",
+  "vitals": {
+    "bp": "128/78 mmHg",
+    "hr": "88회/분",
+    "rr": "16회/분",
+    "temp": "36.7℃"
+  },
+  "scoring_weights": {
+    "history_taking": 40,
+    "physical_exam": 30,
+    "patient_education": 10,
+    "ppi": 20
+  },
+  "exam_items": [
+    {
+      "id": "hand_hygiene",
+      "label": "손위생(손소독제)",
+      "type": "prep",
+      "points": 0,
+      "order": 0,
+      "finding": "손을 소독했습니다."
+    },
+    {
+      "id": "explain_consent",
+      "label": "진찰 전 설명·동의",
+      "type": "prep",
+      "points": 0,
+      "order": 1,
+      "finding": "진찰을 하겠다고 알리고 환자의 동의를 얻었습니다."
+    },
+    {
+      "id": "drape",
+      "label": "가려주기/필요 부위만 노출",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-3"
+      ],
+      "order": 2,
+      "finding": "청진을 위해 환자가 스스로 상의를 올리게 하고, 청진할 부위만 남기고 나머지는 가려드렸습니다."
+    },
+    {
+      "id": "deep_breath",
+      "label": "심호흡 지시",
+      "type": "prep",
+      "points": 0,
+      "order": 3,
+      "finding": "환자가 입으로 크고 깊게 숨을 들이쉬고 내쉽니다."
+    },
+    {
+      "id": "heart_auscultation",
+      "label": "심장 청진(4판막 부위)",
+      "type": "exam_action",
+      "points": 12,
+      "order": 4,
+      "required_regions": [
+        "aortic",
+        "pulmonic",
+        "tricuspid",
+        "mitral"
+      ],
+      "requires_prep": [
+        "drape"
+      ],
+      "region_findings": {
+        "aortic": {
+          "finding": "우측 두 번째 갈비사이(대동맥판 부위)에서 S1·S2가 뚜렷하게 들리고, 대동맥판 협착을 시사하는 수축기 구출성 잡음은 들리지 않습니다.",
+          "sound": "normal",
+          "reaction": {
+            "emotion": "anxious",
+            "line": "여기도 들어보시는 거예요?",
+            "intensity": "mild"
+          }
+        },
+        "pulmonic": {
+          "finding": "좌측 두 번째 갈비사이(폐동맥판 부위)에서도 S2가 정상적으로 들리고, 잡음이나 마찰음은 없습니다.",
+          "sound": "normal",
+          "reaction": {
+            "emotion": "anxious",
+            "line": "...뭐 이상한 소리 들려요?",
+            "intensity": "mild"
+          }
+        },
+        "tricuspid": {
+          "finding": "좌측 복장뼈 하연(삼첨판 부위)에서 심음이 규칙적이고, 잡음이나 추가 심음(S3·S4)은 들리지 않습니다.",
+          "sound": "normal",
+          "reaction": {
+            "emotion": "calm",
+            "line": "네, 가만히 있을게요.",
+            "intensity": "none"
+          }
+        },
+        "mitral": {
+          "finding": "심첨부에서 S1·S2가 뚜렷하고 박동 간격이 일정합니다. 심박수는 분당 88회로 정상 범위이며, 수축기·이완기 잡음이나 불규칙하게 건너뛰는 박동은 없습니다.",
+          "sound": "normal",
+          "reaction": {
+            "emotion": "anxious",
+            "line": "여기가 제일 세게 뛰던 데예요. 심장 진짜 괜찮은 거죠?",
+            "intensity": "mild"
+          }
+        }
+      },
+      "finding": "심장 네 판막 부위(대동맥판·폐동맥판·삼첨판·승모판)를 모두 청진했습니다. 심박수는 분당 88회로 정상이고 박동이 규칙적이며, 어느 부위에서도 잡음·추가 심음·불규칙 박동이 들리지 않습니다. 발작이 끝난 지금은 빈맥도 없어, 구조적 심질환이나 부정맥을 시사하는 소견이 없습니다.",
+      "reaction": {
+        "emotion": "relieved",
+        "line": "...진짜요? 심장은 괜찮은 거예요? 다행이다...",
+        "intensity": "none"
+      }
+    },
+    {
+      "id": "lung_auscultation",
+      "label": "폐 청진(전면·후면 상중하)",
+      "type": "exam_action",
+      "points": 12,
+      "order": 5,
+      "required_regions": [
+        "lung_ant_r_up",
+        "lung_ant_r_mid",
+        "lung_ant_r_low",
+        "lung_ant_l_up",
+        "lung_ant_l_mid",
+        "lung_ant_l_low",
+        "lung_post_r_up",
+        "lung_post_r_mid",
+        "lung_post_r_low",
+        "lung_post_l_up",
+        "lung_post_l_mid",
+        "lung_post_l_low"
+      ],
+      "requires_prep": [
+        "drape",
+        "deep_breath"
+      ],
+      "region_findings": {
+        "lung_ant_r_up": {
+          "finding": "우측 앞가슴 위쪽에서 정상 폐포음이 들숨·날숨 끝까지 들리고, 천명이나 수포음은 없습니다.",
+          "sound": "normal"
+        },
+        "lung_ant_r_mid": {
+          "finding": "우측 앞가슴 중간에서도 호흡음이 잘 들리며 이상음이 없습니다.",
+          "sound": "normal"
+        },
+        "lung_ant_r_low": {
+          "finding": "우측 앞가슴 아래쪽까지 호흡음 감소 없이 정상 폐포음이 들립니다.",
+          "sound": "normal"
+        },
+        "lung_ant_l_up": {
+          "finding": "좌측 앞가슴 위쪽은 우측과 대칭적으로 같은 세기의 정상 폐포음이 들립니다.",
+          "sound": "normal"
+        },
+        "lung_ant_l_mid": {
+          "finding": "좌측 앞가슴 중간도 좌우 차이 없이 정상입니다.",
+          "sound": "normal"
+        },
+        "lung_ant_l_low": {
+          "finding": "좌측 앞가슴 아래쪽에서도 호흡음 감소나 이상음이 없습니다.",
+          "sound": "normal"
+        },
+        "lung_post_r_up": {
+          "finding": "우측 등 위쪽에서 들숨과 날숨 모두 정상 호흡음이 끝까지 들립니다.",
+          "sound": "normal"
+        },
+        "lung_post_r_mid": {
+          "finding": "우측 등 중간에서도 수포음 없이 정상 호흡음이 들립니다.",
+          "sound": "normal"
+        },
+        "lung_post_r_low": {
+          "finding": "우측 폐 아래쪽까지 호흡음이 잘 전달되고 감소가 없습니다.",
+          "sound": "normal"
+        },
+        "lung_post_l_up": {
+          "finding": "좌측 등 위쪽도 우측과 대칭적으로 정상입니다.",
+          "sound": "normal"
+        },
+        "lung_post_l_mid": {
+          "finding": "좌측 등 중간에서도 천명이나 수포음이 들리지 않습니다.",
+          "sound": "normal"
+        },
+        "lung_post_l_low": {
+          "finding": "좌측 폐 아래쪽도 호흡음 감소 없이 우측과 대칭적으로 들립니다.",
+          "sound": "normal"
+        }
+      },
+      "finding": "환자에게 크게 숨 쉬도록 안내하고 전면 6곳·후면 6곳을 좌우 대칭으로 청진했습니다. 양측 폐야 전체에서 정상 폐포음이 들숨·날숨 끝까지 들리며, 수포음·천명·흉막마찰음이 없고 좌우 호흡음 차이나 감소도 없습니다. 천식·기흉·폐렴·심부전을 시사하는 소견은 없습니다.",
+      "reaction": {
+        "emotion": "calm",
+        "line": "네, 크게 들이쉬고... 내쉴게요.",
+        "intensity": "none"
+      }
+    },
+    {
+      "id": "tremor_exam",
+      "label": "손떨림검사",
+      "type": "exam_action",
+      "points": 6,
+      "order": 6,
+      "required_regions": [],
+      "finding": "양손을 앞으로 뻗고 손목을 젖혀 손가락을 편 자세를 10초 이상 유지하는 동안, 손가락에 눈에 띄는 떨림이 없습니다. 갑상선중독증의 빠르고 규칙적인 미세떨림(fine tremor)도, 손목이 툭 떨어지는 퍼덕임(asterixis)도 관찰되지 않습니다.",
+      "reaction": {
+        "emotion": "anxious",
+        "line": "이렇게요? ...떨리진 않죠?",
+        "intensity": "none"
+      }
+    }
+  ],
+  "education_items": [
+    {
+      "id": "diagnosis",
+      "label": "진단 설명(공황장애/공황발작)",
+      "kind": "diagnosis_explanation",
+      "points": 4,
+      "rubric": {
+        "good": "근거 2개 이상",
+        "ok": "근거 1개/진단명만",
+        "miss": "진단 안 함"
+      },
+      "evidence_options": [
+        {
+          "id": "normal_heart",
+          "label": "심음 정상 — 잡음·불규칙 박동 없음",
+          "correct": true
+        },
+        {
+          "id": "normal_lung",
+          "label": "폐음 정상 — 양측 대칭, 수포음·천명 없음",
+          "correct": true
+        },
+        {
+          "id": "no_tremor",
+          "label": "손떨림 없음 — 갑상선중독을 시사하는 미세떨림 없음",
+          "correct": true
+        },
+        {
+          "id": "normal_vitals",
+          "label": "발작이 끝난 지금은 활력징후가 정상(맥박 88회/분)",
+          "correct": true
+        },
+        {
+          "id": "recurrent_episodes",
+          "label": "한 달 새 반복된 발작",
+          "correct": true
+        },
+        {
+          "id": "self_limited",
+          "label": "20분 내 저절로 가라앉는 발작",
+          "correct": true
+        },
+        {
+          "id": "no_exertional",
+          "label": "운동과 무관하게 안정 시 발생",
+          "correct": true
+        },
+        {
+          "id": "exertional_pain",
+          "label": "운동할 때 악화되는 흉통",
+          "correct": false
+        },
+        {
+          "id": "murmur",
+          "label": "심첨부 수축기 잡음",
+          "correct": false
+        },
+        {
+          "id": "wheezing",
+          "label": "양측 폐야 천명음",
+          "correct": false
+        },
+        {
+          "id": "fine_tremor",
+          "label": "양손의 빠르고 규칙적인 미세떨림",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "test_plan_lab",
+      "label": "검사: 심전도(EKG)·심근효소·갑상선기능(TSH)·일반혈액검사",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "부정맥·심근허혈·갑상선기능항진증 등 기질적 원인을 배제"
+    },
+    {
+      "id": "test_plan_image",
+      "label": "검사: 흉부 X선 (발작이 반복되면 24시간 활동 심전도)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "기흉·폐질환을 배제하고, 발작 순간의 부정맥 여부를 확인"
+    },
+    {
+      "id": "tx_analgesic",
+      "label": "치료: 발작 시 대처법(호흡 조절·안전한 곳에서 기다리기)과 카페인·수면 조절",
+      "kind": "treatment",
+      "points": 1
+    },
+    {
+      "id": "tx_definitive",
+      "label": "치료: 인지행동치료 및 약물치료(SSRI, 필요 시 단기 항불안제)",
+      "kind": "treatment",
+      "points": 2,
+      "rubric": {
+        "good": "인지행동치료와 약물치료를 함께 설명",
+        "ok": "둘 중 하나만",
+        "miss": "없음"
+      }
+    },
+    {
+      "id": "complication",
+      "label": "합병증·주의: 회피행동·광장공포증과 우울 동반 — 응급실 재방문 기준 설명",
+      "kind": "complication",
+      "points": 2,
+      "rubric": {
+        "good": "경과 위험과 재방문 기준을 함께 설명",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    }
+  ]
+}

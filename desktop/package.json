@@ -1,0 +1,12 @@
+{
+  "name": "patient-talk-opener-desktop",
+  "version": "1.0.0",
+  "description": "환자 말문 열기 — Electron 데스크톱 래퍼 (맥 로컬 실행)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^33.2.0"
+  }
+}

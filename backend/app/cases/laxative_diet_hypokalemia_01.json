@@ -1,0 +1,235 @@
+{
+  "case_id": "laxative_diet_hypokalemia_01",
+  "title": "기운 없고 다리에 힘이 빠지는 24살 지은씨",
+  "subtitle": "전신 무력감과 다리 힘 빠짐",
+  "difficulty": 2,
+  "patient_profile": {
+    "name": "지은",
+    "age": 24,
+    "gender": "female",
+    "occupation": "방송 아카데미 수강생 (아나운서 준비)",
+    "personality": "reserved",
+    "personality_desc": "외모와 체중에 대한 압박이 크고, 살을 빼려고 한 행동을 부끄러워한다. 비난받을까 봐 다이어트 방법을 숨기지만, 따뜻하게 물으면 조심스레 털어놓는다.",
+    "speaking_style": "조심스럽고 말끝을 흐린다. 민감한 질문에는 '별거 아니에요', '그냥 좀...'이라며 회피하다가 공감해주면 입을 연다.",
+    "body_type": "thin"
+  },
+  "chief_complaint": "요즘 온몸에 기운이 하나도 없고, 가끔 다리에 힘이 쭉 빠져요.",
+  "initial_state": {
+    "trust": 42,
+    "anxiety": 58,
+    "rapport": 38
+  },
+  "diagnosis": "laxative_abuse_hypokalemia",
+  "diagnosis_label": "변비약(자극성 하제) 남용으로 인한 저칼륨혈증",
+  "initial_facts": [
+    {
+      "key": "weakness",
+      "label": "전신 무력감",
+      "value": "2주 전부터 팔다리에 힘이 없고, 계단을 오르다 다리가 풀려 주저앉을 뻔한 적도 있다."
+    },
+    {
+      "key": "palpitation",
+      "label": "두근거림",
+      "value": "가끔 가슴이 두근거리고 맥이 건너뛰는 느낌이 든다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "laxative_abuse",
+      "label": "변비약 다량 복용",
+      "value": "체중을 빼려고 두 달째 매일 시중 변비약을 권장량의 서너 배씩 먹고 있다. 먹으면 다음 날 화장실을 여러 번 가서 몸이 가벼워지는 느낌이 든다며 끊지 못한다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_medication",
+      "required_trust": 60,
+      "requires_empathy": true,
+      "refusal_line": "약은... 따로 먹는 거 없어요. 그냥 영양제 정도?"
+    },
+    {
+      "key": "restrictive_eating",
+      "label": "극단적 절식 다이어트",
+      "value": "하루에 방울토마토와 닭가슴살 조금만 먹으며, 한 달 만에 6kg을 뺐다. 방송 준비 때문에 살이 더 빠져야 한다고 생각한다.",
+      "sensitivity": 0.7,
+      "unlock_intent": "ask_diet",
+      "required_trust": 50,
+      "requires_empathy": true,
+      "refusal_line": "식사요? 그냥... 남들 먹는 만큼 먹어요."
+    },
+    {
+      "key": "muscle_cramps",
+      "label": "근육 경련과 저림",
+      "value": "밤에 종아리에 쥐가 자주 나고, 손끝이 저릿한 느낌이 든다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_severity",
+      "required_trust": 44,
+      "requires_empathy": false,
+      "refusal_line": "그냥 좀 피곤해서 그런 것 같아요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "기운 빠지는 건 2주쯤 됐고, 다리 힘 빠지는 건 한 일주일 됐어요.",
+    "severity": "쓰러진 적은 없는데 다리가 풀려서 벽을 잡은 적은 있어요. 가슴도 가끔 두근거려요.",
+    "diet": "끼니는 챙겨 먹는 편이에요. 그냥 양은 좀 적게요.",
+    "menstruation": "생리가 두 달째 안 나와요. 원래 좀 불규칙하긴 했어요.",
+    "pregnancy": "임신은 아니에요. 그럴 일 없어요.",
+    "past_history": "크게 아팠던 적 없고 콩팥이나 그런 것도 들어본 적 없어요.",
+    "family_history": "가족 중에 비슷한 사람은 없어요.",
+    "social_history": "술 담배는 안 해요.",
+    "weight_loss": "한 달 사이에 6kg 정도 빠졌어요. 일부러 좀 뺐어요.",
+    "melena": "변에 피가 섞이거나 검진 않았어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "무력감과 다리 힘 빠짐의 시작 시점"
+    },
+    {
+      "topic": "severity",
+      "label": "근육 경련, 저림, 두근거림 등 동반 증상"
+    },
+    {
+      "topic": "medication",
+      "label": "변비약·다이어트 보조제 등 복용 약물"
+    },
+    {
+      "topic": "diet",
+      "label": "식이 습관과 절식 여부"
+    },
+    {
+      "topic": "weight_loss",
+      "label": "최근 체중 변화"
+    },
+    {
+      "topic": "menstruation",
+      "label": "월경 변화"
+    },
+    {
+      "topic": "past_history",
+      "label": "신장질환 등 기존 병력"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "medication",
+    "weight_loss"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "laxative_abuse_hypokalemia",
+      "label": "변비약 남용으로 인한 저칼륨혈증",
+      "correct": true
+    },
+    {
+      "id": "primary_aldosteronism",
+      "label": "원발성 알도스테론증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "anorexia_nervosa",
+      "label": "신경성 식욕부진증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "renal_tubular_acidosis",
+      "label": "신세뇨관성 산증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "hyperthyroidism",
+      "label": "갑상선 기능항진증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "depression",
+      "label": "우울증",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "brain_tumor",
+      "label": "뇌종양",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "serum_electrolytes",
+      "label": "혈청 전해질 (Na/K/Cl)",
+      "recommended": true
+    },
+    {
+      "id": "EKG",
+      "label": "심전도 (EKG)",
+      "recommended": true
+    },
+    {
+      "id": "venous_blood_gas",
+      "label": "정맥혈 가스분석 (산-염기)",
+      "recommended": true
+    },
+    {
+      "id": "TSH",
+      "label": "갑상선 기능 (TSH/fT4)",
+      "recommended": true
+    },
+    {
+      "id": "renal_function",
+      "label": "신기능검사 (BUN/Cr)",
+      "recommended": true
+    },
+    {
+      "id": "aldosterone_renin",
+      "label": "알도스테론/레닌 비율",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "urine_electrolytes",
+      "label": "소변 전해질",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "CBC",
+      "label": "일반혈액검사 (CBC)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "chest_CT",
+      "label": "흉부 CT",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "원인 불명의 저칼륨혈증에서는 자극성 하제·이뇨제 남용 같은 숨은 약물 사용을 반드시 확인해야 한다.",
+    "젊은 여성의 무력감과 체중 감소에서는 다이어트 행동과 섭식 패턴을 구체적으로 물어야 한다.",
+    "저칼륨혈증은 심전도 변화와 치명적 부정맥을 일으킬 수 있어 즉각적 평가가 필요하다.",
+    "다이어트·변비약 사용은 수치심과 연결되므로 비난하지 않는 공감적 태도로 접근해야 답을 얻는다."
+  ],
+  "max_turns": 15,
+  "presentation": "24세 여자 지은씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "108/68 mmHg",
+    "hr": "90회/분",
+    "rr": "18회/분",
+    "temp": "36.5℃"
+  }
+}

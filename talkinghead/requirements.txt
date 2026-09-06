@@ -1,0 +1,21 @@
+# talkinghead deps — Wav2Lip + GFPGAN on Apple Silicon (MPS), no CUDA.
+# Install with: uv pip install -r requirements.txt
+# (Python 3.11 env created via: uv venv --python 3.11 .venv)
+torch==2.8.0
+torchvision==0.23.0
+numpy<2
+opencv-python
+librosa==0.10.2
+numba
+scipy
+tqdm
+imageio-ffmpeg
+# face restoration
+gfpgan
+basicsr
+facexlib
+realesrgan
+# optional, for server_example.py
+fastapi
+uvicorn
+python-multipart

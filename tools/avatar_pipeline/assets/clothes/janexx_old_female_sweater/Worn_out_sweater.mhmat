@@ -1,0 +1,83 @@
+# This is a material file for MakeHuman, produced by MakeSkin
+
+// Metadata
+
+tag MakeHuman
+tag cotton
+tag wine red
+tag worn out
+tag patches
+name Old sweater
+description An old worn out and wine red  cotton material with a fox and patches
+license CC0
+author janexx
+
+// Color
+
+diffuseColor 1.0000 1.0000 1.0000
+specularColor 0.0000 0.0000 0.0000
+viewPortColor 0.8000 0.8000 0.8000
+
+// Texture
+
+diffuseTexture Worn_out_sweater_diffuse.png
+normalmapTexture Worn_out_sweater_normal.png
+
+// Intensity
+
+diffuseIntensity 1.0000
+normalmapIntensity 1.0000
+
+// SSS
+
+
+// Various
+
+litsphereTexture lit_leather
+metallic 0.0000
+ior 1.4500
+roughness 1.0000
+shininess 0.0000
+opacity 1.0000
+shadeless False
+wireframe False
+transparent False
+alphaToCoverage True
+backfaceCull True
+depthless False
+castShadows True
+receiveShadows True
+autoBlendSkin False
+
+// Shader properties (only affects how things look in MakeHuman)
+
+shader shaders/glsl/litsphere
+shaderParam litsphereTexture litspheres/lit_leather.png
+shaderConfig normal True
+
+// The following settings would also have been valid, but do currently not have a value
+//
+// uuid
+// homepage
+// shaderParam
+// emissiveColor
+// ambientColor
+// bumpmapTexture
+// displacementmapTexture
+// specularmapTexture
+// transmissionmapTexture
+// transparencymapTexture
+// roughnessmapTexture
+// metallicmapTexture
+// aomapTexture
+// bumpmapIntensity
+// displacementMapIntensity
+// specularmapIntensity
+// transparencymapIntensity
+// aomapIntensity
+// sssEnabled
+// sssRScale
+// sssGScale
+// sssBScale
+// blendMaterial
+// translucency

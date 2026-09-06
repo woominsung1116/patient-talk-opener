@@ -1,0 +1,233 @@
+{
+  "case_id": "creatine_supplement_aki_01",
+  "title": "거품뇨와 붓기가 생긴 27살 현우씨",
+  "subtitle": "다리 붓기와 소변 거품",
+  "difficulty": 3,
+  "patient_profile": {
+    "name": "현우",
+    "age": 27,
+    "gender": "male",
+    "occupation": "헬스 트레이너",
+    "personality": "guarded",
+    "personality_desc": "몸 만드는 데 자부심이 크고, 과도한 보충제·단백질 섭취를 지적받기 싫어 숨긴다. 공감적으로 물으면 운동 루틴과 보충제를 자세히 말한다.",
+    "speaking_style": "처음엔 짧고 방어적. 보충제 얘기엔 '그냥 운동하는 사람 다 먹는 거예요'라며 넘기다가 신뢰가 생기면 솔직해진다."
+  },
+  "chief_complaint": "다리가 붓고 소변에 거품이 많이 끼어요.",
+  "initial_state": {
+    "trust": 40,
+    "anxiety": 55,
+    "rapport": 36
+  },
+  "diagnosis": "supplement_induced_acute_kidney_injury",
+  "diagnosis_label": "고단백·보충제 과다 섭취와 NSAID 병용으로 인한 급성 신손상",
+  "initial_facts": [
+    {
+      "key": "edema",
+      "label": "하지 부종",
+      "value": "일주일 전부터 양쪽 발목과 종아리가 붓고, 양말 자국이 깊게 남는다."
+    },
+    {
+      "key": "foamy_urine",
+      "label": "거품뇨",
+      "value": "소변에 거품이 많이 끼고 잘 꺼지지 않는다. 소변량도 좀 줄어든 느낌이다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "excess_protein_supplement",
+      "label": "단백질·크레아틴 보충제 과다 복용",
+      "value": "대회 준비로 두 달째 시중 단백질 보충제와 크레아틴을 권장량의 두세 배씩 먹고, 하루 닭가슴살 1kg 이상을 먹는다. 운동인의 당연한 식단이라 여겨 숨긴다.",
+      "sensitivity": 0.85,
+      "unlock_intent": "ask_diet",
+      "required_trust": 58,
+      "requires_empathy": true,
+      "refusal_line": "그냥 운동하는 사람들 먹는 평범한 식단이에요. 특별할 거 없어요."
+    },
+    {
+      "key": "nsaid_painkiller_abuse",
+      "label": "진통제 상습 복용",
+      "value": "근육통 때문에 두 달간 시중 소염진통제를 거의 매일 두세 알씩 먹어왔다. 약이라 생각하지 않아 말하지 않는다.",
+      "sensitivity": 0.8,
+      "unlock_intent": "ask_medication",
+      "required_trust": 55,
+      "requires_empathy": true,
+      "refusal_line": "약은 안 먹어요. 진통제 정도는 그냥 가끔..."
+    },
+    {
+      "key": "decreased_urine_volume",
+      "label": "소변량 감소",
+      "value": "최근 며칠 물을 많이 마시는데도 소변량이 확 줄었다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_severity",
+      "required_trust": 44,
+      "requires_empathy": false,
+      "refusal_line": "소변이요? 그냥 비슷한 것 같은데요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "붓기랑 거품뇨는 일주일쯤 됐어요. 점점 심해지는 것 같아요.",
+    "severity": "소변량이 좀 줄었고 몸이 무겁고 피곤해요. 혈압이 좀 높다는 말은 들은 적 있어요.",
+    "diet": "단백질 위주로 먹어요. 운동하는 사람이라.",
+    "social_history": "술은 거의 안 하고 담배도 안 펴요.",
+    "past_history": "콩팥 검사 따로 받은 적 없어요. 건강검진은 작년에 정상이었어요.",
+    "family_history": "가족 중 콩팥 아픈 사람은 없어요.",
+    "weight_loss": "체중은 오히려 늘었어요. 붓는 것 같기도 하고요.",
+    "melena": "변에 피나 검은색은 없었어요.",
+    "sleep": "잠은 잘 자는 편이에요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "부종과 거품뇨의 시작 시점"
+    },
+    {
+      "topic": "severity",
+      "label": "소변량 변화·혈압 등 동반 증상"
+    },
+    {
+      "topic": "diet",
+      "label": "고단백 식이와 보충제 섭취"
+    },
+    {
+      "topic": "medication",
+      "label": "진통제·보충제 등 복용 약물"
+    },
+    {
+      "topic": "past_history",
+      "label": "신질환·고혈압 병력"
+    },
+    {
+      "topic": "family_history",
+      "label": "신질환 가족력"
+    },
+    {
+      "topic": "social_history",
+      "label": "음주·흡연력"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "medication",
+    "diet"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "supplement_induced_acute_kidney_injury",
+      "label": "보충제 과다·진통제 병용으로 인한 급성 신손상",
+      "correct": true
+    },
+    {
+      "id": "glomerulonephritis",
+      "label": "사구체신염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "nephrotic_syndrome",
+      "label": "신증후군",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "rhabdomyolysis",
+      "label": "횡문근융해증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "hypertensive_nephropathy",
+      "label": "고혈압성 신병증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "heart_failure",
+      "label": "심부전",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "panic_attack",
+      "label": "공황발작",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "renal_function",
+      "label": "신기능검사 (BUN/Cr, eGFR)",
+      "recommended": true
+    },
+    {
+      "id": "urinalysis",
+      "label": "소변검사 (단백뇨·혈뇨)",
+      "recommended": true
+    },
+    {
+      "id": "urine_protein_creatinine",
+      "label": "소변 단백/크레아티닌 비",
+      "recommended": true
+    },
+    {
+      "id": "serum_electrolytes",
+      "label": "혈청 전해질",
+      "recommended": true
+    },
+    {
+      "id": "CK",
+      "label": "혈중 크레아틴키나아제 (CK)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "renal_ultrasound",
+      "label": "신장 초음파",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "CBC",
+      "label": "일반혈액검사 (CBC)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "blood_pressure_monitoring",
+      "label": "혈압 측정·모니터링",
+      "recommended": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "endoscopy",
+      "label": "위내시경",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "원인 미상의 부종·단백뇨에서는 고단백 식이, 보충제, 진통제 같은 신독성 노출을 반드시 확인해야 한다.",
+    "NSAID 상습 복용은 급성 신손상과 간질성 신염의 흔한 원인이다.",
+    "운동·보디빌딩 인구에서 크레아틴·단백질 과다 섭취가 신기능에 부담을 줄 수 있다.",
+    "보충제·식단은 자부심과 연결되어 과소 보고되기 쉬우므로 비난하지 않는 태도로 구체적으로 물어야 한다."
+  ],
+  "max_turns": 15,
+  "presentation": "27세 남자 현우씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "150/95 mmHg",
+    "hr": "84회/분",
+    "rr": "18회/분",
+    "temp": "36.5℃"
+  }
+}

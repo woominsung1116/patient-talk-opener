@@ -1,0 +1,333 @@
+{
+  "case_id": "stable_angina_01",
+  "title": "계단만 오르면 가슴이 조이는 58살 성호씨",
+  "subtitle": "운동 시 흉통",
+  "difficulty": 2,
+  "patient_profile": {
+    "name": "성호",
+    "age": 58,
+    "gender": "male",
+    "occupation": "자영업",
+    "personality": "stoic_minimizing",
+    "personality_desc": "무뚝뚝하고 참는 편. 별거 아니라며 축소해 말하고 흡연·음주 질문에는 얼버무린다.",
+    "speaking_style": "짧고 퉁명스럽다. 걱정을 잘 드러내지 않는다.",
+    "body_type": "stocky",
+    "signs": []
+  },
+  "chief_complaint": "요즘 걷다 보면 가슴이 좀 조이는 것 같아서요.",
+  "initial_state": {
+    "trust": 45,
+    "anxiety": 35,
+    "rapport": 30
+  },
+  "diagnosis": "stable_angina",
+  "diagnosis_label": "협심증",
+  "initial_facts": [
+    {
+      "key": "onset",
+      "label": "발병 시점",
+      "value": "한 달쯤 전부터요. 빨리 걷거나 계단 오를 때 가슴 한가운데가 조여요."
+    },
+    {
+      "key": "relief",
+      "label": "완화 요인",
+      "value": "쉬면 3분에서 5분쯤 지나면 가라앉아요."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "radiation",
+      "label": "방사통",
+      "value": "가끔 왼쪽 어깨로도 뻗치는 것 같아요.",
+      "sensitivity": 0.2,
+      "unlock_intent": "ask_radiation",
+      "required_trust": 25,
+      "requires_empathy": false,
+      "refusal_line": "다른 데는 안 아파요."
+    },
+    {
+      "key": "progression",
+      "label": "악화",
+      "value": "오늘 아침엔 평지를 걷는데도 왔어요. 그래서 온 거예요.",
+      "sensitivity": 0.3,
+      "unlock_intent": "ask_progression",
+      "required_trust": 30,
+      "requires_empathy": false,
+      "refusal_line": "뭐 늘 비슷해요."
+    },
+    {
+      "key": "smoking",
+      "label": "흡연",
+      "value": "담배는... 10년째 하루 한 갑 정도요.",
+      "sensitivity": 0.6,
+      "unlock_intent": "ask_smoking",
+      "required_trust": 45,
+      "requires_empathy": false,
+      "refusal_line": "담배는... 조금 피워요."
+    },
+    {
+      "key": "hypertension",
+      "label": "고혈압",
+      "value": "혈압약을 먹다가 몇 달 전에 끊었어요. 괜찮은 것 같아서.",
+      "sensitivity": 0.5,
+      "unlock_intent": "ask_past_history",
+      "required_trust": 40,
+      "requires_empathy": false,
+      "refusal_line": "혈압은 괜찮았어요."
+    }
+  ],
+  "negative_findings": {
+    "rest_pain": "가만히 있을 때는 안 아파요.",
+    "dyspnea_rest": "숨은 안 차요. 걸을 때 말고는.",
+    "fever": "열은 없어요.",
+    "family_history": "아버지가 심장으로 돌아가셨다고 들었어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "증상 시작 시점"
+    },
+    {
+      "topic": "character",
+      "label": "통증 양상"
+    },
+    {
+      "topic": "provocation",
+      "label": "유발 요인"
+    },
+    {
+      "topic": "relief",
+      "label": "완화 요인"
+    },
+    {
+      "topic": "radiation",
+      "label": "방사통"
+    },
+    {
+      "topic": "progression",
+      "label": "최근 악화 여부"
+    },
+    {
+      "topic": "risk_factors",
+      "label": "위험인자(흡연·고혈압)"
+    }
+  ],
+  "red_flags": [
+    "progression",
+    "radiation"
+  ],
+  "max_turns": 15,
+  "scoring_weights": {
+    "history_taking": 40,
+    "physical_exam": 30,
+    "patient_education": 10,
+    "ppi": 20
+  },
+  "exam_items": [
+    {
+      "id": "hand_hygiene",
+      "label": "손위생(손소독제)",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-1"
+      ],
+      "order": 0,
+      "finding": "손을 소독했습니다."
+    },
+    {
+      "id": "drape",
+      "label": "가려주기/필요 부위만 노출",
+      "type": "prep",
+      "points": 0,
+      "ppi": [
+        "6-3"
+      ],
+      "order": 2,
+      "finding": "심장 청진을 위해 환자가 스스로 상의를 올리게 하고, 청진할 부위만 남기고 나머지는 가려드렸습니다."
+    },
+    {
+      "id": "chest_palpation",
+      "label": "흉부 촉진(재현 통증)",
+      "type": "exam",
+      "points": 4,
+      "ppi": [
+        "6-4"
+      ],
+      "order": 3,
+      "finding": "눌러도 통증이 재현되지 않습니다."
+    },
+    {
+      "id": "peripheral_pulse",
+      "label": "말초 맥박 촉지",
+      "type": "exam",
+      "points": 4,
+      "ppi": [],
+      "order": 4,
+      "finding": "양측 말초 맥박은 잘 만져집니다."
+    }
+  ],
+  "education_items": [
+    {
+      "id": "diagnosis",
+      "label": "진단 설명(갑상선 기능항진증)",
+      "kind": "diagnosis_explanation",
+      "points": 4,
+      "rubric": {
+        "good": "근거 2개 이상",
+        "ok": "근거 1개/진단명만",
+        "miss": "진단 안 함"
+      },
+      "evidence_options": [
+        {
+          "id": "weight_loss_with_appetite",
+          "label": "식욕은 늘었는데 체중이 줄었음",
+          "correct": true
+        },
+        {
+          "id": "palpitation_tachycardia",
+          "label": "안정 시 두근거림과 빈맥(112회/분)",
+          "correct": true
+        },
+        {
+          "id": "heat_intolerance",
+          "label": "더위를 못 참고 땀이 많음",
+          "correct": true
+        },
+        {
+          "id": "diffuse_goiter",
+          "label": "갑상샘 좌·우엽의 미만성 종대",
+          "correct": true
+        },
+        {
+          "id": "fine_tremor",
+          "label": "양손의 미세하고 빠른 떨림",
+          "correct": true
+        },
+        {
+          "id": "no_drug_history",
+          "label": "체중감량제·갑상선호르몬 복용력 없음",
+          "correct": true
+        },
+        {
+          "id": "thyroid_normal_size",
+          "label": "갑상샘이 커져 있지 않음",
+          "correct": false
+        },
+        {
+          "id": "hard_nodule",
+          "label": "갑상샘에 단단한 결절이 만져짐",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "test_plan_lab",
+      "label": "검사: 갑상선기능검사(TSH/유리 T4)와 갑상선 자가항체(TRAb)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "TSH 억제 + 유리 T4 상승으로 갑상선중독증을 확진하고, TRAb 양성으로 그레이브스병 여부를 확인"
+    },
+    {
+      "id": "test_plan_image",
+      "label": "검사: 갑상선 초음파와 갑상선 스캔(방사성요오드 섭취율)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "미만성 종대와 섭취율 증가를 확인 — 섭취율이 낮으면 갑상샘염이나 외인성 호르몬 섭취를 의심"
+    },
+    {
+      "id": "tx_analgesic",
+      "label": "치료: 베타차단제로 두근거림·손떨림 등 증상 우선 조절",
+      "kind": "treatment",
+      "points": 1
+    },
+    {
+      "id": "tx_definitive",
+      "label": "치료: 항갑상선제 / 방사성요오드 치료 / 수술 중 선택",
+      "kind": "treatment",
+      "points": 2,
+      "rubric": {
+        "good": "2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    },
+    {
+      "id": "complication",
+      "label": "합병증: 항갑상선제 무과립구증(발열·인후통 시 즉시 중단하고 내원), 갑상선중독발작, 심방세동·골다공증",
+      "kind": "complication",
+      "points": 2,
+      "rubric": {
+        "good": "합병증+대처 2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    }
+  ],
+  "presentation": "58세 남자 성호씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "148/88 mmHg",
+    "hr": "78회/분",
+    "rr": "16회/분",
+    "temp": "36.5℃"
+  },
+  "diagnosis_options": [
+    {
+      "id": "stable_angina",
+      "label": "협심증",
+      "correct": true
+    },
+    {
+      "id": "gerd",
+      "label": "위식도역류질환",
+      "correct": false
+    },
+    {
+      "id": "musculoskeletal",
+      "label": "근골격계 흉통",
+      "correct": false
+    },
+    {
+      "id": "pericarditis",
+      "label": "심낭염",
+      "correct": false
+    },
+    {
+      "id": "aortic_dissection",
+      "label": "대동맥박리",
+      "correct": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "ecg",
+      "label": "심전도",
+      "recommended": true
+    },
+    {
+      "id": "troponin",
+      "label": "심근효소",
+      "recommended": true
+    },
+    {
+      "id": "stress_test",
+      "label": "운동부하검사",
+      "recommended": true
+    },
+    {
+      "id": "lipid",
+      "label": "지질검사",
+      "recommended": true
+    },
+    {
+      "id": "endoscopy",
+      "label": "위내시경",
+      "recommended": false
+    }
+  ],
+  "teaching_points": [
+    "운동 시 발생하고 휴식으로 3~5분 내 완화되는 흉통은 협심증의 전형이다.",
+    "최근 더 낮은 강도에서도 발생하면 불안정 협심증으로 악화된 신호다.",
+    "흡연·고혈압·가족력 같은 위험인자를 함께 확인해야 한다."
+  ]
+}

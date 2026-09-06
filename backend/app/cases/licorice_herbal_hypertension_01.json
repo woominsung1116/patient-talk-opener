@@ -1,0 +1,235 @@
+{
+  "case_id": "licorice_herbal_hypertension_01",
+  "title": "뒷골이 당기고 어지러운 71살 영호씨",
+  "subtitle": "두통과 어지러움, 무력감",
+  "difficulty": 3,
+  "patient_profile": {
+    "name": "영호",
+    "age": 71,
+    "gender": "male",
+    "occupation": "은퇴한 택시 기사",
+    "personality": "guarded",
+    "personality_desc": "건강원에서 지어온 보약을 굳게 믿어 의사에게 말하면 못 먹게 할까 봐 숨긴다. 비난하지 않고 공감하면 복용 사실을 털어놓는다.",
+    "speaking_style": "무뚝뚝하고 약 얘기엔 '몸에 좋은 거지 약도 아닌데요'라며 넘기다가 신뢰가 생기면 솔직해진다."
+  },
+  "chief_complaint": "요즘 뒷골이 당기고 자꾸 어지러우면서 기운이 없어요.",
+  "initial_state": {
+    "trust": 38,
+    "anxiety": 56,
+    "rapport": 34
+  },
+  "diagnosis": "licorice_induced_hypertension_hypokalemia",
+  "diagnosis_label": "감초(글리시리진) 함유 보약 복용으로 인한 고혈압·저칼륨혈증",
+  "initial_facts": [
+    {
+      "key": "headache_dizziness",
+      "label": "두통과 어지러움",
+      "value": "2주 전부터 뒷머리가 당기고 어지러워 운전 중에도 핑 도는 느낌이 든다."
+    },
+    {
+      "key": "weakness",
+      "label": "무력감",
+      "value": "팔다리에 힘이 없고 쉽게 지친다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "licorice_herbal_tonic",
+      "label": "감초 함유 보약·달임물 상복",
+      "value": "두 달째 건강원에서 지어온 보약과 감초를 듬뿍 넣은 달임물을 매일 마신다. 약이 아니라 몸보신이라 여겨 숨기고, 말하면 못 먹게 할까 봐 감춘다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_medication",
+      "required_trust": 60,
+      "requires_empathy": true,
+      "refusal_line": "약은 안 먹어요. 그냥 몸에 좋은 거 좀 달여 먹는 정도지 약은 아니에요."
+    },
+    {
+      "key": "leg_swelling",
+      "label": "다리 붓기",
+      "value": "최근 발목과 종아리가 붓고 신발이 꽉 끼는 느낌이 든다.",
+      "sensitivity": 0.5,
+      "unlock_intent": "ask_severity",
+      "required_trust": 46,
+      "requires_empathy": true,
+      "refusal_line": "붓기요? 그냥 오래 앉아 있어서 그런 거겠죠."
+    },
+    {
+      "key": "no_added_salt_but_processed",
+      "label": "달임물 외 식이",
+      "value": "달임물을 물 대신 하루 종일 마셔 섭취량이 매우 많다.",
+      "sensitivity": 0.35,
+      "unlock_intent": "ask_diet",
+      "required_trust": 42,
+      "requires_empathy": false,
+      "refusal_line": "밥은 평소대로 먹어요. 별다른 거 없어요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "두통이랑 어지러운 건 2주쯤 됐어요.",
+    "severity": "혈압이 높다는 말을 오늘 처음 들었어요. 다리도 좀 붓고요.",
+    "diet": "밥은 평소대로 먹어요. 짜게 먹는 편은 아니에요.",
+    "medication": "혈압약 같은 건 안 먹어요.",
+    "social_history": "술은 거의 안 마시고 담배는 하루 반 갑 정도요.",
+    "past_history": "전에 혈압이 높다는 말은 들은 적 없어요.",
+    "family_history": "아버지가 고혈압이 있으셨던 것 같아요.",
+    "weight_loss": "체중은 비슷하거나 좀 늘었어요.",
+    "melena": "변에 피나 검은색은 없었어요.",
+    "sleep": "잠은 그럭저럭 자요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "두통·어지러움 시작 시점"
+    },
+    {
+      "topic": "severity",
+      "label": "혈압 상승·부종 등 동반 증상"
+    },
+    {
+      "topic": "medication",
+      "label": "보약·감초 달임물 등 복용"
+    },
+    {
+      "topic": "diet",
+      "label": "달임물 등 식이·수분 섭취"
+    },
+    {
+      "topic": "past_history",
+      "label": "고혈압 등 기존 병력"
+    },
+    {
+      "topic": "family_history",
+      "label": "고혈압 가족력"
+    },
+    {
+      "topic": "social_history",
+      "label": "음주·흡연력"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "medication",
+    "onset_duration"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "licorice_induced_hypertension_hypokalemia",
+      "label": "감초 함유 보약으로 인한 고혈압·저칼륨혈증",
+      "correct": true
+    },
+    {
+      "id": "primary_aldosteronism",
+      "label": "원발성 알도스테론증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "essential_hypertension",
+      "label": "본태성 고혈압",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "renal_artery_stenosis",
+      "label": "신동맥 협착",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "pheochromocytoma",
+      "label": "갈색세포종",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "panic_attack",
+      "label": "공황발작",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "benign_positional_vertigo",
+      "label": "양성 돌발성 체위성 어지럼증",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "blood_pressure_monitoring",
+      "label": "혈압 측정·모니터링",
+      "recommended": true
+    },
+    {
+      "id": "serum_electrolytes",
+      "label": "혈청 전해질 (Na/K)",
+      "recommended": true
+    },
+    {
+      "id": "aldosterone_renin",
+      "label": "알도스테론/레닌 비율",
+      "recommended": true
+    },
+    {
+      "id": "venous_blood_gas",
+      "label": "정맥혈 가스분석 (대사성 알칼리증)",
+      "recommended": true
+    },
+    {
+      "id": "renal_function",
+      "label": "신기능검사 (BUN/Cr)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "EKG",
+      "label": "심전도 (EKG)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "renal_doppler_US",
+      "label": "신동맥 도플러 초음파",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "urine_cortisol",
+      "label": "24시간 소변 코르티솔",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "endoscopy",
+      "label": "위내시경",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "젊은 나이의 갑작스런 고혈압과 저칼륨혈증 조합에서는 이차성 고혈압과 감초 섭취를 함께 의심해야 한다.",
+    "감초의 글리시리진은 가성 알도스테론증을 일으켜 고혈압·저칼륨혈증·대사성 알칼리증을 유발한다.",
+    "한약·보약·달임물은 '약'으로 인식되지 않아 누락되기 쉬우므로 구체적으로 묻고 성분을 확인해야 한다.",
+    "원발성 알도스테론증과의 감별을 위해 알도스테론/레닌 비율을 평가한다."
+  ],
+  "max_turns": 15,
+  "presentation": "71세 남자 영호씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "168/98 mmHg",
+    "hr": "78회/분",
+    "rr": "18회/분",
+    "temp": "36.5℃"
+  }
+}

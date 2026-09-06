@@ -1,0 +1,10 @@
+import { chromium } from 'playwright'
+const b = await chromium.launch({ args:['--use-angle=metal'] })
+const p = await b.newPage({ viewport:{width:1000,height:700} })
+p.on('pageerror', e => console.log('PAGEERROR:', e.message))
+p.on('console', m => console.log('['+m.type()+']', m.text().slice(0,200)))
+p.on('requestfailed', r => console.log('REQFAIL:', r.url().slice(0,120), r.failure()?.errorText))
+p.on('response', r => { if (r.status()>=400) console.log('HTTP', r.status(), r.url().slice(0,120)) })
+await p.goto(process.argv[2], { waitUntil:'load', timeout:60000 })
+await p.waitForTimeout(7000)
+await b.close()

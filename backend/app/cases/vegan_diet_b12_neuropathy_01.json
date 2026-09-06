@@ -1,0 +1,235 @@
+{
+  "case_id": "vegan_diet_b12_neuropathy_01",
+  "title": "손발이 저리고 휘청거리는 26살 지은씨",
+  "subtitle": "손발 저림과 균형 잡기 어려움",
+  "difficulty": 3,
+  "patient_profile": {
+    "name": "지은",
+    "age": 26,
+    "gender": "female",
+    "occupation": "비건 베이커리 운영",
+    "personality": "reserved",
+    "personality_desc": "신념에 따른 엄격한 식단을 자랑스러워하지만, 의사가 식단을 바꾸라 할까 봐 처음엔 방어적이다. 비난하지 않고 공감하면 식단과 보조제 미복용을 자세히 말한다.",
+    "speaking_style": "조심스럽고 말끝을 흐린다. 식단 얘기엔 '문제될 거 없는데요'라며 방어하다가 신뢰가 생기면 솔직해진다."
+  },
+  "chief_complaint": "손발이 자꾸 저리고 가끔 걸을 때 휘청거려요.",
+  "initial_state": {
+    "trust": 43,
+    "anxiety": 54,
+    "rapport": 38
+  },
+  "diagnosis": "vegan_diet_b12_deficiency",
+  "diagnosis_label": "엄격한 비건 식이로 인한 비타민 B12 결핍 신경병증",
+  "initial_facts": [
+    {
+      "key": "paresthesia",
+      "label": "손발 저림",
+      "value": "두 달 전부터 양쪽 손끝과 발끝이 저리고 무딘 느낌이 점점 위로 올라온다."
+    },
+    {
+      "key": "gait_imbalance",
+      "label": "균형 장애",
+      "value": "어두운 곳에서 걸으면 더 휘청거리고, 계단을 내려갈 때 발 디딤이 불안하다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "strict_vegan_no_supplement",
+      "label": "보조제 없는 엄격한 비건 식이",
+      "value": "5년째 고기·생선·유제품·달걀을 전혀 먹지 않으면서 비타민 B12 보조제는 따로 챙겨 먹지 않았다. 식단이 완벽하다고 믿어 결핍 가능성을 인정하기 싫어한다.",
+      "sensitivity": 0.75,
+      "unlock_intent": "ask_diet",
+      "required_trust": 55,
+      "requires_empathy": true,
+      "refusal_line": "식단은 정말 건강하게 챙겨 먹어요. 그게 문제일 리 없어요."
+    },
+    {
+      "key": "no_b12_supplement",
+      "label": "영양제·보조제 미복용",
+      "value": "주변에서 비타민제를 권했지만 약 먹는 걸 싫어해 한 번도 챙기지 않았다.",
+      "sensitivity": 0.5,
+      "unlock_intent": "ask_medication",
+      "required_trust": 46,
+      "requires_empathy": true,
+      "refusal_line": "영양제요? 그런 거 안 먹어도 식단으로 다 돼요."
+    },
+    {
+      "key": "cognitive_mood_change",
+      "label": "기억력·기분 변화",
+      "value": "요즘 깜빡하는 일이 늘고 의욕이 떨어지며 혀가 화끈거리는 느낌이 든다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_severity",
+      "required_trust": 44,
+      "requires_empathy": false,
+      "refusal_line": "그냥 좀 피곤해서 그런 것 같아요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "저림은 두 달쯤 됐고 점점 위로 올라와요. 휘청거리는 건 최근 들어 심해졌어요.",
+    "severity": "넘어진 적은 없는데 어두우면 균형 잡기가 힘들어요. 혀도 좀 화끈거리고 깜빡깜빡해요.",
+    "diet": "채식 위주로 건강하게 잘 먹어요.",
+    "medication": "약은 안 먹어요.",
+    "menstruation": "생리는 규칙적이에요.",
+    "pregnancy": "임신은 아니에요.",
+    "social_history": "술 담배 안 하고 커피 정도만 마셔요.",
+    "past_history": "위 수술이나 큰 병 앓은 적 없어요.",
+    "family_history": "가족 중 신경 질환이나 빈혈 있는 사람은 모르겠어요.",
+    "weight_loss": "체중은 비슷해요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "저림·균형장애 시작 시점과 진행"
+    },
+    {
+      "topic": "severity",
+      "label": "인지·기분 변화, 혀 통증 등 동반 증상"
+    },
+    {
+      "topic": "diet",
+      "label": "식이 패턴 (채식·동물성 식품 배제)"
+    },
+    {
+      "topic": "medication",
+      "label": "비타민·보조제 복용 여부"
+    },
+    {
+      "topic": "past_history",
+      "label": "위장관 수술·흡수장애 병력"
+    },
+    {
+      "topic": "social_history",
+      "label": "음주·흡연력"
+    },
+    {
+      "topic": "family_history",
+      "label": "신경질환·악성빈혈 가족력"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "diet",
+    "onset_duration"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "vegan_diet_b12_deficiency",
+      "label": "비건 식이로 인한 비타민 B12 결핍 신경병증",
+      "correct": true
+    },
+    {
+      "id": "pernicious_anemia",
+      "label": "악성빈혈 (내인자 결핍)",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "diabetic_neuropathy",
+      "label": "당뇨병성 신경병증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "multiple_sclerosis",
+      "label": "다발성 경화증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "guillain_barre_syndrome",
+      "label": "길랭-바레 증후군",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "hyperthyroidism",
+      "label": "갑상선 기능항진증",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "panic_attack",
+      "label": "공황발작",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "serum_B12",
+      "label": "혈청 비타민 B12",
+      "recommended": true
+    },
+    {
+      "id": "MMA_homocysteine",
+      "label": "메틸말론산·호모시스테인",
+      "recommended": true
+    },
+    {
+      "id": "CBC_smear",
+      "label": "일반혈액검사·말초혈액도말 (거대적혈구)",
+      "recommended": true
+    },
+    {
+      "id": "folate",
+      "label": "혈청 엽산",
+      "recommended": true
+    },
+    {
+      "id": "intrinsic_factor_antibody",
+      "label": "내인자 항체",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "glucose_HbA1c",
+      "label": "혈당·당화혈색소",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "nerve_conduction_study",
+      "label": "신경전도검사",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "spine_MRI",
+      "label": "척수 MRI (아급성 연합변성)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "thyroid_US",
+      "label": "갑상선 초음파",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "abdominal_CT",
+      "label": "복부 CT",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "대칭성 말단 저림과 균형장애에서는 비타민 B12 결핍에 의한 아급성 연합변성을 감별해야 한다.",
+    "엄격한 채식·비건 식이는 보조제 없이 지속되면 B12 결핍의 흔한 원인이 된다.",
+    "혈청 B12가 경계치일 때 메틸말론산·호모시스테인 상승이 기능적 결핍을 확인해 준다.",
+    "식이 신념은 자존감과 연결되어 방어적일 수 있으므로 비난 없이 공감적으로 식단을 물어야 한다."
+  ],
+  "max_turns": 15,
+  "presentation": "26세 여자 지은씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "114/72 mmHg",
+    "hr": "78회/분",
+    "rr": "18회/분",
+    "temp": "36.5℃"
+  }
+}

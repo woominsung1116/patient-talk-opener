@@ -1,0 +1,292 @@
+{
+  "case_id": "drug_induced_autoimmune_hepatitis_01",
+  "title": "눈이 노래지고 기운이 없는 성진씨",
+  "subtitle": "황달과 심한 피로",
+  "difficulty": 3,
+  "patient_profile": {
+    "name": "성진",
+    "age": 48,
+    "gender": "male",
+    "occupation": "택배 기사",
+    "personality": "guarded",
+    "personality_desc": "건강 관리를 못 했다는 지적을 받을까 봐 걱정한다. 처방약이 아닌 제품은 약으로 생각하지 않아 먼저 말하지 않는다.",
+    "speaking_style": "처음에는 무뚝뚝하고 짧게 답한다. 곤란한 질문에는 '별건 아닌데요'라며 얼버무리지만 공감해주면 자세히 설명한다.",
+    "signs": [
+      "jaundice"
+    ]
+  },
+  "chief_complaint": "며칠 전부터 눈이 노래지고 몸에 힘이 하나도 없어요.",
+  "initial_state": {
+    "trust": 38,
+    "anxiety": 70,
+    "rapport": 35
+  },
+  "diagnosis": "drug_induced_autoimmune_hepatitis",
+  "diagnosis_label": "글루코사민 건강보조제로 인한 약인성 자가면역 간염",
+  "initial_facts": [
+    {
+      "key": "jaundice",
+      "label": "황달",
+      "value": "3일 전 가족이 눈과 얼굴이 노래 보인다고 처음 알려주었다. 소변도 진한 갈색으로 변했다."
+    },
+    {
+      "key": "fatigue",
+      "label": "피로",
+      "value": "약 2주 전부터 피로가 심해졌고 일을 마치면 바로 누워야 할 정도다."
+    },
+    {
+      "key": "nausea",
+      "label": "메스꺼움",
+      "value": "최근 일주일 동안 입맛이 떨어지고 간헐적으로 메스꺼웠지만 토하지는 않았다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "glucosamine_use",
+      "label": "글루코사민 건강보조제 복용",
+      "value": "무릎 통증에 좋다는 지인의 말을 듣고 약 6주 전부터 해외 구매한 글루코사민 제품을 매일 복용했다. 증상이 시작된 뒤에도 건강식품이라 해가 없다고 생각해 계속 먹었다.",
+      "sensitivity": 0.8,
+      "unlock_intent": "ask_medication",
+      "required_trust": 58,
+      "requires_empathy": true,
+      "refusal_line": "병원에서 받은 약은 정말 없어요. 그냥 몸에 좋다는 것 정도인데 그것도 말해야 하나요?"
+    },
+    {
+      "key": "supplement_concealment",
+      "label": "건강보조제 복용 사실 은폐",
+      "value": "가족 몰래 비싼 제품을 구매했으며 의사에게 혼날까 봐 복용 사실을 숨기고 있다. 제품명과 복용 시작 시점이 증상 발생과 밀접하다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_medication",
+      "required_trust": 63,
+      "requires_empathy": true,
+      "refusal_line": "그건 약도 아니고요... 괜히 말했다가 잔소리만 들을 것 같아서요."
+    },
+    {
+      "key": "alcohol_underreporting",
+      "label": "음주량 축소",
+      "value": "평소 일주일에 2회 정도 소주 반 병씩 마시며 최근 한 달은 피곤해서 거의 마시지 않았다. 처음에는 술 때문에 생긴 병으로 단정할까 봐 음주 사실을 부인한다.",
+      "sensitivity": 0.65,
+      "unlock_intent": "ask_social_history",
+      "required_trust": 52,
+      "requires_empathy": true,
+      "refusal_line": "술은 뭐... 남들 마시는 정도라 굳이 말씀드릴 건 없어요."
+    },
+    {
+      "key": "symptom_progression",
+      "label": "증상 악화",
+      "value": "이틀 전부터 가려움과 오른쪽 윗배의 묵직한 불편감이 생겼고 피로 때문에 하루 일을 쉬었다.",
+      "sensitivity": 0.3,
+      "unlock_intent": "ask_severity",
+      "required_trust": 35,
+      "requires_empathy": false,
+      "refusal_line": "그냥 좀 불편한 정도예요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "피곤한 건 2주쯤 됐고, 눈이 노래진 건 3일 전부터예요.",
+    "severity": "정신을 잃거나 말을 이상하게 한 적은 없어요. 배가 심하게 아픈 것도 아니고요.",
+    "diet": "평소 세 끼는 먹었고 날것이나 상한 음식을 먹은 기억은 없어요.",
+    "sleep": "원래 하루 6시간 정도 자요. 요즘은 피곤해서 더 자는데도 개운하지 않아요.",
+    "medication": "병원에서 처방받아 꾸준히 먹는 약은 없어요.",
+    "social_history": "담배는 5년 전에 끊었어요. 술도 요즘은 거의 안 마셨어요.",
+    "past_history": "간이 나쁘다는 말을 들은 적은 없고, 수술이나 수혈을 받은 적도 없어요.",
+    "family_history": "가족 중에 간 때문에 치료받은 사람은 없어요.",
+    "weight_loss": "입맛이 떨어져서 2주 동안 2kg 정도 빠졌어요.",
+    "melena": "변이 검게 나오거나 피가 섞인 적은 없어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "피로와 황달의 시작 시점 및 경과"
+    },
+    {
+      "topic": "severity",
+      "label": "의식 변화와 복통 등 증상 중증도"
+    },
+    {
+      "topic": "medication",
+      "label": "처방약·일반약·건강보조제 복용력"
+    },
+    {
+      "topic": "social_history",
+      "label": "음주 및 흡연력"
+    },
+    {
+      "topic": "past_history",
+      "label": "과거 간질환·수혈·수술력"
+    },
+    {
+      "topic": "family_history",
+      "label": "가족의 간질환 병력"
+    },
+    {
+      "topic": "weight_loss",
+      "label": "식욕과 체중 변화"
+    },
+    {
+      "topic": "melena",
+      "label": "흑색변 및 출혈 여부"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "weight_loss",
+    "melena"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "drug_induced_autoimmune_hepatitis",
+      "label": "글루코사민 건강보조제로 인한 약인성 자가면역 간염",
+      "correct": true
+    },
+    {
+      "id": "acute_viral_hepatitis",
+      "label": "급성 바이러스 간염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "autoimmune_hepatitis",
+      "label": "특발성 자가면역 간염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "alcoholic_hepatitis",
+      "label": "알코올성 간염",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "choledocholithiasis",
+      "label": "총담관결석",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "pancreatic_cancer",
+      "label": "췌장암",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "benign_paroxysmal_positional_vertigo",
+      "label": "양성 돌발성 체위성 어지럼증",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "liver_function_test",
+      "label": "간기능검사 (AST/ALT, ALP, 빌리루빈)",
+      "recommended": true
+    },
+    {
+      "id": "PT_INR",
+      "label": "프로트롬빈시간 및 INR",
+      "recommended": true
+    },
+    {
+      "id": "viral_hepatitis_panel",
+      "label": "바이러스 간염 표지자 검사",
+      "recommended": true
+    },
+    {
+      "id": "ANA_SMA",
+      "label": "항핵항체 및 항평활근항체",
+      "recommended": true
+    },
+    {
+      "id": "serum_IgG",
+      "label": "혈청 면역글로불린 G",
+      "recommended": true
+    },
+    {
+      "id": "abdominal_ultrasound",
+      "label": "복부 초음파",
+      "recommended": true
+    },
+    {
+      "id": "liver_biopsy",
+      "label": "간 조직검사",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "MRCP",
+      "label": "자기공명 담췌관조영술 (MRCP)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "colonoscopy",
+      "label": "대장내시경",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "황달 환자에서는 처방약뿐 아니라 일반약, 한약, 건강보조제의 제품명과 복용 시작 시점을 구체적으로 확인해야 한다.",
+    "글루코사민을 포함한 건강보조제도 간 손상을 일으키고 자가면역성 양상의 검사 결과를 보일 수 있다.",
+    "약인성 자가면역 간염은 바이러스 간염과 담도 폐쇄를 배제하고 자가항체, 혈청 면역글로불린 G 및 필요 시 간 조직검사를 종합해 판단한다.",
+    "환자가 건강보조제 복용을 숨기는 경우 비난하지 않는 태도와 공감적 질문이 결정적 단서를 얻는 데 중요하다."
+  ],
+  "max_turns": 15,
+  "presentation": "48세 남자 성진씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "122/78 mmHg",
+    "hr": "82회/분",
+    "rr": "18회/분",
+    "temp": "36.8℃"
+  },
+  "scoring_weights": {
+    "history_taking": 55,
+    "physical_exam": 20,
+    "patient_education": 0,
+    "ppi": 25
+  },
+  "exam_items": [
+    {
+      "id": "hand_hygiene",
+      "label": "손위생(손소독제)",
+      "type": "prep",
+      "points": 0,
+      "order": 0,
+      "finding": "손을 소독했습니다."
+    },
+    {
+      "id": "explain_consent",
+      "label": "진찰 전 설명·동의",
+      "type": "prep",
+      "points": 0,
+      "order": 1,
+      "finding": "진찰 목적과 방법을 설명하고 동의를 구했습니다."
+    },
+    {
+      "id": "sclera_exam",
+      "label": "공막검사(황달 확인)",
+      "type": "exam_action",
+      "points": 12,
+      "order": 2,
+      "finding": "양쪽 공막이 노랗게 착색되어 황달이 뚜렷합니다.",
+      "reaction": {
+        "emotion": "calm",
+        "line": "네, 위를 볼게요.",
+        "intensity": "none"
+      }
+    }
+  ]
+}

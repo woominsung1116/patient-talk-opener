@@ -1,0 +1,426 @@
+{
+  "case_id": "iron_deficiency_anemia_01",
+  "title": "자꾸 어지러운 23살 지은씨",
+  "subtitle": "피로와 어지러움",
+  "difficulty": 1,
+  "patient_profile": {
+    "name": "지은",
+    "age": 23,
+    "gender": "female",
+    "occupation": "대학생 (졸업반, 취업 준비 중)",
+    "personality": "reserved",
+    "personality_desc": "낯을 가리고 조심스러움. 민감한 얘기는 먼저 꺼내지 않지만, 따뜻하게 물어봐주면 마음을 연다.",
+    "speaking_style": "조심스럽고 짧게 대답함. 말끝을 흐리는 편. '음...', '그게...' 같은 머뭇거림이 많음.",
+    "signs": [
+      "pale_conjunctiva",
+      "atrophic_glossitis",
+      "angular_cheilitis"
+    ]
+  },
+  "chief_complaint": "요즘 자꾸 피곤하고 어지러워요.",
+  "initial_state": {
+    "trust": 45,
+    "anxiety": 60,
+    "rapport": 40
+  },
+  "diagnosis": "iron_deficiency_anemia",
+  "diagnosis_label": "철결핍성 빈혈",
+  "initial_facts": [
+    {
+      "key": "fatigue",
+      "label": "피로",
+      "value": "최근 2주간 피로감이 심하다. 아침에 일어나기 힘들고 오후엔 집중이 안 된다."
+    },
+    {
+      "key": "dizziness",
+      "label": "어지러움",
+      "value": "가끔 어지럽다. 특히 앉았다 일어날 때 눈앞이 핑 돈다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "menorrhagia",
+      "label": "월경 과다",
+      "value": "최근 3개월간 생리 양이 평소보다 확실히 많아졌다. 패드를 2시간마다 갈아야 할 정도.",
+      "sensitivity": 0.85,
+      "unlock_intent": "ask_menstruation",
+      "required_trust": 55,
+      "requires_empathy": true,
+      "refusal_line": "그건... 좀 말하기가 그런데요..."
+    },
+    {
+      "key": "poor_diet",
+      "label": "식사 거름",
+      "value": "취업 준비 때문에 최근 두 달간 하루 한 끼만 먹는 날이 많다. 고기는 거의 안 먹는다.",
+      "sensitivity": 0.35,
+      "unlock_intent": "ask_diet",
+      "required_trust": 35,
+      "requires_empathy": false,
+      "refusal_line": "그냥... 대충 먹어요."
+    },
+    {
+      "key": "palpitation",
+      "label": "두근거림",
+      "value": "계단을 오르면 심장이 빨리 뛰고 숨이 찬다. 예전엔 안 그랬다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_severity",
+      "required_trust": 40,
+      "requires_empathy": false,
+      "refusal_line": "음... 잘 모르겠어요."
+    }
+  ],
+  "negative_findings": {
+    "melena": "변 색깔은 평소랑 똑같아요. 검거나 그러진 않았어요.",
+    "pregnancy": "아뇨, 그럴 일은 없어요. 확실해요.",
+    "weight_loss": "체중은 비슷해요. 오히려 살이 좀 빠진 것 같기도 하고... 1~2kg 정도?",
+    "medication": "따로 먹는 약은 없어요. 영양제도 안 먹어요.",
+    "past_history": "크게 아팠던 적은 없어요. 건강검진도 받아본 적 없고요.",
+    "family_history": "엄마가 젊을 때 빈혈이 있었다고 들은 것 같아요.",
+    "sleep": "잠은... 새벽 2시쯤 자요. 취업 준비 때문에. 그래도 6시간은 자요.",
+    "severity": "쓰러진 적은 없어요. 핑 돌기만 하고요. 계단 오르면 좀 숨차고요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "증상 시작 시점과 기간"
+    },
+    {
+      "topic": "menstruation",
+      "label": "월경력 (양/주기 변화)"
+    },
+    {
+      "topic": "diet",
+      "label": "식이 습관"
+    },
+    {
+      "topic": "melena",
+      "label": "흑색변 / 위장관 출혈"
+    },
+    {
+      "topic": "pregnancy",
+      "label": "임신 가능성"
+    },
+    {
+      "topic": "weight_loss",
+      "label": "체중 변화"
+    },
+    {
+      "topic": "medication",
+      "label": "복용 약물"
+    }
+  ],
+  "red_flags": [
+    "melena",
+    "pregnancy",
+    "severity"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": true
+    },
+    {
+      "id": "thyroid_disorder",
+      "label": "갑상선 기능 이상",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "depression",
+      "label": "우울증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "anemia_of_chronic_disease",
+      "label": "만성질환 빈혈",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "orthostatic_hypotension",
+      "label": "기립성 저혈압",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "vestibular_disorder",
+      "label": "전정기관 질환",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "brain_tumor",
+      "label": "뇌종양",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "diabetes",
+      "label": "당뇨병",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "CBC",
+      "label": "일반혈액검사 (CBC)",
+      "recommended": true
+    },
+    {
+      "id": "ferritin",
+      "label": "혈청 페리틴",
+      "recommended": true
+    },
+    {
+      "id": "TIBC",
+      "label": "철 결합능 (Fe/TIBC)",
+      "recommended": true
+    },
+    {
+      "id": "TSH",
+      "label": "갑상선 기능 (TSH)",
+      "recommended": true
+    },
+    {
+      "id": "hCG",
+      "label": "임신반응검사 (hCG)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "stool_occult_blood",
+      "label": "대변잠혈검사",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "endoscopy",
+      "label": "위내시경",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "chest_CT",
+      "label": "흉부 CT",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "EKG",
+      "label": "심전도 (EKG)",
+      "recommended": false,
+      "reasonable": true
+    }
+  ],
+  "teaching_points": [
+    "젊은 여성의 피로+어지러움에서는 월경 과다를 반드시 확인해야 한다.",
+    "철결핍성 빈혈 진단 시 원인 출혈(위장관 출혈, 흑색변)을 배제해야 한다.",
+    "민감한 질문(월경력)은 라포 형성 후 공감적으로 접근해야 환자가 답한다.",
+    "식이력(철분 섭취 부족)은 젊은 환자에서 흔한 기여 요인이다.",
+    "구강검사는 '아—' 발성으로 연구개를 올린 상태에서 설압자와 펜라이트로 봐야 혀·인두·입꼬리를 모두 확인할 수 있다. 철결핍의 위축성 설염과 구각염은 입을 벌리게 해야 비로소 보이는 소견이다."
+  ],
+  "max_turns": 15,
+  "presentation": "23세 여자 지은씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "106/66 mmHg",
+    "hr": "96회/분",
+    "rr": "18회/분",
+    "temp": "36.6℃"
+  },
+  "scoring_weights": {
+    "history_taking": 40,
+    "physical_exam": 30,
+    "patient_education": 10,
+    "ppi": 20
+  },
+  "exam_items": [
+    {
+      "id": "hand_hygiene",
+      "label": "손위생(손소독제)",
+      "type": "prep",
+      "points": 0,
+      "order": 0,
+      "finding": "손을 소독했습니다."
+    },
+    {
+      "id": "explain_consent",
+      "label": "진찰 전 설명·동의",
+      "type": "prep",
+      "points": 0,
+      "order": 1,
+      "finding": "진찰 목적과 방법을 설명하고 동의를 구했습니다."
+    },
+    {
+      "id": "say_ah",
+      "label": "'아—' 발성 지시",
+      "type": "prep",
+      "points": 0,
+      "order": 2,
+      "finding": "환자가 입을 벌리고 '아——' 하고 소리를 내자 연구개가 올라가고 혀뿌리가 내려가, 인두와 편도가 잘 보입니다. 벌어진 입의 양쪽 입꼬리에는 갈라짐과 발적(구각염)이 있습니다.",
+      "reaction": {
+        "emotion": "calm",
+        "line": "아——",
+        "intensity": "none"
+      }
+    },
+    {
+      "id": "conjunctiva",
+      "label": "결막검사(양쪽 눈꺼풀결막)",
+      "type": "exam_action",
+      "points": 10,
+      "order": 3,
+      "required_regions": [
+        "eye_r",
+        "eye_l"
+      ],
+      "region_findings": {
+        "eye_r": {
+          "finding": "우측 아래눈꺼풀을 내려 보니 눈꺼풀결막이 창백합니다."
+        },
+        "eye_l": {
+          "finding": "좌측 눈꺼풀결막도 같은 정도로 창백합니다."
+        }
+      },
+      "finding": "양쪽 눈꺼풀결막이 모두 대칭적으로 창백합니다.",
+      "reaction": {
+        "emotion": "calm",
+        "line": "네, 위를 볼게요.",
+        "intensity": "none"
+      }
+    },
+    {
+      "id": "oral_exam",
+      "label": "구강검사(혀·인두)",
+      "type": "exam_action",
+      "points": 8,
+      "order": 4,
+      "required_regions": [
+        "oral_tongue",
+        "oral_pharynx"
+      ],
+      "requires_prep": [
+        "say_ah"
+      ],
+      "region_findings": {
+        "oral_tongue": {
+          "finding": "혀유두가 위축되어 혀가 전체적으로 매끈하고 창백합니다."
+        },
+        "oral_pharynx": {
+          "finding": "인두는 발적이나 삼출물 없이 깨끗하고, 편도도 커져 있지 않습니다."
+        }
+      },
+      "finding": "설압자로 혀를 누르고 펜라이트로 비추어 관찰했습니다. 혀유두가 위축되어 혀가 전체적으로 매끈하고 창백하며, 인두와 편도는 정상입니다.",
+      "reaction": {
+        "emotion": "calm",
+        "line": "아——",
+        "intensity": "none"
+      }
+    }
+  ],
+  "education_items": [
+    {
+      "id": "diagnosis",
+      "label": "진단 설명(철결핍성 빈혈)",
+      "kind": "diagnosis_explanation",
+      "points": 4,
+      "rubric": {
+        "good": "근거 2개 이상",
+        "ok": "근거 1개/진단명만",
+        "miss": "진단 안 함"
+      },
+      "evidence_options": [
+        {
+          "id": "pale_conjunctiva",
+          "label": "양쪽 결막 창백",
+          "correct": true
+        },
+        {
+          "id": "atrophic_glossitis",
+          "label": "위축성 설염(매끈한 혀)",
+          "correct": true
+        },
+        {
+          "id": "angular_cheilitis",
+          "label": "구각염(입꼬리 갈라짐)",
+          "correct": true
+        },
+        {
+          "id": "menorrhagia",
+          "label": "월경 과다(최근 3개월)",
+          "correct": true
+        },
+        {
+          "id": "poor_diet",
+          "label": "철분 부족한 식사",
+          "correct": true
+        },
+        {
+          "id": "exertional_sx",
+          "label": "계단 오를 때 두근거림·숨참",
+          "correct": true
+        },
+        {
+          "id": "jaundice",
+          "label": "공막 황달",
+          "correct": false
+        },
+        {
+          "id": "melena_pos",
+          "label": "흑색변 양성",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "test_plan_lab",
+      "label": "검사: 일반혈액검사(CBC)·페리틴·Fe/TIBC (+ 갑상선기능)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "소구성 저색소성 빈혈과 저장철 고갈(페리틴 감소)을 확인하고, 피로·어지러움의 다른 원인인 갑상선 이상을 함께 감별"
+    },
+    {
+      "id": "test_plan_image",
+      "label": "검사: 출혈 원인 찾기 — 대변잠혈검사(필요 시 내시경)",
+      "kind": "test_plan",
+      "points": 2,
+      "purpose": "철결핍성 빈혈은 '왜 철이 부족해졌는지' 원인 규명이 치료보다 먼저다. 이 환자는 월경 과다와 편식이 유력하지만, 성인 남성이나 폐경 후 여성이면 위·대장내시경으로 위장관 출혈을 반드시 확인해야 한다"
+    },
+    {
+      "id": "tx_analgesic",
+      "label": "치료: 경구 철분제 복용법(공복 복용, 비타민C와 함께, 차·커피·우유·제산제와는 시간 간격)",
+      "kind": "treatment",
+      "points": 1
+    },
+    {
+      "id": "tx_definitive",
+      "label": "치료: 원인 교정(월경 과다·식이) + 혈색소가 정상이 된 뒤에도 3~6개월 더 복용해 저장철 채우기",
+      "kind": "treatment",
+      "points": 2,
+      "rubric": {
+        "good": "2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    },
+    {
+      "id": "complication",
+      "label": "주의·부작용: 검은 변·변비·속쓰림은 흔한 부작용(속 불편하면 식후로) / 자의 중단 시 재발 / 원인을 안 밝히면 빈혈이 계속 진행",
+      "kind": "complication",
+      "points": 2,
+      "rubric": {
+        "good": "부작용 안내+재발/원인 규명 2개 이상",
+        "ok": "1개",
+        "miss": "없음"
+      }
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "case_id": "alcohol_withdrawal_tremor_01",
+  "title": "아침마다 손이 떨리고 식은땀 나는 67살 영호씨",
+  "subtitle": "손떨림과 식은땀, 불안",
+  "difficulty": 3,
+  "patient_profile": {
+    "name": "영호",
+    "age": 67,
+    "gender": "male",
+    "occupation": "화물차 운전기사",
+    "personality": "guarded",
+    "personality_desc": "음주 문제를 인정하면 운전 일을 잃을까 봐 두려워 술을 끊은 사실과 평소 음주량을 숨긴다. 비난하지 않고 공감하면 솔직하게 털어놓는다.",
+    "speaking_style": "무뚝뚝하고 짧게 답한다. 술 얘기엔 '요즘은 거의 안 마셔요'라며 회피하다가 신뢰가 생기면 사실대로 말한다."
+  },
+  "chief_complaint": "이틀 전부터 아침마다 손이 심하게 떨리고 식은땀이 나요.",
+  "initial_state": {
+    "trust": 36,
+    "anxiety": 68,
+    "rapport": 32
+  },
+  "diagnosis": "alcohol_withdrawal_syndrome",
+  "diagnosis_label": "음주 중단으로 인한 알코올 금단 증후군",
+  "initial_facts": [
+    {
+      "key": "tremor_sweating",
+      "label": "손떨림과 발한",
+      "value": "이틀 전부터 특히 아침에 손이 심하게 떨리고 식은땀이 나며 가슴이 두근거린다."
+    },
+    {
+      "key": "anxiety_insomnia",
+      "label": "불안과 불면",
+      "value": "안절부절못하고 잠을 거의 못 자며 속이 메스껍다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "chronic_heavy_drinking_cessation",
+      "label": "만성 과음 후 갑작스런 금주",
+      "value": "20년간 매일 소주 두 병가량을 마셔왔는데, 사흘 전 건강검진 통보를 받고 겁이 나 갑자기 술을 완전히 끊었다. 운전 일을 잃을까 봐 음주력과 금주 사실을 숨긴다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_social_history",
+      "required_trust": 62,
+      "requires_empathy": true,
+      "refusal_line": "술이요? 요즘은 거의 안 마셔요. 별로 안 마셨어요."
+    },
+    {
+      "key": "morning_drinking_history",
+      "label": "해장술·금단 완화 음주 습관",
+      "value": "예전부터 아침에 손이 떨리면 술을 한 잔 마셔야 가라앉았다. 끊은 뒤로 그게 안 되니 증상이 더 심해졌다.",
+      "sensitivity": 0.7,
+      "unlock_intent": "ask_past_history",
+      "required_trust": 52,
+      "requires_empathy": true,
+      "refusal_line": "그런 적 없어요. 아침부터 무슨 술을 마셔요."
+    },
+    {
+      "key": "worsening_in_morning",
+      "label": "증상의 아침 악화 양상",
+      "value": "증상이 아침에 가장 심하고 시간이 지나면 조금 누그러지는 패턴이다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_severity",
+      "required_trust": 44,
+      "requires_empathy": false,
+      "refusal_line": "언제 더 심한지는 잘 모르겠어요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "손떨림이랑 식은땀은 이틀 전 아침부터 시작됐어요.",
+    "severity": "헛것이 보이거나 발작한 적은 아직 없어요. 그래도 너무 불안하고 떨려요.",
+    "social_history": "담배는 하루 한 갑 정도 펴요.",
+    "medication": "따로 먹는 약은 없어요. 갑상선약 같은 것도 안 먹고요.",
+    "diet": "요즘 속이 안 좋아서 잘 못 먹었어요.",
+    "past_history": "갑상선이나 큰 병 들은 적은 없어요.",
+    "family_history": "가족 중 갑상선이나 떨림 병 있는 사람은 모르겠어요.",
+    "weight_loss": "최근 입맛이 없어 2kg쯤 빠졌어요.",
+    "sleep": "이틀째 거의 못 잤어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "손떨림·발한 시작 시점과 일중 변동"
+    },
+    {
+      "topic": "severity",
+      "label": "환각·발작 등 중증 금단 징후"
+    },
+    {
+      "topic": "social_history",
+      "label": "음주력과 최근 금주 여부"
+    },
+    {
+      "topic": "past_history",
+      "label": "해장술 등 음주 패턴·금단 병력"
+    },
+    {
+      "topic": "medication",
+      "label": "복용 약물 (갑상선약 등)"
+    },
+    {
+      "topic": "diet",
+      "label": "최근 식이 상태"
+    },
+    {
+      "topic": "sleep",
+      "label": "수면 상태"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "social_history",
+    "onset_duration"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "alcohol_withdrawal_syndrome",
+      "label": "알코올 금단 증후군",
+      "correct": true
+    },
+    {
+      "id": "hyperthyroidism",
+      "label": "갑상선 기능항진증",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "anxiety_disorder",
+      "label": "불안장애",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "hypoglycemia",
+      "label": "저혈당",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "pheochromocytoma",
+      "label": "갈색세포종",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "benign_positional_vertigo",
+      "label": "양성 돌발성 체위성 어지럼증",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "panic_attack",
+      "label": "공황발작",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "serum_electrolytes_glucose",
+      "label": "혈청 전해질 및 혈당",
+      "recommended": true
+    },
+    {
+      "id": "liver_function_tests",
+      "label": "간기능검사 (AST/ALT, GGT)",
+      "recommended": true
+    },
+    {
+      "id": "TSH_fT4",
+      "label": "갑상선 기능 (TSH/fT4)",
+      "recommended": true
+    },
+    {
+      "id": "CBC_with_MCV",
+      "label": "일반혈액검사 (MCV 포함)",
+      "recommended": true
+    },
+    {
+      "id": "magnesium_phosphate",
+      "label": "혈중 마그네슘·인",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "EKG",
+      "label": "심전도 (EKG)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "thiamine_level",
+      "label": "티아민(비타민 B1) 평가",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "blood_pressure_monitoring",
+      "label": "활력징후 모니터링",
+      "recommended": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "endoscopy",
+      "label": "위내시경",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "급성 손떨림·발한·불안·불면이 함께 나타나면 알코올 금단을 반드시 감별해야 한다.",
+    "금단 증상이 마지막 음주 후 시간 경과에 따라 나타나며 진전섬망·경련으로 진행할 수 있어 위험도를 평가한다.",
+    "음주력은 직업·낙인 우려로 숨기기 쉬우므로 비난하지 않는 태도로 양·빈도·마지막 음주 시점을 물어야 한다.",
+    "금단 환자에서 티아민 보충과 전해질 교정, 베르니케뇌병증 예방이 중요하다."
+  ],
+  "max_turns": 15,
+  "presentation": "67세 남자 영호씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "148/92 mmHg",
+    "hr": "106회/분",
+    "rr": "18회/분",
+    "temp": "37.0℃"
+  }
+}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>html,body{margin:0;height:100%;background:#1a1c1e;overflow:hidden}#c{width:100vw;height:100vh;display:block}</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+}}
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
+
+const params = new URLSearchParams(location.search)
+const view = params.get('view') || 'face'
+
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true })
+renderer.setSize(innerWidth, innerHeight)
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2))
+renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.toneMappingExposure = 1.05
+renderer.outputColorSpace = THREE.SRGBColorSpace
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+const scene = new THREE.Scene()
+const pmrem = new THREE.PMREMGenerator(renderer)
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+
+// 진료실 배경
+new THREE.TextureLoader().load('/scenes/clinic_room_bg.png', (t) => {
+  t.colorSpace = THREE.SRGBColorSpace
+  scene.background = t
+})
+
+// 조명
+scene.add(new THREE.HemisphereLight('#ffffff', '#8a8e92', 0.5))
+const key = new THREE.DirectionalLight('#fff3e6', 2.2)
+key.position.set(2, 4, 3); key.castShadow = true
+key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -0.0002
+scene.add(key)
+const fill = new THREE.DirectionalLight('#cfe0ff', 0.6); fill.position.set(-3, 2, 1); scene.add(fill)
+const rim = new THREE.DirectionalLight('#ffffff', 1.0); rim.position.set(0, 3, -4); scene.add(rim)
+
+const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.1, 100)
+
+const loader = new GLTFLoader()
+loader.load('/avatars/carla.glb', (gltf) => {
+  const model = gltf.scene // GLB는 이미 ~1.7m, 발 y=0, 중앙 정규화됨
+  model.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false } })
+  scene.add(model)
+
+  // 그림자 바닥
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(10,10), new THREE.ShadowMaterial({opacity:0.35}))
+  ground.rotation.x = -Math.PI/2; ground.receiveShadow = true; scene.add(ground)
+
+  if (view === 'full') { camera.position.set(0, 1.0, 3.4); camera.lookAt(0, 0.95, 0) }
+  else { camera.position.set(0.15, 1.62, 1.15); camera.lookAt(0, 1.55, 0) } // 얼굴 클로즈업
+  renderer.render(scene, camera)
+  setTimeout(() => { renderer.render(scene, camera); window.__ready = true }, 300)
+})
+
+function loop(){ requestAnimationFrame(loop); renderer.render(scene, camera) }
+loop()
+</script>
+</body>
+</html>

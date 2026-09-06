@@ -1,0 +1,333 @@
+diff --git a/audio.py b/audio.py
+index 32b20c4..32ab5fa 100644
+--- a/audio.py
++++ b/audio.py
+@@ -97,7 +97,7 @@ def _linear_to_mel(spectogram):
+ 
+ def _build_mel_basis():
+     assert hp.fmax <= hp.sample_rate // 2
+-    return librosa.filters.mel(hp.sample_rate, hp.n_fft, n_mels=hp.num_mels,
++    return librosa.filters.mel(sr=hp.sample_rate, n_fft=hp.n_fft, n_mels=hp.num_mels,
+                                fmin=hp.fmin, fmax=hp.fmax)
+ 
+ def _amp_to_db(x):
+diff --git a/face_detection/detection/core.py b/face_detection/detection/core.py
+index 0f8275e..9134c67 100644
+--- a/face_detection/detection/core.py
++++ b/face_detection/detection/core.py
+@@ -24,9 +24,9 @@ class FaceDetector(object):
+                 logger = logging.getLogger(__name__)
+                 logger.warning("Detection running on CPU, this may be potentially slow.")
+ 
+-        if 'cpu' not in device and 'cuda' not in device:
++        if 'cpu' not in device and 'cuda' not in device and 'mps' not in device:
+             if verbose:
+-                logger.error("Expected values for device are: {cpu, cuda} but got: %s", device)
++                logger.error("Expected values for device are: {cpu, cuda, mps} but got: %s", device)
+             raise ValueError
+ 
+     def detect_from_image(self, tensor_or_path):
+diff --git a/face_detection/detection/sfd/sfd_detector.py b/face_detection/detection/sfd/sfd_detector.py
+index 8fbce15..08778d9 100644
+--- a/face_detection/detection/sfd/sfd_detector.py
++++ b/face_detection/detection/sfd/sfd_detector.py
+@@ -1,5 +1,6 @@
+ import os
+ import cv2
++import torch
+ from torch.utils.model_zoo import load_url
+ 
+ from ..core import FaceDetector
+@@ -21,7 +22,7 @@ class SFDDetector(FaceDetector):
+         if not os.path.isfile(path_to_detector):
+             model_weights = load_url(models_urls['s3fd'])
+         else:
+-            model_weights = torch.load(path_to_detector)
++            model_weights = torch.load(path_to_detector, map_location=device, weights_only=False)
+ 
+         self.face_detector = s3fd()
+         self.face_detector.load_state_dict(model_weights)
+diff --git a/wav2lip_infer.py b/wav2lip_infer.py
+new file mode 100644
+index 0000000..8af1f04
+--- /dev/null
++++ b/wav2lip_infer.py
+@@ -0,0 +1,278 @@
++"""Clean Wav2Lip inference driver for Apple Silicon (MPS/CPU).
++
++Exposes run_wav2lip(face_path, audio_path, out_path, ...) -> dict with timings.
++Patched from the original inference.py to:
++  - support MPS / CPU device selection (no CUDA)
++  - load checkpoints with weights_only=False on torch 2.x
++  - keep the model + face detector loadable once and reused (warm path)
++"""
++import os
++import sys
++import time
++import subprocess
++import platform
++
++import numpy as np
++import cv2
++import torch
++
++# make sibling modules importable when called from elsewhere
++_HERE = os.path.dirname(os.path.abspath(__file__))
++if _HERE not in sys.path:
++    sys.path.insert(0, _HERE)
++
++import audio  # noqa: E402
++import face_detection  # noqa: E402
++from models import Wav2Lip  # noqa: E402
++
++IMG_SIZE = 96
++MEL_STEP_SIZE = 16
++
++
++def get_device():
++    if torch.backends.mps.is_available():
++        return "mps"
++    if torch.cuda.is_available():
++        return "cuda"
++    return "cpu"
++
++
++def _load_checkpoint(path, device):
++    checkpoint = torch.load(path, map_location=device, weights_only=False)
++    return checkpoint
++
++
++def load_model(checkpoint_path, device):
++    model = Wav2Lip()
++    checkpoint = _load_checkpoint(checkpoint_path, device)
++    s = checkpoint["state_dict"]
++    new_s = {k.replace("module.", ""): v for k, v in s.items()}
++    model.load_state_dict(new_s)
++    model = model.to(device)
++    return model.eval()
++
++
++def get_smoothened_boxes(boxes, T):
++    for i in range(len(boxes)):
++        if i + T > len(boxes):
++            window = boxes[len(boxes) - T:]
++        else:
++            window = boxes[i:i + T]
++        boxes[i] = np.mean(window, axis=0)
++    return boxes
++
++
++def face_detect(images, detector, pads, nosmooth, face_det_batch_size):
++    batch_size = face_det_batch_size
++    while 1:
++        predictions = []
++        try:
++            for i in range(0, len(images), batch_size):
++                predictions.extend(
++                    detector.get_detections_for_batch(np.array(images[i:i + batch_size]))
++                )
++        except RuntimeError:
++            if batch_size == 1:
++                raise RuntimeError("Image too big to run face detection. Lower resolution.")
++            batch_size //= 2
++            print("Recovering from OOM error; New batch size: {}".format(batch_size))
++            continue
++        break
++
++    results = []
++    pady1, pady2, padx1, padx2 = pads
++    for rect, image in zip(predictions, images):
++        if rect is None:
++            cv2.imwrite("temp/faulty_frame.jpg", image)
++            raise ValueError("Face not detected! Ensure the image/video contains a face.")
++        y1 = max(0, rect[1] - pady1)
++        y2 = min(image.shape[0], rect[3] + pady2)
++        x1 = max(0, rect[0] - padx1)
++        x2 = min(image.shape[1], rect[2] + padx2)
++        results.append([x1, y1, x2, y2])
++
++    boxes = np.array(results)
++    if not nosmooth:
++        boxes = get_smoothened_boxes(boxes, T=5)
++    results = [[image[y1:y2, x1:x2], (y1, y2, x1, x2)]
++               for image, (x1, y1, x2, y2) in zip(images, boxes)]
++    return results
++
++
++def datagen(frames, mels, face_det_results, static, wav2lip_batch_size):
++    img_batch, mel_batch, frame_batch, coords_batch = [], [], [], []
++    for i, m in enumerate(mels):
++        idx = 0 if static else i % len(frames)
++        frame_to_save = frames[idx].copy()
++        face, coords = face_det_results[idx].copy()
++        face = cv2.resize(face, (IMG_SIZE, IMG_SIZE))
++
++        img_batch.append(face)
++        mel_batch.append(m)
++        frame_batch.append(frame_to_save)
++        coords_batch.append(coords)
++
++        if len(img_batch) >= wav2lip_batch_size:
++            yield _prep_batch(img_batch, mel_batch, frame_batch, coords_batch)
++            img_batch, mel_batch, frame_batch, coords_batch = [], [], [], []
++
++    if len(img_batch) > 0:
++        yield _prep_batch(img_batch, mel_batch, frame_batch, coords_batch)
++
++
++def _prep_batch(img_batch, mel_batch, frame_batch, coords_batch):
++    img_batch_np = np.asarray(img_batch)
++    mel_batch_np = np.asarray(mel_batch)
++    img_masked = img_batch_np.copy()
++    img_masked[:, IMG_SIZE // 2:] = 0
++    img_batch_np = np.concatenate((img_masked, img_batch_np), axis=3) / 255.0
++    mel_batch_np = np.reshape(
++        mel_batch_np, [len(mel_batch_np), mel_batch_np.shape[1], mel_batch_np.shape[2], 1]
++    )
++    return img_batch_np, mel_batch_np, frame_batch, coords_batch
++
++
++# module-level caches for warm reuse
++_MODEL_CACHE = {}
++_DETECTOR_CACHE = {}
++
++
++def run_wav2lip(face_path, audio_path, out_path,
++                checkpoint_path=None, device=None,
++                fps=25.0, pads=(0, 10, 0, 0), nosmooth=False,
++                face_det_batch_size=4, wav2lip_batch_size=64,
++                resize_factor=1, reuse=True, verbose=True):
++    t_start = time.time()
++    if device is None:
++        device = get_device()
++    if checkpoint_path is None:
++        checkpoint_path = os.path.join(_HERE, "checkpoints", "wav2lip_gan.pth")
++
++    os.makedirs("temp", exist_ok=True)
++    timings = {"device": device}
++
++    # ---- read frames ----
++    is_static = face_path.lower().split(".")[-1] in ("jpg", "png", "jpeg")
++    if is_static:
++        img = cv2.imread(face_path)
++        if resize_factor > 1:
++            img = cv2.resize(img, (img.shape[1] // resize_factor, img.shape[0] // resize_factor))
++        full_frames = [img]
++    else:
++        vs = cv2.VideoCapture(face_path)
++        fps = vs.get(cv2.CAP_PROP_FPS)
++        full_frames = []
++        while 1:
++            ok, frame = vs.read()
++            if not ok:
++                vs.release()
++                break
++            if resize_factor > 1:
++                frame = cv2.resize(frame, (frame.shape[1] // resize_factor, frame.shape[0] // resize_factor))
++            full_frames.append(frame)
++
++    # ---- audio -> mel ----
++    if not audio_path.endswith(".wav"):
++        tmp_wav = "temp/temp.wav"
++        subprocess.call("ffmpeg -y -i {} -strict -2 {}".format(audio_path, tmp_wav), shell=True)
++        audio_path = tmp_wav
++    wav = audio.load_wav(audio_path, 16000)
++    mel = audio.melspectrogram(wav)
++    if np.isnan(mel.reshape(-1)).sum() > 0:
++        raise ValueError("Mel contains nan! Add small epsilon noise to the wav.")
++
++    mel_chunks = []
++    mel_idx_multiplier = 80.0 / fps
++    i = 0
++    while 1:
++        start_idx = int(i * mel_idx_multiplier)
++        if start_idx + MEL_STEP_SIZE > len(mel[0]):
++            mel_chunks.append(mel[:, len(mel[0]) - MEL_STEP_SIZE:])
++            break
++        mel_chunks.append(mel[:, start_idx:start_idx + MEL_STEP_SIZE])
++        i += 1
++
++    if is_static:
++        frames = [full_frames[0]] * len(mel_chunks)
++    else:
++        frames = full_frames[:len(mel_chunks)]
++
++    # ---- face detection (once for static) ----
++    t_fd = time.time()
++    # S3FD face detector runs on CPU: it is cheap for a single static image and
++    # avoids MPS edge cases in the detection net. Wav2Lip itself uses `device`.
++    det_device = "cpu"
++    det_key = (det_device,)
++    if reuse and det_key in _DETECTOR_CACHE:
++        detector = _DETECTOR_CACHE[det_key]
++    else:
++        detector = face_detection.FaceAlignment(
++            face_detection.LandmarksType._2D, flip_input=False, device=det_device
++        )
++        if reuse:
++            _DETECTOR_CACHE[det_key] = detector
++
++    if is_static:
++        det_once = face_detect([full_frames[0]], detector, pads, nosmooth=True, face_det_batch_size=1)
++        face_det_results = det_once * len(mel_chunks)
++    else:
++        face_det_results = face_detect(frames, detector, pads, nosmooth, face_det_batch_size)
++    timings["face_detect_s"] = round(time.time() - t_fd, 2)
++
++    # ---- load model ----
++    t_lm = time.time()
++    mkey = (checkpoint_path, device)
++    if reuse and mkey in _MODEL_CACHE:
++        model = _MODEL_CACHE[mkey]
++    else:
++        model = load_model(checkpoint_path, device)
++        if reuse:
++            _MODEL_CACHE[mkey] = model
++    timings["model_load_s"] = round(time.time() - t_lm, 2)
++
++    # ---- inference ----
++    t_inf = time.time()
++    frame_h, frame_w = frames[0].shape[:-1]
++    out_avi = "temp/result.avi"
++    out = cv2.VideoWriter(out_avi, cv2.VideoWriter_fourcc(*"DIVX"), fps, (frame_w, frame_h))
++
++    gen = datagen(frames, mel_chunks, face_det_results, is_static, wav2lip_batch_size)
++    for img_batch, mel_batch, fbatch, coords in gen:
++        img_t = torch.FloatTensor(np.transpose(img_batch, (0, 3, 1, 2))).to(device)
++        mel_t = torch.FloatTensor(np.transpose(mel_batch, (0, 3, 1, 2))).to(device)
++        with torch.no_grad():
++            pred = model(mel_t, img_t)
++        pred = pred.cpu().numpy().transpose(0, 2, 3, 1) * 255.0
++        for p, f, c in zip(pred, fbatch, coords):
++            y1, y2, x1, x2 = c
++            p = cv2.resize(p.astype(np.uint8), (x2 - x1, y2 - y1))
++            f[y1:y2, x1:x2] = p
++            out.write(f)
++    out.release()
++    timings["inference_s"] = round(time.time() - t_inf, 2)
++
++    # ---- mux audio ----
++    t_mux = time.time()
++    cmd = 'ffmpeg -y -i "{}" -i "{}" -strict -2 -q:v 1 "{}"'.format(audio_path, out_avi, out_path)
++    subprocess.call(cmd, shell=platform.system() != "Windows")
++    timings["mux_s"] = round(time.time() - t_mux, 2)
++
++    timings["total_s"] = round(time.time() - t_start, 2)
++    timings["n_frames"] = len(mel_chunks)
++    if verbose:
++        print("TIMINGS:", timings)
++    return timings
++
++
++if __name__ == "__main__":
++    import argparse
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--face", required=True)
++    ap.add_argument("--audio", required=True)
++    ap.add_argument("--out", required=True)
++    ap.add_argument("--device", default=None)
++    ap.add_argument("--pads", nargs=4, type=int, default=[0, 10, 0, 0])
++    ap.add_argument("--wav2lip_batch_size", type=int, default=64)
++    a = ap.parse_args()
++    run_wav2lip(a.face, a.audio, a.out, device=a.device, pads=tuple(a.pads),
++                wav2lip_batch_size=a.wav2lip_batch_size)

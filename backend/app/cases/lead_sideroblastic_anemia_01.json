@@ -1,0 +1,255 @@
+{
+  "case_id": "lead_sideroblastic_anemia_01",
+  "title": "기운이 없고 배까지 아픈 하영씨",
+  "subtitle": "피로와 반복되는 복통",
+  "difficulty": 3,
+  "patient_profile": {
+    "name": "하영",
+    "age": 34,
+    "gender": "female",
+    "occupation": "온라인 쇼핑몰 운영",
+    "personality": "reserved",
+    "personality_desc": "건강관리를 잘못했다는 말을 들을까 봐 걱정하며, 가족이 권한 민간요법에 관해서는 쉽게 말하지 않는다. 판단하지 않고 공감해주면 자세히 털어놓는다.",
+    "speaking_style": "처음에는 짧고 방어적으로 대답한다. 곤란한 질문에는 '그냥 별건 아니에요', '그것도 약으로 치나요?'라며 얼버무린다."
+  },
+  "chief_complaint": "몇 달 전부터 너무 피곤하고, 요즘은 배도 자꾸 아파요.",
+  "initial_state": {
+    "trust": 38,
+    "anxiety": 65,
+    "rapport": 35
+  },
+  "diagnosis": "lead_induced_sideroblastic_anemia",
+  "diagnosis_label": "납 함유 한약으로 인한 철적모구빈혈",
+  "initial_facts": [
+    {
+      "key": "fatigue",
+      "label": "피로",
+      "value": "약 4개월 전부터 쉽게 지치고, 최근에는 평소 하던 업무도 끝내기 힘들 정도로 기운이 없다."
+    },
+    {
+      "key": "abdominal_pain",
+      "label": "복통",
+      "value": "최근 한 달 동안 배꼽 주변이 쥐어짜듯 아픈 증상이 간헐적으로 반복된다."
+    },
+    {
+      "key": "dizziness",
+      "label": "어지러움",
+      "value": "빠르게 걷거나 계단을 오르면 숨이 차고 머리가 띵하다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "herbal_medicine",
+      "label": "출처 불명의 한약 복용",
+      "value": "약 6개월 전부터 어머니가 지인을 통해 구해준 검은색 한약 환을 매일 두 번씩 복용했다. 정식 포장이나 성분표는 없으며, 피로와 피부 미용에 좋다는 설명만 들었다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_medication",
+      "required_trust": 62,
+      "requires_empathy": true,
+      "refusal_line": "병원 약은 안 먹어요. 집에서 챙겨 먹는 건 있는데... 괜히 혼날 것 같아서요."
+    },
+    {
+      "key": "continued_use",
+      "label": "증상 발생 후에도 복용 지속",
+      "value": "복통과 피로가 시작된 뒤에도 몸속 노폐물이 빠지는 과정이라고 믿어 한약 환을 계속 복용했고, 최근에는 하루 세 번으로 양을 늘렸다.",
+      "sensitivity": 0.8,
+      "unlock_intent": "ask_severity",
+      "required_trust": 57,
+      "requires_empathy": true,
+      "refusal_line": "제가 알아서 양을 조금 바꾸긴 했는데... 그 얘기까지 해야 하나요?"
+    },
+    {
+      "key": "alternative_remedy_reason",
+      "label": "체중 감량 목적",
+      "value": "결혼식을 앞두고 체중을 빨리 줄이고 싶어 한약 환을 복용하기 시작했다. 주변에 숨긴 채 식사량도 크게 줄였다.",
+      "sensitivity": 0.75,
+      "unlock_intent": "ask_weight",
+      "required_trust": 54,
+      "requires_empathy": true,
+      "refusal_line": "살 때문에 먹은 건 아니고요... 그냥 몸에 좋다고 해서 먹었어요."
+    },
+    {
+      "key": "constipation",
+      "label": "심해진 변비",
+      "value": "최근 두 달 동안 변을 사나흘에 한 번 볼 정도로 변비가 심해졌으며, 복통이 심한 날에는 변을 보기가 더 어렵다.",
+      "sensitivity": 0.35,
+      "unlock_intent": "ask_diet",
+      "required_trust": 42,
+      "requires_empathy": false,
+      "refusal_line": "화장실 가는 건 원래도 좀 불규칙했어요."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "기운이 떨어진 건 넉 달쯤 됐고, 배가 아프기 시작한 건 한 달 정도 됐어요.",
+    "severity": "쓰러진 적은 없지만 계단을 오르면 숨이 차서 중간에 쉬어야 해요.",
+    "diet": "요즘은 하루 두 끼 정도 먹고, 결혼식 때문에 밥과 고기를 많이 줄였어요.",
+    "sleep": "하루 여섯 시간 정도 자요. 배가 아픈 날 말고는 잠 때문에 힘들진 않아요.",
+    "menstruation": "주기는 규칙적이고 양도 예전과 비슷해요. 많이 쏟아지거나 오래 하지는 않아요.",
+    "medication": "처방받아 먹는 약이나 약국에서 산 약은 없어요.",
+    "social_history": "술은 한 달에 한두 번 마시고 담배는 피우지 않아요. 금속이나 페인트를 다루는 일도 하지 않아요.",
+    "past_history": "입원하거나 수술한 적 없고, 오래 치료받는 병도 없어요.",
+    "family_history": "가족 중에 저처럼 계속 기운이 없거나 피가 부족하다는 말을 들은 사람은 없어요.",
+    "weight_loss": "반년 동안 5kg 정도 빠졌어요. 일부러 식사량을 줄이긴 했어요.",
+    "melena": "변이 검게 나오거나 피가 섞인 적은 없어요.",
+    "pregnancy": "최근 검사에서도 아니라고 나왔고, 가능성은 없어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "피로와 복통의 시작 시점 및 경과"
+    },
+    {
+      "topic": "severity",
+      "label": "호흡곤란과 일상생활 제한 정도"
+    },
+    {
+      "topic": "medication",
+      "label": "처방약·한약·건강보조제 복용력"
+    },
+    {
+      "topic": "diet",
+      "label": "식사 제한 및 변비 여부"
+    },
+    {
+      "topic": "weight_loss",
+      "label": "체중 변화와 감량 방법"
+    },
+    {
+      "topic": "menstruation",
+      "label": "월경량 및 주기 변화"
+    },
+    {
+      "topic": "melena",
+      "label": "흑색변 및 위장관 출혈 증상"
+    },
+    {
+      "topic": "social_history",
+      "label": "음주·흡연 및 금속 노출 가능성"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "medication",
+    "weight_loss",
+    "melena"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "lead_induced_sideroblastic_anemia",
+      "label": "납 함유 한약으로 인한 철적모구빈혈",
+      "correct": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "anemia_of_chronic_disease",
+      "label": "만성질환 빈혈",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "thalassemia",
+      "label": "지중해빈혈",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "vitamin_b6_deficiency_anemia",
+      "label": "비타민 B6 결핍성 빈혈",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "myelodysplastic_syndrome",
+      "label": "골수형성이상증후군",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "vestibular_neuritis",
+      "label": "전정신경염",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "brain_tumor",
+      "label": "뇌종양",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "CBC",
+      "label": "일반혈액검사 (CBC)",
+      "recommended": true
+    },
+    {
+      "id": "peripheral_smear",
+      "label": "말초혈액도말검사",
+      "recommended": true
+    },
+    {
+      "id": "serum_lead",
+      "label": "혈중 납 농도",
+      "recommended": true
+    },
+    {
+      "id": "iron_profile",
+      "label": "철 대사 검사 (철·페리틴·TIBC)",
+      "recommended": true
+    },
+    {
+      "id": "zinc_protoporphyrin",
+      "label": "아연 프로토포르피린",
+      "recommended": true
+    },
+    {
+      "id": "bone_marrow",
+      "label": "골수검사 및 철 염색",
+      "recommended": true
+    },
+    {
+      "id": "reticulocyte_count",
+      "label": "망상적혈구 수",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "stool_occult_blood",
+      "label": "대변잠혈검사",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "abdominal_CT",
+      "label": "복부 CT",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "소구성 빈혈에 복통과 변비가 동반되면 납을 포함한 중금속 노출 가능성을 확인해야 한다.",
+    "처방약이 없다는 답만으로 약물력을 끝내지 말고 한약, 환약, 건강보조제와 출처까지 구체적으로 질문해야 한다.",
+    "납은 적혈구 생성 과정의 여러 단계를 방해하여 철적모구빈혈과 말초혈액의 호염기성 반점을 유발할 수 있다.",
+    "체중 감량이나 민간요법처럼 환자가 비난을 우려하는 정보는 판단하지 않는 태도와 공감적 질문으로 라포를 형성해야 확인할 수 있다."
+  ],
+  "max_turns": 15,
+  "presentation": "34세 여자 하영씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "118/76 mmHg",
+    "hr": "90회/분",
+    "rr": "18회/분",
+    "temp": "36.6℃"
+  }
+}

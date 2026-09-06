@@ -1,0 +1,234 @@
+{
+  "case_id": "occupational_benzene_pancytopenia_01",
+  "title": "잇몸 출혈과 멍이 잦아진 41살 영호씨",
+  "subtitle": "쉽게 멍들고 잇몸이 피남",
+  "difficulty": 4,
+  "patient_profile": {
+    "name": "영호",
+    "age": 41,
+    "gender": "male",
+    "occupation": "무허가 영세 도장(페인트) 작업자",
+    "personality": "guarded",
+    "personality_desc": "일자리를 잃을까 봐 작업 환경과 유해물질 노출을 숨긴다. 환기 안 되는 곳에서 유기용제를 다룬 사실을 처음엔 감추지만, 안심시키면 털어놓는다.",
+    "speaking_style": "무뚝뚝하고 경계심이 강하다. 직업 얘기엔 '그냥 페인트칠하는 일'이라며 얼버무리다가 신뢰가 생기면 작업 환경을 자세히 말한다."
+  },
+  "chief_complaint": "잇몸에서 피가 자주 나고 온몸에 멍이 잘 들어요.",
+  "initial_state": {
+    "trust": 35,
+    "anxiety": 62,
+    "rapport": 30
+  },
+  "diagnosis": "benzene_induced_aplastic_anemia",
+  "diagnosis_label": "벤젠 등 유기용제 직업 노출로 인한 재생불량성 빈혈",
+  "initial_facts": [
+    {
+      "key": "easy_bruising",
+      "label": "쉬운 멍과 점상출혈",
+      "value": "한 달 전부터 부딪히지 않아도 팔다리에 멍이 잘 들고, 정강이에 빨간 점들이 보인다."
+    },
+    {
+      "key": "gum_bleeding_fatigue",
+      "label": "잇몸 출혈과 피로",
+      "value": "양치할 때 잇몸에서 피가 나고, 조금만 움직여도 숨차고 어지럽다."
+    }
+  ],
+  "hidden_facts": [
+    {
+      "key": "occupational_solvent_exposure",
+      "label": "환기 없는 유기용제 직업 노출",
+      "value": "반 년째 환기 안 되는 좁은 실내에서 마스크 없이 페인트와 시너(벤젠 함유 유기용제)를 매일 다뤘다. 무허가 작업이라 일자리를 잃을까 봐 숨긴다.",
+      "sensitivity": 0.9,
+      "unlock_intent": "ask_social_history",
+      "required_trust": 62,
+      "requires_empathy": true,
+      "refusal_line": "그냥 페인트칠하는 일이에요. 별거 아니에요. 그런 건 왜 물어보세요?"
+    },
+    {
+      "key": "recurrent_infection",
+      "label": "잦은 감염과 발열",
+      "value": "최근 한 달간 목감기와 입안 헐음이 반복되고 미열이 잦았다.",
+      "sensitivity": 0.5,
+      "unlock_intent": "ask_past_history",
+      "required_trust": 48,
+      "requires_empathy": true,
+      "refusal_line": "감기야 뭐 늘 달고 살죠. 그게 무슨 상관이에요."
+    },
+    {
+      "key": "exertional_symptoms",
+      "label": "활동 시 숨참과 어지럼",
+      "value": "예전엔 멀쩡하던 계단도 이제 오르면 숨이 차고 눈앞이 핑 돈다.",
+      "sensitivity": 0.4,
+      "unlock_intent": "ask_severity",
+      "required_trust": 42,
+      "requires_empathy": false,
+      "refusal_line": "그냥 나이 들어서 그런 거겠죠."
+    }
+  ],
+  "negative_findings": {
+    "onset_duration": "멍이랑 잇몸 출혈은 한 달쯤 됐어요. 점점 심해져요.",
+    "severity": "계단 오르면 숨차고 어지러워요. 가끔 코피도 나요.",
+    "social_history": "술은 가끔 마시고 담배는 하루 반 갑 정도요.",
+    "medication": "따로 먹는 약은 없어요. 한약이나 영양제도 안 먹어요.",
+    "past_history": "큰 병 앓은 적 없어요. 피 검사도 받아본 적 없고요.",
+    "family_history": "가족 중 피 병이나 백혈병 같은 건 없어요.",
+    "diet": "밥은 그럭저럭 챙겨 먹어요.",
+    "weight_loss": "체중은 비슷해요.",
+    "melena": "변에 피나 검은색은 못 봤어요."
+  },
+  "required_questions": [
+    {
+      "topic": "onset_duration",
+      "label": "출혈·멍의 시작 시점과 진행"
+    },
+    {
+      "topic": "severity",
+      "label": "코피·숨참 등 출혈 및 빈혈 증상"
+    },
+    {
+      "topic": "social_history",
+      "label": "직업·작업 환경·유해물질 노출"
+    },
+    {
+      "topic": "past_history",
+      "label": "반복 감염·발열 등 기존 병력"
+    },
+    {
+      "topic": "medication",
+      "label": "골수억제 가능 약물 복용"
+    },
+    {
+      "topic": "family_history",
+      "label": "혈액질환 가족력"
+    },
+    {
+      "topic": "diet",
+      "label": "영양 상태"
+    }
+  ],
+  "red_flags": [
+    "severity",
+    "social_history",
+    "onset_duration"
+  ],
+  "diagnosis_options": [
+    {
+      "id": "benzene_induced_aplastic_anemia",
+      "label": "유기용제 노출로 인한 재생불량성 빈혈",
+      "correct": true
+    },
+    {
+      "id": "acute_leukemia",
+      "label": "급성 백혈병",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "immune_thrombocytopenia",
+      "label": "면역성 혈소판감소증 (ITP)",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "myelodysplastic_syndrome",
+      "label": "골수형성이상증후군",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "vitamin_B12_deficiency",
+      "label": "비타민 B12 결핍",
+      "correct": false,
+      "plausible": true
+    },
+    {
+      "id": "iron_deficiency_anemia",
+      "label": "철결핍성 빈혈",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "hyperthyroidism",
+      "label": "갑상선 기능항진증",
+      "correct": false,
+      "plausible": false
+    },
+    {
+      "id": "panic_attack",
+      "label": "공황발작",
+      "correct": false,
+      "plausible": false
+    }
+  ],
+  "test_options": [
+    {
+      "id": "CBC_with_diff",
+      "label": "일반혈액검사 (백혈구 감별 포함)",
+      "recommended": true
+    },
+    {
+      "id": "peripheral_blood_smear",
+      "label": "말초혈액도말검사",
+      "recommended": true
+    },
+    {
+      "id": "reticulocyte_count",
+      "label": "망상적혈구 수",
+      "recommended": true
+    },
+    {
+      "id": "bone_marrow_biopsy",
+      "label": "골수검사 (생검)",
+      "recommended": true
+    },
+    {
+      "id": "coagulation_panel",
+      "label": "응고검사 (PT/aPTT)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "B12_folate",
+      "label": "비타민 B12·엽산",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "LFT_renal",
+      "label": "간·신기능검사",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "viral_serology",
+      "label": "바이러스 혈청검사 (간염·EBV 등)",
+      "recommended": false,
+      "reasonable": true
+    },
+    {
+      "id": "brain_MRI",
+      "label": "뇌 MRI",
+      "recommended": false,
+      "reasonable": false
+    },
+    {
+      "id": "thyroid_US",
+      "label": "갑상선 초음파",
+      "recommended": false,
+      "reasonable": false
+    }
+  ],
+  "teaching_points": [
+    "출혈·감염·빈혈이 함께 나타나는 범혈구감소증에서는 골수 억제 원인을 체계적으로 평가해야 한다.",
+    "벤젠 등 유기용제 직업 노출은 재생불량성 빈혈과 백혈병의 확립된 원인이다.",
+    "직업력은 환자가 일자리 상실을 우려해 숨길 수 있으므로 안심시키며 작업 환경을 구체적으로 물어야 한다.",
+    "범혈구감소증의 감별을 위해 말초혈액도말과 골수검사가 핵심이다."
+  ],
+  "max_turns": 15,
+  "presentation": "41세 남자 영호씨가 외래에 내원하였다.",
+  "vitals": {
+    "bp": "120/76 mmHg",
+    "hr": "92회/분",
+    "rr": "18회/분",
+    "temp": "37.2℃"
+  }
+}
