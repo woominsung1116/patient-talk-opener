@@ -307,7 +307,7 @@ interface PatientMaterialOptions {
    가는 가닥이 고주파 잡티가 되어 **머리가 수세미처럼** 보였다(실측: 교정본 1024²
    평균 (35,28,25) vs 원본 3600² (37,37,37)). 컷오프를 0.10~0.65 로 훑어도 그대로였다 —
    재질이 아니라 텍스처의 문제였다는 증거다. */
-const CORRECTED_HAIR_VARIANTS = /^$/
+const CORRECTED_HAIR_VARIANTS = /^mh_m60$/  // 사진에서 복원한 헤어는 흰머리가 이미 텍스처에 있다
 
 /* 개발용 헤어 알파 컷 스윕(`?hairAlpha=0.2`). 앞머리 끝처럼 알파가 낮은 가닥은
    컷오프를 올리면 통째로 사라져 **계단처럼 각진 검은 슬래브**가 된다.
@@ -551,7 +551,12 @@ export function patientTargetHeight(
   return adultBase + individualVariation - seniorLoss
 }
 
+/* 생성 사진을 얼굴에 투영한 전용 피부가 있는 환자. 메시·뼈대·모프·의상은 그대로라
+   표정·입·목 움직임과 탈의는 일반 아바타와 똑같이 동작한다. */
+const PHOTO_SKIN_VARIANTS: ReadonlySet<string> = new Set<string>(['mh_m60'])
+
 function mpfbSkinTextureUrl(variant: string, chronologicalAge?: number): string {
+  if (PHOTO_SKIN_VARIANTS.has(variant)) return `/avatars/skin/photo_${variant}.webp?skin=v1`
   const male = /mh_(?:m\d|youngm|oldm|boy)/.test(variant)
   const age = chronologicalAge ?? variantApproximateAge(variant)
   const tier = age >= 60 ? 'old' : age >= 40 ? 'middle' : 'young'
@@ -588,6 +593,8 @@ function patientSkinDetail(
   chronologicalAge: number | undefined,
   identitySeed: number,
 ): PatientSkinDetail {
+  // 사진 피부에는 점·수염 자국이 이미 있다. 셰이더로 또 찍으면 이중으로 나온다.
+  if (PHOTO_SKIN_VARIANTS.has(variant)) return { moleSeed: 0, freckles: 0, beard: 0, flush: 0 }
   // identitySeed 하나에서 서로 독립적인 값을 뽑는다(같은 해시를 재사용하면
   // 점이 많은 사람이 항상 수염도 짙은 식으로 특성이 붙어 다닌다).
   const sub = (salt: number) => {
@@ -3772,9 +3779,10 @@ function tunePatientMaterial(
                   0.0,
                   diffuseColor.r - (diffuseColor.g + diffuseColor.b) * 0.58
                 );
-                /* 0.75 는 과했다 — 빨강을 다 걷어내니 눈꺼풀이 올리브색이 됐다.
-                   충혈만 빠지고 살빛은 남는 지점이 0.45 부근이다(A/B 확인). */
-                diffuseColor.r -= patientLidRedExcess * patientLidZone * 0.45;
+                /* 빨강만 깎으면 색상이 초록 쪽으로 돌아 눈 주변이 회녹색이 된다
+                   (0.45 에서도 진료실 화면 전원에게 나타났다, 2026-11-09).
+                   G·B 도 비율을 맞춰 함께 내려서 색상은 살빛에 두고 붉은기만 뺀다. */
+                diffuseColor.rgb -= patientLidRedExcess * patientLidZone * vec3(0.30, 0.14, 0.08);
 
                 float patientMoles = clamp(
                   patientMoleAt(patientFaceUnit, patientMoleSeed, 0.0)
@@ -4474,9 +4482,16 @@ function tuneMpfbFaceOverlay(
           transformed.y += patientBrowRaise * patientEyeRadius.y * (0.17 + patientBrowInner * 0.2);
           transformed.y += patientBrowSlant * patientEyeRadius.y * (patientBrowInner - 0.48) * 0.26;`,
         )
+      /* 눈썹 아틀라스는 가는 털이 낮은 알파로 깔려 있어서, 얼굴이 작게 그려지는
+         문진 거리에서는 평균 알파가 떨어져 피부에 묻힌다. 곡선으로 밀도만 올린다. */
+      shader.fragmentShader = shader.fragmentShader.replace(
+        '#include <opaque_fragment>',
+        `diffuseColor.a = clamp(pow(diffuseColor.a, 0.62) * 1.08, 0.0, 1.0);
+        #include <opaque_fragment>`,
+      )
     }
   }
-  mat.customProgramCacheKey = () => `patient-embedded-${kind}-rig-v12`
+  mat.customProgramCacheKey = () => `patient-embedded-${kind}-rig-v13`
   mat.needsUpdate = true
   return mat
 }
@@ -4533,7 +4548,8 @@ const AGONY: FaceCfg = {
   /* ⚠ -0.95 는 과했다. 입꼬리가 극단으로 내려가고 턱까지 벌어지면 찡그림이
      아니라 **주둥이가 튀어나온 인상**이 된다("원숭이" 지적의 남은 절반,
      2026-08-03). 통증은 눈가·미간이 주로 말하고 입은 거드는 정도면 충분하다. */
-  mouthCorner: -0.66,
+  /* -0.66 도 진료실에서는 전 환자가 입을 삐죽 내민 얼굴로 읽혔다(2026-11-09). */
+  mouthCorner: -0.3,
   jawIdle: 0.22,
   /* 눈을 질끈 감는다 — 통증 표정의 핵심 단서다.
      ⚠ 0.7 은 과했다: 산통 파고에서 눈이 70% 감기면 남는 눈틈이 홍채·눈꺼풀
@@ -4562,6 +4578,51 @@ const LIE = {
   calfX:  0.05,  calfY:  -0.62, calfZ:  -0.78,
   footX:  0.04,  footY:  -0.72, footZ:  -0.55,
 } as const
+
+/* ── 무릎 세우기 키프레임 ────────────────────────────────────────────────
+   목표 자세 하나로 감쇠하면 허벅지·종아리·발이 같은 순간에 같은 속도로 움직여
+   다리가 통째로 튀어 오른다. 실제 환자는 한쪽 다리부터, 뒤꿈치를 침대에 끌면서
+   무릎을 세우고, 중간에 한 번 멈칫했다가 올린다.
+   [진행률 u, 들린 정도 s] — 첫 구간이 평평한 것은 힘을 주기 전의 뜸이다. */
+type MotionKey = readonly [number, number]
+const KNEE_LIFT_KEYS: readonly MotionKey[] = [
+  [0, 0], [0.14, 0.03], [0.38, 0.3], [0.58, 0.62], [0.66, 0.66], [0.86, 0.95], [1, 1],
+]
+const FOOT_SET_KEYS: readonly MotionKey[] = [[0, 0], [0.3, 0.05], [0.7, 0.55], [1, 1]]
+/* `?kneeSeconds=20` — 캡처가 프레임당 수백 ms 걸려 2초짜리 동작을 놓치므로 느리게 재생한다. */
+const KNEE_RAISE_SECONDS = (() => {
+  if (!import.meta.env.DEV || typeof window === 'undefined') return 2.0
+  const value = Number(new URLSearchParams(window.location.search).get('kneeSeconds'))
+  return value > 0 ? value : 2.0
+})()
+/** 둘째 다리가 첫째 다리보다 늦는 정도(진행률). */
+const KNEE_RAISE_TRAIL = 0.22
+/** 몸이 침대에 자리 잡은 뒤에야 다리를 든다(초). */
+const KNEE_RAISE_SETTLE = 0.9
+/* 허벅지 각 θ 에서 종아리 각 φ 를 sinφ = k·sinθ 로 유도하면 뒤꿈치 높이가
+   일정하게 유지되어 발이 침대 위를 미끄러진다. k 는 LIE 최종 자세에서 구한다. */
+const KNEE_THETA = Math.atan2(LIE.thighZ, -LIE.thighY)
+const KNEE_CALF_RATIO =
+  Math.sin(Math.atan2(-LIE.calfZ, -LIE.calfY)) / Math.sin(KNEE_THETA)
+
+/** 키 사이를 속도가 끊기지 않게 잇는다(유한차분 접선 Hermite). */
+function sampleMotionKeys(keys: readonly MotionKey[], u: number): number {
+  const t = THREE.MathUtils.clamp(u, 0, 1)
+  let i = 0
+  while (i < keys.length - 2 && t > keys[i + 1][0]) i++
+  const [t0, v0] = keys[i]
+  const [t1, v1] = keys[i + 1]
+  const slope = (a: number, b: number) =>
+    (keys[b][1] - keys[a][1]) / Math.max(1e-5, keys[b][0] - keys[a][0])
+  const span = t1 - t0
+  const m0 = (i > 0 ? slope(i - 1, i + 1) : 0) * span
+  const m1 = (i < keys.length - 2 ? slope(i, i + 2) : 0) * span
+  const x = (t - t0) / Math.max(1e-5, span)
+  const x2 = x * x
+  const x3 = x2 * x
+  return (2 * x3 - 3 * x2 + 1) * v0 + (x3 - 2 * x2 + x) * m0
+    + (-2 * x3 + 3 * x2) * v1 + (x3 - x2) * m1
+}
 
 /* 다리 조준 방향 — 아래 useFrame의 aim() 호출과 **같은 값**이어야 시트가 다리 위에 얹힌다.
    (왼다리 기준. 오른다리는 x 부호만 반대라 좌우 대칭인 시트 경로에는 영향이 없다) */
@@ -4759,6 +4820,7 @@ const HEAD_LOOK_UP_GAIN = (() => {
      주세요"나 "입 벌려 주세요"도 몸이 움직이는 전환이라, 빼면 그쪽만 예전처럼
      튄다. */
   const poseEase = useRef({ key: '', t: 1 })
+  const kneeRaise = useRef({ progress: 0, lyingFor: 0 })
   const gazeMotion = useRef({
     x: 0, y: 0, targetX: 0, targetY: 0, nextMove: 0,
     // 미세 시선 — 고정 중에도 눈이 멈추지 않게 한다(useFrame 의 microsaccade 항 참고)
@@ -5898,6 +5960,10 @@ const HEAD_LOOK_UP_GAIN = (() => {
     poseEase.current.t = easeSeconds > 0
       ? Math.min(1, poseEase.current.t + delta / easeSeconds)
       : 1
+    if (pose !== 'lie' && pose !== 'lie_knees') {
+      kneeRaise.current.progress = 0
+      kneeRaise.current.lyingFor = 0
+    }
     const easeT = poseEase.current.t
     const envelope = easeSeconds > 0 ? easeT * easeT * (3 - 2 * easeT) : 1
     const dampP = Math.min(1, delta * (easeSeconds > 0 ? POSE_DAMP_RATE : 7) * envelope)
@@ -6435,26 +6501,60 @@ const HEAD_LOOK_UP_GAIN = (() => {
       aim('rupperarm', -0.22 + lieGuardArm * 0.10, -1, 0.05 + writheRoll * 0.06, dampP)
       aim('lforearm', 0.12 - lieGuardArm * 0.18, -1, 0.06 + writheCurl * 0.10, dampP)
       aim('rforearm', -0.12 + lieGuardArm * 0.34, -1, 0.06 + writheCurl * 0.16, dampP)
-      if (pose === 'lie_knees') {
-        // 무릎 세움: 허벅지를 배쪽(+z)으로 들고, 종아리를 머리쪽(+y)·침대쪽(-z)으로 접음.
-        aim('lthigh', LIE.thighX, LIE.thighY, LIE.thighZ, dampP)
-        aim('rthigh', -LIE.thighX, LIE.thighY, LIE.thighZ, dampP)
-        aim('lcalf', LIE.calfX, LIE.calfY, LIE.calfZ, dampP)
-        aim('rcalf', -LIE.calfX, LIE.calfY, LIE.calfZ, dampP)
-        aim('lfoot', LIE.footX, LIE.footY, LIE.footZ, dampP)
-        aim('rfoot', -LIE.footX, LIE.footY, LIE.footZ, dampP)
-      } else {
-        /* 다리 곧게 폄. 파고에서 무릎을 살짝 당겼다 편다 — 몸부림의 핵심이
-           다리 움직임이라, 팔·골반만 흔들면 '어깨만 들썩'으로 보인다. */
-        const legPull = writheCurl * 0.16
-        aim('lthigh', 0.05 + writheRoll * 0.05, -1, 0.02 + legPull, dampP)
-        aim('rthigh', -0.05 + writheRoll * 0.05, -1, 0.02 + legPull * 1.3, dampP)
-        aim('lcalf', 0.02, -1, 0.05 - legPull * 0.8, dampP)
-        aim('rcalf', -0.02, -1, 0.05 - legPull * 1.0, dampP)
-        aim('lfoot', 0.02, -0.4, 1, dampP)
-        aim('rfoot', -0.02, -0.4, 1, dampP)
+      /* 다리는 펴진 자세(파고 몸부림 포함)와 무릎 세움을 키프레임 진행률로 잇는다. */
+      const raise = kneeRaise.current
+      raise.lyingFor += delta
+      const raiseGoal = pose === 'lie_knees' && raise.lyingFor > KNEE_RAISE_SETTLE
+        ? 1 + KNEE_RAISE_TRAIL
+        : 0
+      // 아플수록 조심스럽게 느려진다. 내릴 때는 무게에 맡겨 조금 빠르다.
+      const raiseStep = delta / (KNEE_RAISE_SECONDS * (1 + painBase * 0.6))
+      raise.progress = raiseGoal > raise.progress
+        ? Math.min(raiseGoal, raise.progress + raiseStep)
+        : Math.max(raiseGoal, raise.progress - raiseStep * 1.15)
+      // 앉은 자세에서 넘어오는 동안은 몸통과 같은 이징, 자리 잡은 뒤에는 키프레임을 그대로 따른다.
+      const legRate = THREE.MathUtils.lerp(
+        dampP,
+        Math.min(1, delta * 16),
+        THREE.MathUtils.smoothstep(raise.lyingFor, KNEE_RAISE_SETTLE, KNEE_RAISE_SETTLE + 0.6),
+      )
+      const legPull = writheCurl * 0.16
+      const poseLeg = (side: 'l' | 'r', progress: number, thighPull: number, calfPull: number) => {
+        const mirror = side === 'l' ? 1 : -1
+        const lift = sampleMotionKeys(KNEE_LIFT_KEYS, progress)
+        const footSet = sampleMotionKeys(FOOT_SET_KEYS, progress)
+        const flat = 1 - lift
+        const theta = KNEE_THETA * lift
+        const phi = Math.asin(Math.min(1, KNEE_CALF_RATIO * Math.sin(theta)))
+        // 들어 올리는 도중에 무릎이 살짝 바깥으로 흔들린다.
+        const sway = 4 * lift * flat * 0.05 * mirror
+        aim(
+          `${side}thigh`,
+          THREE.MathUtils.lerp(0.05 * mirror + writheRoll * 0.05, LIE.thighX * mirror, lift) + sway,
+          -Math.cos(theta),
+          Math.sin(theta) + (0.02 + thighPull) * flat,
+          legRate,
+        )
+        aim(
+          `${side}calf`,
+          THREE.MathUtils.lerp(0.02 * mirror, LIE.calfX * mirror, lift),
+          -Math.cos(phi),
+          -Math.sin(phi) + (0.05 - calfPull) * flat,
+          legRate,
+        )
+        aim(
+          `${side}foot`,
+          THREE.MathUtils.lerp(0.02 * mirror, LIE.footX * mirror, footSet),
+          THREE.MathUtils.lerp(-0.4, LIE.footY, footSet),
+          THREE.MathUtils.lerp(1, LIE.footZ, footSet),
+          legRate,
+        )
       }
-      apply('spine', 0, 0, 0, dampP)
+      poseLeg('l', raise.progress, legPull, legPull * 0.8)
+      poseLeg('r', raise.progress - KNEE_RAISE_TRAIL, legPull * 1.3, legPull)
+      // 다리를 드는 동안 몸통에 힘이 들어간다.
+      const raiseEffort = Math.sin(Math.PI * THREE.MathUtils.clamp(raise.progress / (1 + KNEE_RAISE_TRAIL), 0, 1))
+      apply('spine', raiseEffort * 0.05, 0, 0, dampP)
     }
 
     /* ── 손 ────────────────────────────────────────────────────────────────

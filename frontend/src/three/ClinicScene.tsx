@@ -12,8 +12,8 @@ import '../dracoLocal'
 import { Suspense, useEffect, useMemo, useRef, useState, useCallback, Component, type ReactNode, type RefObject } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { ContactShadows, Environment, Html, useGLTF, useAnimations, PerformanceMonitor } from '@react-three/drei'
-import { EffectComposer, Vignette, SMAA, Noise, N8AO, Bloom, ToneMapping } from '@react-three/postprocessing'
-import { BlendFunction, ToneMappingMode } from 'postprocessing'
+import { EffectComposer, Vignette, SMAA, Noise, N8AO, Bloom, ToneMapping, wrapEffect } from '@react-three/postprocessing'
+import { BlendFunction, Effect, ToneMappingMode } from 'postprocessing'
 import { motion, AnimatePresence } from 'framer-motion'
 import * as THREE from 'three'
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js'
@@ -266,6 +266,29 @@ const RENDER_FLAGS = (() => {
     hideChair: q.get('hideChair') === '1',
   }
 })()
+
+/* AgX 는 색조를 지키는 대신 어두운 쪽이 들떠 눈썹·입술·그림자가 씻겨 나간다.
+   중간톤 아래만 눌러 대비를 되돌린다. 밝은 쪽은 그대로 둬서 흰 벽이 클리핑되지 않는다.
+   ⚠ postprocessing 의 BrightnessContrast 는 RGB 를 알파로 나눈다. 헤어·눈처럼
+   블렌딩된 픽셀은 알파가 1 미만이라 값이 터져 하얀 점이 생긴다(2026-11-09 진료실 캡처). */
+const AGX_TOE_FRAGMENT = /* glsl */ `
+  const float toePivot = 0.21;
+  const float toeContrast = 0.16;
+  const float toeSaturation = 0.08;
+  void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
+    vec3 color = max(inputColor.rgb, vec3(0.0));
+    vec3 toe = toePivot * pow(color / toePivot, vec3(1.0 + toeContrast));
+    color = mix(toe, color, smoothstep(toePivot * 0.6, toePivot * 1.6, color));
+    float luma = dot(color, vec3(0.2126, 0.7152, 0.0722));
+    outputColor = vec4(clamp(mix(vec3(luma), color, 1.0 + toeSaturation), 0.0, 1.0), inputColor.a);
+  }
+`
+class AgxToeGradeEffect extends Effect {
+  constructor() {
+    super('AgxToeGradeEffect', AGX_TOE_FRAGMENT)
+  }
+}
+const AgxToeGrade = wrapEffect(AgxToeGradeEffect)
 
 const HDRI_FILE = '/hdri/hospital_room_2_2k.hdr'
 
@@ -4403,6 +4426,7 @@ export function ClinicScene({
               }
             />
           )}
+          <AgxToeGrade />
           <SMAA />
           <Noise premultiply blendFunction={BlendFunction.SOFT_LIGHT} opacity={0.02} />
           <Vignette eskil={false} offset={0.23} darkness={0.24} />

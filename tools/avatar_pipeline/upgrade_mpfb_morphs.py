@@ -102,6 +102,16 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Raise Draco quantization above Blender's defaults (position 14 / normal 10)",
     )
+    parser.add_argument(
+        "--hair-mesh",
+        default=None,
+        help="NPZ (verts, faces, uvs in body space) replacing the fitted hair geometry",
+    )
+    parser.add_argument(
+        "--face-fit",
+        default=None,
+        help="JSON of absolute MPFB target values fitted to a reference face; applied after identity targets",
+    )
     return parser.parse_args(sys.argv[sys.argv.index("--") + 1 :])
 
 
@@ -647,6 +657,22 @@ for target_name, value in requested_identity:
         TargetService.set_target_value(body, target_name, value)
     except ValueError:
         missing_identity.append(target_name)
+# 기준 얼굴에 맞춘 값은 절대값이라 위 개인차를 덮어쓴다. 모델링 키 단계에서 적용하므로
+# ARKit·viseme 모프와 의상 피팅은 이 얼굴을 기준으로 다시 계산된다.
+#
+# ⚠ set_target_value 는 이미 로드된 shape key 만 바꾸고, 없으면 **조용히 무시한다.**
+# 위 identity 루프가 바로 그 경우라 실제로는 아무 형질도 적용되지 않는다.
+# 여기서는 파일에서 직접 로드해야 값이 들어간다.
+if ARGS.face_fit:
+    import json as _json
+
+    for target_name, value in _json.loads(Path(ARGS.face_fit).read_text()).items():
+        leaf = target_name.rsplit("/", 1)[-1]
+        target_path = TargetService.target_full_path(leaf)
+        if target_path is None:
+            missing_identity.append(target_name)
+            continue
+        TargetService.load_target(body, target_path, weight=value, name=leaf)
 # 얼굴 정체성도 체형과 같은 이유로 조용히 건너뛰면 안 된다.
 if missing_identity:
     raise RuntimeError(
@@ -710,6 +736,33 @@ if ARGS.hair:
     new_hair.data.name = f"hair_{ARGS.hair}"
     new_hair.data.materials.clear()
     new_hair.data.materials.append(hair_material(ARGS.hair, mhclo))
+    if ARGS.hair_mesh:
+        # 사진에서 복원한 헤어 형상으로 교체한다. 머리와 함께 움직이도록 head 본에만 묶는다.
+        import numpy as _np
+        from mathutils import Vector
+
+        hair_data = _np.load(ARGS.hair_mesh)
+        hair_mesh = bpy.data.meshes.new(new_hair.data.name)
+        inverse = new_hair.matrix_world.inverted()
+        hair_mesh.from_pydata(
+            [(inverse @ Vector(v))[:] for v in hair_data["verts"].tolist()],
+            [],
+            hair_data["faces"].tolist(),
+        )
+        hair_uv = hair_mesh.uv_layers.new(name="UVMap")
+        for loop in hair_mesh.loops:
+            hair_uv.data[loop.index].uv = hair_data["uvs"][loop.vertex_index].tolist()
+        hair_mesh.materials.append(new_hair.data.materials[0])
+        new_hair.data = hair_mesh
+        head_bone = next((b.name for b in generated_rig.data.bones if b.name.lower() == "head"), None)
+        if head_bone is None:
+            raise RuntimeError("Generated rig has no head bone")
+        new_hair.vertex_groups.clear()
+        new_hair.vertex_groups.new(name=head_bone).add(
+            list(range(len(hair_mesh.vertices))), 1.0, "REPLACE"
+        )
+        if not any(modifier.type == "ARMATURE" for modifier in new_hair.modifiers):
+            new_hair.modifiers.new("Armature", "ARMATURE").object = generated_rig
     for polygon in new_hair.data.polygons:
         polygon.use_smooth = True
     print(

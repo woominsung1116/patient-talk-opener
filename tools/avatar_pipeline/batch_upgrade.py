@@ -207,6 +207,14 @@ def main() -> int:
                 command.extend(["--eyebrows", config["eyebrows"]])
             if config.get("eyebrow_tint"):
                 command.extend(["--eyebrow-tint", config["eyebrow_tint"]])
+            if config.get("hair_texture"):
+                hair_mesh = PIPELINE_DIR / "assets" / "hair" / Path(config["hair_texture"]).parent / "mesh.npz"
+                if hair_mesh.exists():
+                    command.extend(["--hair-mesh", str(hair_mesh)])
+            # 기준 얼굴에 맞춘 얼굴형이 있는 캐릭터만 적용한다.
+            face_fit = PIPELINE_DIR / "assets" / "face_fit" / f"{config['name']}.json"
+            if face_fit.exists():
+                command.extend(["--face-fit", str(face_fit)])
             result = subprocess.run(command, text=True, capture_output=True, check=False)
             if result.returncode:
                 print(result.stdout)
